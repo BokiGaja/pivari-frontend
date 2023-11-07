@@ -1,34 +1,18 @@
-import React, { useState } from 'react';
-import { Button } from "@mui/material";
-import navBarButtonStyles from "./NavBarButton.styles.js";
-import { string } from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Text from '../../Text/Text';
 
-const NavBarButton = ({text, onClick}) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    console.log('Set true')
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
+const NavBarButton = ({ text, onClick }) => {
   return (
-    <Button
-      style={{...navBarButtonStyles.customButton, ...(isHovered && navBarButtonStyles.customButtonHovered)}}
-      onClick={onClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      text={text}
-    />
+    <div className="cursor-pointer hover:border-b-2 hover:border-b-maltYellow px-4 py-2 rounded-md" onClick={onClick}>
+      <Text size="large" color="maltYellow" text={text} />
+    </div>
   );
 };
 
 NavBarButton.propTypes = {
-  text: string,
-  onClick: Function
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default NavBarButton;
