@@ -11,7 +11,7 @@ const navBarStyles = {
   },
   logoContainer: {
     position: 'fixed',
-    bottom: 100,
+    bottom: 50,
     right: 20,
     width: '70px',
     height: '70px',
@@ -28,13 +28,6 @@ const navBarStyles = {
   logoScrolled: {
     transition: 'background-color 0.3s, transform 0.3s',
     transform: 'scale(0)',
-  },
-  logoImage: {
-    width: '60px',
-    height: '60px',
-    borderRadius: '40px',
-    transition: 'background-color 0.3s, transform 0.3s',
-    backgroundColor: '#27241D',
   },
 };
 

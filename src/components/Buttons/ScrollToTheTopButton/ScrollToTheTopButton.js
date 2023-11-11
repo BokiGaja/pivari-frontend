@@ -27,7 +27,7 @@ const ScrollToTheTopButton = () => {
       onMouseLeave={handleOnMouseLeave}
     >
       {!hovered ? (
-        <img src={pivariLogo} alt="pivari-logo" style={navBarStyles.logoImage} />
+        <img src={pivariLogo} alt="pivari-logo" className="w-14 h-14 rounded-full transition-colors" />
       ) : (
         <div className="flex w-[60px] cursor-pointer pb-1 rounded-full" onClick={scrollToTop}>
           <UpArrow />
