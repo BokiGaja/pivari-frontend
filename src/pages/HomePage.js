@@ -1,24 +1,14 @@
 import React from 'react';
 import PageLayout from '../components/layout/PageLayout.js';
 import ArticlePreview from '../components/Article/ArticlePreview/ArticlePreview';
+import { useGetArticles } from '../services/hooks/useGetArticles';
 
 const HomePage = () => {
-  const articles = [
-    {
-      title: 'title1',
-    },
-    {
-      title: 'title2',
-    },
-    {
-      title: 'title3',
-    },
-  ];
-
+  const { data: articlesData } = useGetArticles();
   return (
     <PageLayout>
-      {articles.map((article) => (
-        <ArticlePreview key={article.title} article={article} />
+      {articlesData?.data.map((article) => (
+        <ArticlePreview key={article.id} article={article.attributes} />
       ))}
     </PageLayout>
   );

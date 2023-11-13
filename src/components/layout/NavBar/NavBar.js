@@ -29,17 +29,17 @@ const NavBar = () => {
       <Container>
         <Toolbar className="flex-1 flex justify-between items-center pt-2 pb-2">
           <div className="flex-1 flex items-center justify-around mr-4">
-            <NavBarButton text="Button 1" onClick={() => handleButtonClick('Button 1')} />
-            <NavBarButton text="Button 2" onClick={() => handleButtonClick('Button 2')} />
-            <NavBarButton text="Button 3" onClick={() => handleButtonClick('Button 3')} />
+            <NavBarButton text="Početna" onClick={() => handleButtonClick('Button 1')} />
+            <NavBarButton text="Novosti" onClick={() => handleButtonClick('Button 2')} />
+            <NavBarButton text="Edukacija" onClick={() => handleButtonClick('Button 3')} />
           </div>
           <div className="w-[300px]">
             <UdruzenjeLogo />
           </div>
           <div className="flex-1 flex items-center justify-around ml-4">
-            <NavBarButton text="Button 4" onClick={() => handleButtonClick('Button 4')} />
-            <NavBarButton text="Button 5" onClick={() => handleButtonClick('Button 5')} />
-            <NavBarButton text="Button 6" onClick={() => handleButtonClick('Button 6')} />
+            <NavBarButton text="Članovi" onClick={() => handleButtonClick('Button 4')} />
+            <NavBarButton text="Sponzori" onClick={() => handleButtonClick('Button 5')} />
+            <NavBarButton text="O nama" onClick={() => handleButtonClick('Button 6')} />
           </div>
         </Toolbar>
       </Container>
