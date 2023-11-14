@@ -14,15 +14,15 @@ export const SOCIAL_BUTTONS = {
 const SocialButton = ({ type }) => {
   const socialButtons = {
     facebook: {
-      icon: <FacebookIcon className="w-16 h-16 cursor-pointer" />,
+      icon: <FacebookIcon className="w-14 h-14 cursor-pointer hover:w-16 hover:h-16" />,
       link: 'https://www.facebook.com/kucnipivarisrbija/',
     },
     instagram: {
-      icon: <InstagramIcon className="w-16 h-16 cursor-pointer" />,
+      icon: <InstagramIcon className="w-14 h-14 cursor-pointer hover:w-16 hover:h-16" />,
       link: 'https://www.instagram.com/udruzenje_kucnih_pivara_srbije/',
     },
     email: {
-      icon: <EmailIcon className="w-14 h-14 cursor-pointer" />,
+      icon: <EmailIcon className="w-12 h-12 cursor-pointer hover:w-14 hover:h-14" />,
       link: 'mailto:informacije@pivari.rs',
     },
   };
@@ -31,7 +31,11 @@ const SocialButton = ({ type }) => {
     window.open(socialButtons[type].link, '_blank');
   };
 
-  return <div onClick={handleOnClick}>{socialButtons[type].icon}</div>;
+  return (
+    <div className="flex w-16 h-16 items-center justify-center" onClick={handleOnClick}>
+      {socialButtons[type].icon}
+    </div>
+  );
 };
 
 SocialButton.propTypes = {
