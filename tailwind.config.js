@@ -17,6 +17,9 @@ module.exports = {
       maltYellow: '#efcc68',
     },
     extend: {
+      blur: {
+        xs: '2px',
+      },
       fontFamily: {
         ristrettoBold: ['Ristretto W01 Bold'],
         ristrettoRegular: ['Ristretto Pro Rg'],

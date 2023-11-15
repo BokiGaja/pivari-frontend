@@ -5,7 +5,7 @@ import axios from 'axios';
 export const useGetArticles = () => {
   const { isLoading, isError, data, error } = useQuery(['articles'], () =>
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/articles`, {
+      .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
         params: {
           locale: 'sr',
         },

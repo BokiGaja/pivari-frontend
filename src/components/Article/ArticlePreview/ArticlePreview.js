@@ -1,16 +1,24 @@
 import React from 'react';
-import { Container, Paper, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import { sanitizeResponseData } from '../../../utils/api/responseData';
 
 const ArticlePreview = ({ article }) => {
-  const { title } = article;
+  const { title, description } = article;
+  const backgroundImageUrl = `${process.env.REACT_APP_BASE_URL}${sanitizeResponseData(article, 'cover_image')?.url}`;
+
   return (
-    <Container key={title}>
-      <Paper elevation={3} className="p-5 mt-5">
-        <Typography variant="h4">{title}</Typography>
-        <div className="h-[600px] overflow-y-auto">{/* Content */}</div>
-      </Paper>
-    </Container>
+    <div className="relative w-3/4 h-[450px] transition-transform transform-gpu hover:scale-105 cursor-pointer">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm rounded-3xl hover:blur-md transition-all duration-500"
+        style={{
+          backgroundImage: `url(${backgroundImageUrl})`,
+        }}
+      />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10 transition-transform hover:text-xl">
+        <h1 className="text-4xl font-bold text-center">{title}</h1>
+        <p className="text-lg">{description}</p>
+      </div>
+    </div>
   );
 };
 
