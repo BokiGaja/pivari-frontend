@@ -14,6 +14,7 @@ module.exports = {
       'bubble-gum': '#ff77e9',
       bermuda: '#78dcca',
       blackBackground: '#27241D',
+      blackBackgroundLighter: '#3A3529',
       maltYellow: '#efcc68',
     },
     extend: {
