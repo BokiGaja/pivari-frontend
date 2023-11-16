@@ -10,6 +10,8 @@ import { useGetCategories } from '../../../services/api/hooks/useGetCategories';
 import { ReactComponent as DownArrow } from '../../../assets/svg/down-arrow.svg';
 import { ReactComponent as RightArrow } from '../../../assets/svg/right-arrow.svg';
 import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemButton';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../constants/routes';
 
 const NavBar = () => {
   const setPageScrolled = useSetAtom(pageScrolledAtom);
@@ -18,6 +20,8 @@ const NavBar = () => {
   const ref = useRef(null);
   const { data: categoriesData } = useGetCategories();
   const categoriesNames = categoriesData?.data?.map((category) => category.attributes.name);
+  const currentRoute = useLocation();
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
@@ -37,15 +41,15 @@ const NavBar = () => {
     setIsScrolled(trigger);
   }, [trigger, setPageScrolled]);
 
-  const handleButtonClick = (buttonText) => {
-    console.log(`Clicked: ${buttonText}`);
-  };
-
   return (
     <AppBar position="fixed" style={isScrolled ? navBarStyles.containerScrolled : navBarStyles.containerInitial}>
       <Toolbar className="flex-1 flex justify-between items-center pt-2 pb-2 relative">
         <div className="flex-1 flex items-center justify-around mr-4 relative">
-          <NavBarButton text="Početna" onClick={() => handleButtonClick('Button 1')} />
+          <NavBarButton
+            isActive={currentRoute?.pathname === ROUTES.HOME}
+            text="Početna"
+            onClick={() => navigate(ROUTES.HOME)}
+          />
           <div className="flex items-center justify-around mr-4 relative" ref={ref}>
             <NavBarButton
               text="Kategorije"
@@ -58,7 +62,11 @@ const NavBar = () => {
                   <DropdownItemButton
                     text={categoryName}
                     key={categoryName}
-                    onClick={() => handleButtonClick('Dropdown Item 1')}
+                    onClick={() =>
+                      navigate(ROUTES.ARTICLES, {
+                        categoryName,
+                      })
+                    }
                     icon={<RightArrow className="w-4 h-4 ml-2 mt-1" />}
                   />
                 ))}
@@ -70,9 +78,9 @@ const NavBar = () => {
           <UdruzenjeLogo />
         </div>
         <div className="flex-1 flex items-center justify-around ml-4">
-          <NavBarButton text="Članovi" onClick={() => handleButtonClick('Button 4')} />
-          <NavBarButton text="Sponzori" onClick={() => handleButtonClick('Button 5')} />
-          <NavBarButton text="O nama" onClick={() => handleButtonClick('Button 6')} />
+          <NavBarButton text="Članovi" onClick={() => navigate(ROUTES.MEMBERS)} />
+          <NavBarButton text="Sponzori" onClick={() => navigate(ROUTES.SPONSORS)} />
+          <NavBarButton text="O nama" onClick={() => navigate(ROUTES.ABOUT_US)} />
         </div>
       </Toolbar>
     </AppBar>

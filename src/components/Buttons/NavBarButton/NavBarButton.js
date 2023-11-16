@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Text from '../../Text/Text';
 
-const NavBarButton = ({ text, onClick, icon }) => {
+const NavBarButton = ({ text, onClick, icon, isActive }) => {
   return (
     <div
-      className="flex flex-row justify-center items-center cursor-pointer hover:border-b-2 hover:border-b-maltYellow px-4 py-2 rounded-md"
+      className={`flex flex-row justify-center items-center cursor-pointer hover:border-b-2 hover:border-b-maltYellow px-4 py-2 rounded-md ${
+        isActive ? 'border-t-2 border-b-2 border-maltYellow' : ''
+      }`}
       onClick={onClick}
     >
       <Text size="large" color="maltYellow" text={text} />
@@ -18,6 +20,7 @@ NavBarButton.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   icon: PropTypes.element,
+  isActive: PropTypes.bool,
 };
 
 export default NavBarButton;
