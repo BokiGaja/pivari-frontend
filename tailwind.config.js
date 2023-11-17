@@ -15,15 +15,16 @@ module.exports = {
       bermuda: '#78dcca',
       blackBackground: '#27241D',
       blackBackgroundLighter: '#3A3529',
+      guinessBlack: '#1D1D1D',
       maltYellow: '#efcc68',
+      hopGreen: '#4c7e00'
     },
     extend: {
       blur: {
         xs: '2px',
       },
       fontFamily: {
-        ristrettoBold: ['Ristretto W01 Bold'],
-        ristrettoRegular: ['Ristretto Pro Rg'],
+        crimson: ['Playfair Display', 'sans-serif'],
       },
     },
   },
