@@ -10,7 +10,7 @@ import { useGetCategories } from '../../../services/api/hooks/useGetCategories';
 import { ReactComponent as DownArrow } from '../../../assets/svg/down-arrow.svg';
 import { ReactComponent as RightArrow } from '../../../assets/svg/right-arrow.svg';
 import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemButton';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 
 const NavBar = () => {
@@ -52,7 +52,8 @@ const NavBar = () => {
           />
           <div className="flex items-center justify-around mr-4 relative" ref={ref}>
             <NavBarButton
-              text="Kategorije"
+              isActive={currentRoute?.pathname === ROUTES.ARTICLES}
+              text="Članci"
               onClick={() => toggleDropdown()}
               icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
             />
@@ -63,8 +64,11 @@ const NavBar = () => {
                     text={categoryName}
                     key={categoryName}
                     onClick={() =>
-                      navigate(ROUTES.ARTICLES, {
-                        categoryName,
+                      navigate({
+                        pathname: ROUTES.ARTICLES,
+                        search: `?${createSearchParams({
+                          category: categoryName,
+                        })}`,
                       })
                     }
                     icon={<RightArrow className="w-4 h-4 ml-2 mt-1" />}
@@ -78,9 +82,21 @@ const NavBar = () => {
           <UdruzenjeLogo />
         </div>
         <div className="flex-1 flex items-center justify-around ml-4">
-          <NavBarButton text="Članovi" onClick={() => navigate(ROUTES.MEMBERS)} />
-          <NavBarButton text="Sponzori" onClick={() => navigate(ROUTES.SPONSORS)} />
-          <NavBarButton text="O nama" onClick={() => navigate(ROUTES.ABOUT_US)} />
+          <NavBarButton
+            text="Članovi"
+            onClick={() => navigate(ROUTES.MEMBERS)}
+            isActive={currentRoute?.pathname === ROUTES.MEMBERS}
+          />
+          <NavBarButton
+            text="Sponzori"
+            onClick={() => navigate(ROUTES.SPONSORS)}
+            isActive={currentRoute?.pathname === ROUTES.SPONSORS}
+          />
+          <NavBarButton
+            text="O nama"
+            onClick={() => navigate(ROUTES.ABOUT_US)}
+            isActive={currentRoute?.pathname === ROUTES.ABOUT_US}
+          />
         </div>
       </Toolbar>
     </AppBar>

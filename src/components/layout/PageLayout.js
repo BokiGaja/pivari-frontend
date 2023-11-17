@@ -7,7 +7,7 @@ import ScrollToTheTopButton from '../Buttons/ScrollToTheTopButton/ScrollToTheTop
 
 const PageLayout = ({ children }) => {
   return (
-    <div className="bg-blackBackground h-screen">
+    <div className="bg-blackBackground">
       <NavBar />
       <Main>{children}</Main>
       <Footer />
