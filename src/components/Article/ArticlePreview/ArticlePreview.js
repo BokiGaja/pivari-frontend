@@ -5,10 +5,13 @@ import pivariLogo from '../../../assets/logos/pivari-logo.png';
 import Text from "../../Text/Text";
 import ImageWithFade from "../../ImageWithFade";
 
+
+
 const ArticlePreview = ({ article }) => {
   const { title, description } = article;
   const backgroundImageUrl = `${process.env.REACT_APP_BASE_URL}${sanitizeResponseData(article, 'cover_image')?.url}`;
 
+  
   return (
     <div
       className="flex flex-col w-3/4 h-[450px] bg-guinessBlack transition-transform transform-gpu hover:scale-105 cursor-pointer transition-all duration-500 rounded-3xl">
