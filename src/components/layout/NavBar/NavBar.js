@@ -6,19 +6,19 @@ import navBarStyles from './NavBar.styles.js';
 import { pageScrolledAtom } from '../../../atoms';
 import { useSetAtom } from 'jotai';
 import useClickOutside from '../../../hooks/htmlEvents/useClickOutside';
-import { useGetCategories } from '../../../services/api/hooks/useGetCategories';
 import { ReactComponent as DownArrow } from '../../../assets/svg/down-arrow.svg';
 import { ReactComponent as RightArrow } from '../../../assets/svg/right-arrow.svg';
 import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemButton';
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
+import { useGetCollection } from '../../../services/api/hooks/useGetCollection';
 
 const NavBar = () => {
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const ref = useRef(null);
-  const { data: categoriesData } = useGetCategories();
+  const { data: categoriesData } = useGetCollection('categories');
   const categoriesNames = categoriesData?.data?.map((category) => category.attributes.name);
   const currentRoute = useLocation();
   const navigate = useNavigate();
@@ -55,11 +55,10 @@ const NavBar = () => {
               isActive={currentRoute?.pathname === ROUTES.ARTICLES}
               text="Članci"
               onClick={() => toggleDropdown()}
-              icon={<DownArrow className="w-4 h-4 ml-2 mt-1"/>}
+              icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
             />
             {isDropdownOpen && (
-              <div
-                className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
+              <div className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
                 {categoriesNames?.map((categoryName) => (
                   <DropdownItemButton
                     text={categoryName}
@@ -72,7 +71,7 @@ const NavBar = () => {
                         })}`,
                       })
                     }
-                    icon={<RightArrow className="w-4 h-4 ml-2 mt-1"/>}
+                    icon={<RightArrow className="w-4 h-4 ml-2 mt-1" />}
                   />
                 ))}
               </div>
@@ -80,7 +79,7 @@ const NavBar = () => {
           </div>
         </div>
         <div className="w-[300px]">
-          <UdruzenjeLogo/>
+          <UdruzenjeLogo />
         </div>
         <div className="flex-1 flex items-center justify-around ml-4">
           <NavBarButton
