@@ -7,7 +7,6 @@ import { pageScrolledAtom } from '../../../atoms';
 import { useSetAtom } from 'jotai';
 import useClickOutside from '../../../hooks/htmlEvents/useClickOutside';
 import { ReactComponent as DownArrow } from '../../../assets/svg/down-arrow.svg';
-import { ReactComponent as RightArrow } from '../../../assets/svg/right-arrow.svg';
 import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemButton';
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
@@ -71,7 +70,6 @@ const NavBar = () => {
                         })}`,
                       })
                     }
-                    icon={<RightArrow className="w-4 h-4 ml-2 mt-1" />}
                   />
                 ))}
               </div>

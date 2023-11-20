@@ -24,12 +24,14 @@ const HomePage = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      {articles?.map((article, index) => (
-        <div key={article.updatedAt} className="flex flex-col justify-center items-center">
-          {index !== 0 && <Separator className="flex w-full h-10 my-10" />}
-          <ArticlePreview article={article} />
-        </div>
-      )) || null}
+      <div className="flex flex-col justify-center items-center">
+        {articles?.map((article, index) => (
+          <div key={article.updatedAt} className="flex flex-col w-8/12 justify-center items-center">
+            {index !== 0 && <Separator className="flex w-full h-10 my-10" />}
+            <ArticlePreview article={article} />
+          </div>
+        )) || null}
+      </div>
     </PageLayout>
   );
 };
