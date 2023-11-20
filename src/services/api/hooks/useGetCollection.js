@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 export const useGetCollection = (collectionKey, locale = 'sr', populate = '*') => {
-  console.log('collectionKey', collectionKey);
   const { isLoading, isError, data, error } = useQuery([collectionKey], () =>
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/api/${collectionKey}`, {
