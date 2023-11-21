@@ -16,9 +16,18 @@ const MembersPage = () => {
     ...member.attributes,
     logo: sanitizeResponseData(member.attributes, 'logo')?.url,
   }));
-  console.log('membersData', members);
 
-  if (members) {
+  if (!members?.length) {
+    return (
+      <PageLayout>
+        <div className="flex items-center justify-center h-screen">
+          <Typography variant="h4" className="text-maltYellow">
+            {'Nema članova'}
+          </Typography>
+        </div>
+      </PageLayout>
+    );
+  } else {
     return (
       <PageLayout isLoading={isLoading}>
         <div className="flex flex-col items-center px-20">
@@ -63,16 +72,6 @@ const MembersPage = () => {
               </div>
             </React.Fragment>
           ))}
-        </div>
-      </PageLayout>
-    );
-  } else {
-    return (
-      <PageLayout>
-        <div className="flex items-center justify-center h-screen">
-          <Typography variant="h4" className="text-maltYellow">
-            {'Nema članova'}
-          </Typography>
         </div>
       </PageLayout>
     );
