@@ -10,6 +10,7 @@ import SponsorsPage from './pages/SponsorsPage';
 import AboutUsPage from './pages/AboutUsPage';
 import PageNotFoundPage from './pages/PageNotFoundPage';
 import SingleArticlePage from './pages/SingleArticlePage';
+import SingleMemberPage from './pages/SingleMemberPage';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path={ROUTES.HOME} element={<HomePage />} />
           <Route exact path={ROUTES.ARTICLE} element={<SingleArticlePage />} />
           <Route exact path={ROUTES.ARTICLES} element={<ArticlesPage />} />
+          <Route exact path={ROUTES.MEMBER} element={<SingleMemberPage />} />
           <Route exact path={ROUTES.MEMBERS} element={<MembersPage />} />
           <Route exact path={ROUTES.SPONSORS} element={<SponsorsPage />} />
           <Route exact path={ROUTES.ABOUT_US} element={<AboutUsPage />} />
