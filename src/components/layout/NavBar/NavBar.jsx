@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AppBar, Toolbar, useScrollTrigger } from '@mui/material';
-import NavBarButton from '../../Buttons/NavBarButton/NavBarButton.js';
+import NavBarButton from '../../Buttons/NavBarButton/NavBarButton.jsx';
 import { ReactComponent as UdruzenjeLogo } from '../../../assets/svg/udruzenje-logo.svg';
 import navBarStyles from './NavBar.styles.js';
 import { pageScrolledAtom } from '../../../atoms';

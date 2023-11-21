@@ -35,7 +35,7 @@ const MembersPage = () => {
         {members?.map((member, index) => (
           <React.Fragment key={member?.createdAt}>
             {index !== 0 && <Separator className="flex w-full h-10 my-10" />}
-            <div className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5  bg-guinessBlack w-[80%] hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]">
+            <div className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5  bg-guinessBlack w-6/12 hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]">
               <div className="flex gap-2">
                 <div
                   className={`flex w-[200px] mr-[50px] min-w-[200px] min-h-[200px] items-center relative overflow-hidden rounded-l-3xl`}

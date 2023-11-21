@@ -1,12 +1,15 @@
 import React from 'react';
-import PageLayout from '../components/layout/PageLayout.js';
+import PageLayout from '../components/layout/PageLayout.jsx';
 import ArticlePreview from '../components/Article/ArticlePreview/ArticlePreview';
 import { useGetHomePageArticles } from '../services/api/hooks/useGetHomePageArticles';
 import { Typography } from '@mui/material';
 import { sanitizeResponseData } from '../utils/api/responseData';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const { data: homePageData, error, isLoading } = useGetHomePageArticles();
   const articles = sanitizeResponseData(homePageData, 'articles');
 
@@ -26,7 +29,11 @@ const HomePage = () => {
     <PageLayout isLoading={isLoading}>
       <div className="flex flex-col justify-center items-center">
         {articles?.map((article, index) => (
-          <div key={article.updatedAt} className="flex flex-col w-8/12 justify-center items-center">
+          <div
+            key={article.updatedAt}
+            className="flex flex-col w-8/12 justify-center items-center"
+            onClick={() => navigate(`/article/${article.title?.replace(' ', '-')}`)}
+          >
             {index !== 0 && <Separator className="flex w-full h-10 my-10" />}
             <ArticlePreview article={article} />
           </div>
