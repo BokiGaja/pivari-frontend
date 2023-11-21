@@ -22,8 +22,8 @@ const ArticleFooter = ({ article }) => {
   const categoriesNames = article.categories.data.map((category) => category.attributes.name);
 
   return (
-    <div className="flex mt-20 justify-between w-full">
-      <div className="flex self-start justify-around items-center">
+    <div className="flex lg:flex-row flex-col items-center lg:items-startc mt-20 justify-between w-full">
+      <div className="flex lg:self-start justify-around items-center lg:mb-0 mb-2">
         {categoriesNames.map((categoryName) => (
           <div
             className="rounded bg-blackBackground ml-4 py-1 px-2 border border-maltYellow cursor-pointer hover:bg-maltYellow"

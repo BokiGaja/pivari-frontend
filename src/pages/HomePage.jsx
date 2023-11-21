@@ -30,10 +30,10 @@ const HomePage = () => {
         {articles?.map((article, index) => (
           <div
             key={article.updatedAt}
-            className="flex flex-col w-8/12 justify-center items-center"
+            className="flex flex-col lg:w-8/12 w-full justify-center items-center"
             onClick={() => navigate(`/article/${article.title?.replace(' ', '-')}`)}
           >
-            {index !== 0 && <Separator className="flex w-full h-10 my-10" />}
+            {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}
             <ArticlePreview article={article} />
           </div>
         )) || null}

@@ -12,7 +12,7 @@ const ArticleEventInfo = ({ article }) => {
     minute: 'numeric',
   };
   return (
-    <div className="flex flex-row items-center justify-center">
+    <div className="flex lg:flex-row flex-col items-center justify-center">
       {article.start_date && (
         <div className="flex flex-row items-center">
           <CalendarIcon className="w-6 h-6 inline-block mr-2 mt-1" />

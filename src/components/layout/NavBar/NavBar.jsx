@@ -40,44 +40,53 @@ const NavBar = () => {
     setIsScrolled(trigger);
   }, [trigger, setPageScrolled]);
 
+  const renderRightNavbarButtons = () => (
+    <>
+      <NavBarButton
+        isActive={currentRoute?.pathname === ROUTES.HOME}
+        text="Početna"
+        onClick={() => navigate(ROUTES.HOME)}
+      />
+      <div className="flex items-center justify-around mr-4 relative" ref={ref}>
+        <NavBarButton
+          isActive={currentRoute?.pathname === ROUTES.ARTICLES}
+          text="Članci"
+          onClick={() => toggleDropdown()}
+          icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
+        />
+        {isDropdownOpen && (
+          <div className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
+            {categoriesNames?.map((categoryName) => (
+              <DropdownItemButton
+                text={categoryName}
+                key={categoryName}
+                onClick={() =>
+                  navigate({
+                    pathname: ROUTES.ARTICLES,
+                    search: `?${createSearchParams({
+                      category: categoryName,
+                    })}`,
+                  })
+                }
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </>
+  );
+
   return (
     <AppBar position="fixed" style={isScrolled ? navBarStyles.containerScrolled : navBarStyles.containerInitial}>
-      <Toolbar className="flex-1 flex justify-between items-center pt-2 pb-2 relative">
-        <div className="flex-1 flex items-center justify-around mr-4 relative">
-          <NavBarButton
-            isActive={currentRoute?.pathname === ROUTES.HOME}
-            text="Početna"
-            onClick={() => navigate(ROUTES.HOME)}
-          />
-          <div className="flex items-center justify-around mr-4 relative" ref={ref}>
-            <NavBarButton
-              isActive={currentRoute?.pathname === ROUTES.ARTICLES}
-              text="Članci"
-              onClick={() => toggleDropdown()}
-              icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
-            />
-            {isDropdownOpen && (
-              <div className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
-                {categoriesNames?.map((categoryName) => (
-                  <DropdownItemButton
-                    text={categoryName}
-                    key={categoryName}
-                    onClick={() =>
-                      navigate({
-                        pathname: ROUTES.ARTICLES,
-                        search: `?${createSearchParams({
-                          category: categoryName,
-                        })}`,
-                      })
-                    }
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+      <Toolbar className="flex-1 flex flex-col lg:flex-row justify-between items-center pt-2 pb-2 relative">
+        <div className="hidden lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
+          {renderRightNavbarButtons()}
         </div>
         <div className="w-[300px]">
           <UdruzenjeLogo />
+        </div>
+        <div className="lg:hidden flex-1 flex items-center justify-around mr-4 relative">
+          {renderRightNavbarButtons()}
         </div>
         <div className="flex-1 flex items-center justify-around ml-4">
           <NavBarButton

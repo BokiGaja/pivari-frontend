@@ -34,8 +34,8 @@ const SingleArticlePage = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      <div className="flex flex-col items-center">
-        <div className="absolute top-[100px]">
+      <div className="lg:flex lg:flex-col items-center">
+        <div className="absolute lg:top-[100px] top-[200px]">
           <img
             src={article?.cover_image?.data ? article.cover_image.data.attributes.url : pivariLogo}
             alt={`${article.title} image`}
@@ -47,17 +47,17 @@ const SingleArticlePage = () => {
             size="large"
             color="maltYellow"
             text={article.title}
-            className="text-7xl font-bold text-center break-all my-4 mt-[180px]"
+            className="text-7xl font-bold text-center break-all my-4 lg:mt-[180px] mt-[250px]"
           />
           {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
         </div>
         <Markdown
-          className="flex flex-col self align-center justify-center text-center text-white"
+          className="flex flex-col self align-center justify-center text-center text-white lg:mt-0 mt-4"
           components={{ p: React.Fragment, img: MarkdownImage }}
         >
           {article.content}
         </Markdown>
-        <div className="flex mt-20 justify-between w-full px-40">
+        <div className="flex mt-20 justify-between w-full lg:px-40">
           <ArticleFooter article={article} />
         </div>
       </div>

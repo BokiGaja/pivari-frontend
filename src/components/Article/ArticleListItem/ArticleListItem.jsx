@@ -10,7 +10,7 @@ const ArticleListItem = ({ article }) => {
   return (
     <div
       key={article.id}
-      className="flex flex-row w-8/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500"
+      className="flex flex-row lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500"
       onClick={() => navigate(`/article/${article.title?.replace(' ', '-')}`)}
     >
       <div className="width-[600px]">

@@ -31,7 +31,7 @@ const ArticlesPage = () => {
 
   return (
     <PageLayout isLoading={isLoadingArticles || isLoadingCollections}>
-      <div className="absolute top-[100px] ">
+      <div className="absolute lg:top-[100px] top-[250px]">
         <img
           src={categoryCoverImage}
           alt={selectedCategory?.attributes.name}
@@ -41,10 +41,10 @@ const ArticlesPage = () => {
           size="large"
           color="maltYellow"
           text={searchParams?.get('category')}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-7xl font-bold text-center break-all mb-4"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:text-7xl text-4xl font-bold text-center break-all mb-4"
         />
       </div>
-      <div className="h-[200px]" />
+      <div className="lg:h-[200px] h-[320px]" />
       <div className="flex flex-col items-center justify-start h-screen">
         {sanitizedArticlesData?.map((article) => (
           <ArticleListItem key={article.createdAt} article={article} />
