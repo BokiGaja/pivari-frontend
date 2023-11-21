@@ -1,17 +1,16 @@
 import React from 'react';
 import PageLayout from '../components/layout/PageLayout.jsx';
 import ArticlePreview from '../components/Article/ArticlePreview/ArticlePreview';
-import { useGetHomePageArticles } from '../services/api/hooks/useGetHomePageArticles';
 import { Typography } from '@mui/material';
 import { sanitizeResponseData } from '../utils/api/responseData';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useNavigate } from 'react-router-dom';
+import { useGetCollection } from '../services/api/hooks/useGetCollection';
 
 const HomePage = () => {
   const navigate = useNavigate();
-
-  const { data: homePageData, error, isLoading } = useGetHomePageArticles();
-  const articles = sanitizeResponseData(homePageData, 'articles');
+  const { data: homePageData, error, isLoading } = useGetCollection('home-page', 'sr', 'articles.cover_image');
+  const articles = sanitizeResponseData(homePageData?.data?.attributes, 'articles');
 
   if (!articles.length || error) {
     return (
