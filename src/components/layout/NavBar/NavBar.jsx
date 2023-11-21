@@ -40,14 +40,14 @@ const NavBar = () => {
     setIsScrolled(trigger);
   }, [trigger, setPageScrolled]);
 
-  const renderRightNavbarButtons = () => (
+  const renderRightNavbarButtons = (attachRef = false) => (
     <>
       <NavBarButton
         isActive={currentRoute?.pathname === ROUTES.HOME}
         text="Početna"
         onClick={() => navigate(ROUTES.HOME)}
       />
-      <div className="flex items-center justify-around mr-4 relative" ref={ref}>
+      <div className="flex items-center justify-around mr-4 relative" ref={attachRef ? ref : null}>
         <NavBarButton
           isActive={currentRoute?.pathname === ROUTES.ARTICLES}
           text="Članci"
@@ -60,14 +60,14 @@ const NavBar = () => {
               <DropdownItemButton
                 text={categoryName}
                 key={categoryName}
-                onClick={() =>
+                onClick={() => {
                   navigate({
                     pathname: ROUTES.ARTICLES,
                     search: `?${createSearchParams({
                       category: categoryName,
                     })}`,
-                  })
-                }
+                  });
+                }}
               />
             ))}
           </div>
@@ -80,7 +80,7 @@ const NavBar = () => {
     <AppBar position="fixed" style={isScrolled ? navBarStyles.containerScrolled : navBarStyles.containerInitial}>
       <Toolbar className="flex-1 flex flex-col lg:flex-row justify-between items-center pt-2 pb-2 relative">
         <div className="hidden lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
-          {renderRightNavbarButtons()}
+          {renderRightNavbarButtons(true)}
         </div>
         <div className="w-[300px]">
           <UdruzenjeLogo />
