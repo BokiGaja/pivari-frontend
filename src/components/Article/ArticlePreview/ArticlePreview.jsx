@@ -16,13 +16,8 @@ const ArticlePreview = ({ article }) => {
       <ImageWithFade url={article?.cover_image?.data?.attributes?.url ? backgroundImageUrl : pivariLogo} />
       <div className="flex flex-col text-white z-10 p-5">
         <Text size="large" color="maltYellow" text={title} className="text-4xl font-bold text-center break-all" />
-        <Text
-          size="medium"
-          color="white"
-          text={truncateString(description, 250)}
-          className="text-xl text-center break-all"
-        />
-        <div className="absolute bottom-4 right-4">
+        <Text size="medium" color="white" text={truncateString(description, 250)} className="text-xl text-center" />
+        <div className="absolute bottom-3 right-4">
           <Text size="small" color="gray" text={formatDate(createdAt)} />
         </div>
       </div>

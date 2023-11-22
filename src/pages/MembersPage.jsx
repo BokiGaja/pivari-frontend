@@ -40,7 +40,7 @@ const MembersPage = () => {
             <div
               className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5 bg-guinessBlack lg:w-6/12 w-full hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
               onClick={() => {
-                navigate(`/member/${member.name?.replace(' ', '-')}`);
+                navigate(`/member/${member.name?.replaceAll(' ', '-')}`);
               }}
             >
               <div className="flex gap-2">

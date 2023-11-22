@@ -31,7 +31,7 @@ const HomePage = () => {
           <div
             key={article.updatedAt}
             className="flex flex-col lg:w-8/12 w-full justify-center items-center"
-            onClick={() => navigate(`/article/${article.title?.replace(' ', '-')}`)}
+            onClick={() => navigate(`/article/${article.title?.replaceAll(' ', '-')}`)}
           >
             {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}
             <ArticlePreview article={article} />

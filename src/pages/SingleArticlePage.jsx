@@ -17,7 +17,7 @@ const SingleArticlePage = () => {
     isLoading,
     error,
   } = useGetCollection('articles', 'sr', '*', {
-    'filters[title][$eq]': params?.name?.replace('-', ' '),
+    'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
   const article = articleData?.data?.[0]?.attributes;
 
