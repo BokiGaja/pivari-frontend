@@ -14,7 +14,7 @@ const AboutUs = () => {
     <div className="lg:flex mt-[100px] lg:mt-0 flex-col items-center">
       <Text size="large" color="maltYellow" className="text-4xl mb-4 text-center" text={'O nama'} />
       <Markdown
-        className="flex flex-col justify-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px]"
+        className="flex whitespace-pre-wrap flex-col justify-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px]"
         components={{ p: React.Fragment, img: MarkdownImage }}
       >
         {aboutUs.text}
