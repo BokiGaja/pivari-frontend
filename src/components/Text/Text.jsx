@@ -10,10 +10,11 @@ const textSizeClasses = {
 const colorClasses = {
   maltYellow: 'text-maltYellow',
   white: 'text-white',
+  gray: 'text-gray',
   black: 'text-black',
 };
 
-const Text = ({size, color, text, className = ''}) => {
+const Text = ({ size, color, text, className = '' }) => {
   return <p className={`${textSizeClasses[size]} ${colorClasses[color]} ${className}`}>{text}</p>;
 };
 

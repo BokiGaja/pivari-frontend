@@ -9,6 +9,7 @@ module.exports = {
       purple: '#3f3cbb',
       midnight: '#121063',
       metal: '#565584',
+      gray: '#a6a5a5',
       tahiti: '#3ab7bf',
       silver: '#ecebff',
       'bubble-gum': '#ff77e9',
@@ -17,7 +18,7 @@ module.exports = {
       blackBackgroundLighter: '#3A3529',
       guinessBlack: '#1D1D1D',
       maltYellow: '#efcc68',
-      hopGreen: '#4c7e00'
+      hopGreen: '#4c7e00',
     },
     extend: {
       blur: {

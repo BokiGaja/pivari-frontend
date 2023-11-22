@@ -3,6 +3,8 @@ import pivariLogo from '../../../assets/logos/pivari-logo.png';
 import Text from '../../Text/Text';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../../../utils/date/formatDate';
+import { truncateString } from '../../../utils/string/truncate';
 
 const ArticleListItem = ({ article }) => {
   const navigate = useNavigate();
@@ -22,7 +24,10 @@ const ArticleListItem = ({ article }) => {
       </div>
       <div className="flex flex-col align-center text-center w-full h-full justify-center">
         <Text size="large" color="maltYellow" text={article.title} />
-        <Text size="medium" color="white" text={article.description} />
+        <Text size="medium" color="white" text={truncateString(article.description, 250)} />
+        <div className="absolute bottom-4 right-4">
+          <Text size="small" color="gray" text={formatDate(article.createdAt)} />
+        </div>
       </div>
     </div>
   );
