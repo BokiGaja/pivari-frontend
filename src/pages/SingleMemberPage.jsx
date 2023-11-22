@@ -57,28 +57,28 @@ const SingleMemberPage = () => {
           {member?.website && (
             <div className="flex justify-center items-center min-h-14 min-w-14">
               <a href={member?.website}>
-                <WorldIcon className="h-8 w-8 hover:h-10 hover:w-10 transition-all duration-[500ms]" />
+                <WorldIcon className="h-8 w-8 hover:scale-105 transition-all duration-[500ms]" />
               </a>
             </div>
           )}
           {member?.facebook && (
             <div className="flex justify-center items-center min-h-14 min-w-14">
               <a href={member?.facebook}>
-                <FacebookIcon className="h-10 w-10 hover:h-12 hover:w-12 transition-all duration-[500ms]" />
+                <FacebookIcon className="h-10 w-10 hover:scale-105 transition-all duration-[500ms]" />
               </a>
             </div>
           )}
           {member?.instagram && (
             <div className="flex justify-center items-center min-h-14 min-w-14">
               <a href={member?.instagram}>
-                <InstagramIcon className="h-10 w-10 hover:h-12 hover:w-12 transition-all duration-[500ms]" />
+                <InstagramIcon className="h-10 w-10 hover:scale-105 transition-all duration-[500ms]" />
               </a>
             </div>
           )}
           {member?.email && (
             <div className="flex justify-center items-center min-h-14 min-w-14">
               <a href={`mailto:${member.email}`}>
-                <EmailIcon className="h-10 w-10 hover:h-12 hover:w-12 transition-all duration-[500ms]" />
+                <EmailIcon className="h-10 w-10 hover:scale-105 transition-all duration-[500ms]" />
               </a>
             </div>
           )}
