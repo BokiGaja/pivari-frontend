@@ -3,6 +3,7 @@ import PageLayout from '../components/layout/PageLayout';
 import Text from '../components/Text/Text';
 import { sanitizeResponseData } from '../utils/api/responseData';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
+import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 import { ReactComponent as FacebookIcon } from '../assets/svg/socialIcons/icon-facebook.svg';
@@ -11,6 +12,7 @@ import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-emai
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 
 const MembersPage = () => {
+  const navigate = useNavigate();
   const { data: membersData, isLoading } = useGetCollection('members');
   const members = membersData?.data?.map((member) => ({
     ...member.attributes,
@@ -35,7 +37,12 @@ const MembersPage = () => {
         {members?.map((member, index) => (
           <React.Fragment key={member?.createdAt}>
             {index !== 0 && <Separator className="flex hg:w-full w-10/12 self-center h-10 my-10" />}
-            <div className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5 bg-guinessBlack lg:w-6/12 w-full hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]">
+            <div
+              className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5 bg-guinessBlack lg:w-6/12 w-full hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
+              onClick={() => {
+                navigate(`/member/${member.name?.replace(' ', '-')}`);
+              }}
+            >
               <div className="flex gap-2">
                 <div
                   className={`flex w-[200px] lg:mr-[50px] min-w-[200px] min-h-[200px] items-center relative overflow-hidden rounded-l-3xl`}
