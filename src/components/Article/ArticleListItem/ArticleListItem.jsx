@@ -5,15 +5,29 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../../utils/date/formatDate';
 import { truncateString } from '../../../utils/string/truncate';
+import { useSetAtom } from 'jotai';
+import { pageScrolledAtom } from '../../../atoms';
 
 const ArticleListItem = ({ article }) => {
   const navigate = useNavigate();
+  const setPageScrolled = useSetAtom(pageScrolledAtom);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    setPageScrolled(false);
+  };
 
   return (
     <div
       key={article.id}
       className="flex flex-row lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500"
-      onClick={() => navigate(`/article/${article.title?.replaceAll(' ', '-')}`)}
+      onClick={() => {
+        navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
+        scrollToTop();
+      }}
     >
       <div className="width-[600px]">
         <img

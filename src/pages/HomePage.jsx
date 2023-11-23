@@ -6,9 +6,20 @@ import { sanitizeResponseData } from '../utils/api/responseData';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useNavigate } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
+import { useSetAtom } from 'jotai';
+import { pageScrolledAtom } from '../atoms';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const setPageScrolled = useSetAtom(pageScrolledAtom);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    setPageScrolled(false);
+  };
   const { data: homePageData, error, isLoading } = useGetCollection('home-page', 'sr', 'articles.cover_image');
   const articles = sanitizeResponseData(homePageData?.data?.attributes, 'articles');
 
@@ -31,7 +42,10 @@ const HomePage = () => {
           <div
             key={article.updatedAt}
             className="flex flex-col lg:w-8/12 w-full justify-center items-center"
-            onClick={() => navigate(`/article/${article.title?.replaceAll(' ', '-')}`)}
+            onClick={() => {
+              navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
+              scrollToTop();
+            }}
           >
             {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}
             <ArticlePreview article={article} />

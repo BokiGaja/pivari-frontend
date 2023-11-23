@@ -16,6 +16,7 @@ const SingleArticlePage = () => {
     data: articleData,
     isLoading,
     error,
+    isRefetching,
   } = useGetCollection('articles', 'sr', '*', {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
@@ -33,7 +34,7 @@ const SingleArticlePage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading}>
+    <PageLayout isLoading={isLoading || isRefetching}>
       <div className="lg:flex lg:flex-col items-center">
         <div className="absolute lg:top-[100px] top-[200px]">
           <img
@@ -52,7 +53,7 @@ const SingleArticlePage = () => {
           {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
         </div>
         <Markdown
-          className="flex flex-col self align-center justify-center text-center text-white lg:mt-0 mt-4"
+          className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white lg:mt-0 mt-4"
           components={{ p: React.Fragment, img: MarkdownImage }}
         >
           {article.content}

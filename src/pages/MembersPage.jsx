@@ -12,9 +12,20 @@ import { ReactComponent as FacebookIcon } from '../assets/svg/socialIcons/icon-f
 import { ReactComponent as InstagramIcon } from '../assets/svg/socialIcons/icon-instagram.svg';
 import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-email.svg';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
+import { useSetAtom } from 'jotai';
+import { pageScrolledAtom } from '../atoms';
 
 const MembersPage = () => {
   const navigate = useNavigate();
+  const setPageScrolled = useSetAtom(pageScrolledAtom);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    setPageScrolled(false);
+  };
   const { data: membersData, isLoading } = useGetCollection('members');
   const members = membersData?.data?.map((member) => ({
     ...member.attributes,
@@ -43,6 +54,7 @@ const MembersPage = () => {
               className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5 bg-guinessBlack lg:w-6/12 w-full hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
               onClick={() => {
                 navigate(`/member/${member.name?.replaceAll(' ', '-')}`);
+                scrollToTop();
               }}
             >
               <div className="flex gap-2">

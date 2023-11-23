@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { sanitizeResponseData } from '../utils/api/responseData';
 import ArticleListItem from '../components/Article/ArticleListItem/ArticleListItem';
+import { CircularProgress } from '@mui/material';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
@@ -12,6 +13,7 @@ const ArticlesPage = () => {
     data: articlesData,
     isLoading: isLoadingArticles,
     refetch,
+    isRefetching: isRefetchingArticles,
   } = useGetCollection('articles', 'sr', '*', {
     'filters[categories][name][$eq]': searchParams?.get('category') || '',
   });
@@ -45,11 +47,17 @@ const ArticlesPage = () => {
         />
       </div>
       <div className="lg:h-[200px] h-[320px]" />
-      <div className="flex flex-col items-center justify-start h-screen">
-        {sanitizedArticlesData?.map((article) => (
-          <ArticleListItem key={article.createdAt} article={article} />
-        ))}
-      </div>
+      {isRefetchingArticles ? (
+        <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
+          <CircularProgress color="inherit" />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-start h-screen">
+          {sanitizedArticlesData?.map((article) => (
+            <ArticleListItem key={article.createdAt} article={article} />
+          ))}
+        </div>
+      )}
     </PageLayout>
   );
 };

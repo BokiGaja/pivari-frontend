@@ -14,11 +14,16 @@ import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-emai
 import { ReactComponent as PhoneIcon } from '../assets/svg/phone.svg';
 import { ReactComponent as LocationIcon } from '../assets/svg/location-pin.svg';
 import { ReactComponent as LeftArrowIcon } from '../assets/svg/left-arrow.svg';
+import { Typography } from '@mui/material';
 
 const SingleMemberPage = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const { data: memberData, isLoading } = useGetCollection('members', 'sr', '*', {
+  const {
+    data: memberData,
+    isLoading,
+    isRefetching,
+  } = useGetCollection('members', 'sr', '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
   const member = memberData?.data?.[0]?.attributes;
@@ -35,7 +40,7 @@ const SingleMemberPage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading}>
+    <PageLayout isLoading={isLoading || isRefetching}>
       <article className="flex flex-col w-[80%] mx-auto lg:mt-0 mt-24 lg:px-20 px-0 relative">
         <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
           <div className="flex w-[200px] min-w-[200px] min-h-[200px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
