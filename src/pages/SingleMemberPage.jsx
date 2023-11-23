@@ -28,7 +28,7 @@ const SingleMemberPage = () => {
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
           <Typography variant="h4" className="text-maltYellow">
-            {'Artikal ne postoji'}
+            {'Član ne postoji'}
           </Typography>
         </div>
       </PageLayout>
