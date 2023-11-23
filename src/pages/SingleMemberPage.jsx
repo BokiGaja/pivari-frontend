@@ -1,8 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../components/layout/PageLayout';
 import Text from '../components/Text/Text';
+
+import pivariLogo from '../assets/logos/pivari-logo.png';
 
 import { ReactComponent as WorldIcon } from '../assets/svg/socialIcons/icon-link-world.svg';
 import { ReactComponent as FacebookIcon } from '../assets/svg/socialIcons/icon-facebook.svg';
@@ -10,23 +13,24 @@ import { ReactComponent as InstagramIcon } from '../assets/svg/socialIcons/icon-
 import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-email.svg';
 import { ReactComponent as PhoneIcon } from '../assets/svg/phone.svg';
 import { ReactComponent as LocationIcon } from '../assets/svg/location-pin.svg';
+import { ReactComponent as LeftArrowIcon } from '../assets/svg/left-arrow.svg';
 
 const SingleMemberPage = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const { data: memberData, isLoading } = useGetCollection('members', 'sr', '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
   const member = memberData?.data?.[0]?.attributes;
-  console.log('Member', member);
 
   return (
     <PageLayout isLoading={isLoading}>
-      <article className="flex flex-col w-[80%] mx-auto px-20 relative">
-        <div className="flex lg:flex-row flex-col items-center justify-center mb-[24px]">
+      <article className="flex flex-col w-[80%] mx-auto lg:mt-0 mt-24 lg:px-20 px-0 relative">
+        <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
           <div className="flex w-[200px] min-w-[200px] min-h-[200px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
             <img
               className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
-              src={member?.logo?.data?.attributes?.url}
+              src={member?.logo?.data?.attributes?.url ? member?.logo?.data?.attributes?.url : pivariLogo}
               alt={`${member?.name} logo`}
             />
           </div>
@@ -45,43 +49,54 @@ const SingleMemberPage = () => {
               <LocationIcon className="h-7 w-7 mt-[5px]" />
               <Text size={'large'} color={'maltYellow'} text={member?.address} />
             </div>
+            <div className="flex flex-row gap-4 min-h-14 justify-center items-center p-2 mt-8">
+              {member?.website && (
+                <div className="flex justify-center items-center min-h-14 min-w-14">
+                  <a href={member?.website} rel="noreferrer" target="_blank">
+                    <WorldIcon className="h-8 w-8 hover:scale-110 transition-all duration-[350ms]" />
+                  </a>
+                </div>
+              )}
+              {member?.facebook && (
+                <div className="flex justify-center items-center min-h-14 min-w-14">
+                  <a href={member?.facebook} rel="noreferrer" target="_blank">
+                    <FacebookIcon className="h-10 w-10 hover:scale-110 transition-all duration-[350ms]" />
+                  </a>
+                </div>
+              )}
+              {member?.instagram && (
+                <div className="flex justify-center items-center min-h-14 min-w-14">
+                  <a href={member?.instagram} rel="noreferrer" target="_blank">
+                    <InstagramIcon className="h-10 w-10 hover:scale-110 transition-all duration-[350ms]" />
+                  </a>
+                </div>
+              )}
+              {member?.email && (
+                <div className="flex justify-center items-center min-h-14 min-w-14">
+                  <a href={`mailto:${member.email}`} rel="noreferrer" target="_blank">
+                    <EmailIcon className="h-10 w-10 hover:scale-110 transition-all duration-[350ms]" />
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        <div className="mb-[20px] w-[80%] mx-auto">
+        <div className="mb-[45px] w-[80%] mx-auto">
           <Text className="text-bold text-center" size={'large'} color={'white'} text={member?.description} />
         </div>
         <div className="w-[80%] mx-auto">
-          <Text className="text-center" size={'medium'} color={'white'} text={member?.content} />
+          <Text className="text-center whitespace-pre-wrap " size={'medium'} color={'white'} text={member?.content} />
         </div>
-        <div className="flex flex-row gap-4 min-h-14 justify-center items-center p-2">
-          {member?.website && (
-            <div className="flex justify-center items-center min-h-14 min-w-14">
-              <a href={member?.website}>
-                <WorldIcon className="h-8 w-8 hover:scale-105 transition-all duration-[500ms]" />
-              </a>
-            </div>
-          )}
-          {member?.facebook && (
-            <div className="flex justify-center items-center min-h-14 min-w-14">
-              <a href={member?.facebook}>
-                <FacebookIcon className="h-10 w-10 hover:scale-105 transition-all duration-[500ms]" />
-              </a>
-            </div>
-          )}
-          {member?.instagram && (
-            <div className="flex justify-center items-center min-h-14 min-w-14">
-              <a href={member?.instagram}>
-                <InstagramIcon className="h-10 w-10 hover:scale-105 transition-all duration-[500ms]" />
-              </a>
-            </div>
-          )}
-          {member?.email && (
-            <div className="flex justify-center items-center min-h-14 min-w-14">
-              <a href={`mailto:${member.email}`}>
-                <EmailIcon className="h-10 w-10 hover:scale-105 transition-all duration-[500ms]" />
-              </a>
-            </div>
-          )}
+        <div className="absolute -bottom-[8rem] left-[8vw] hover:scale-110 transition-all duration-[350ms]">
+          <button
+            className="flex items-center font-crimson text-maltYellow tracking-[0.05rem] gap-2"
+            onClick={() => {
+              navigate(`/members`);
+            }}
+          >
+            <LeftArrowIcon className="h-10 w-10" />
+            Nazad ka članovima
+          </button>
         </div>
       </article>
     </PageLayout>

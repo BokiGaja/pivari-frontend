@@ -5,6 +5,8 @@ import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { sanitizeResponseData } from '../utils/api/responseData';
 import { Typography } from '@mui/material';
 
+import pivariLogo from '../assets/logos/pivari-logo.png';
+
 import { ReactComponent as FacebookIcon } from '../assets/svg/socialIcons/icon-facebook.svg';
 import { ReactComponent as InstagramIcon } from '../assets/svg/socialIcons/icon-instagram.svg';
 import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-email.svg';
@@ -41,8 +43,8 @@ const SponsorsPage = () => {
                   className={`flex min-w-[250px] lg:min-h-[250px] min-h-[300px] items-center overflow-hidden relative `}
                 >
                   <img
-                    alt={`${sponsor?.name} logo`}
-                    src={sponsor?.logo}
+                    alt={sponsor?.name ? `${sponsor?.name} logo` : 'default website logo'}
+                    src={sponsor?.logo ? sponsor?.logo : pivariLogo}
                     className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
                   />
                 </div>
@@ -57,21 +59,27 @@ const SponsorsPage = () => {
                     <Text className="text-center" size="medium" color="white" text={sponsor?.description} />
                   </div>
                   <div className="flex gap-[25px] mt-4">
-                    <div className="flex min-h-[3rem] items-center">
-                      <a href={sponsor.facebook} rel="noreferrer" target="_blank">
-                        <FacebookIcon className="w-10 h-10 cursor-pointer hover:w-12 hover:h-12 transition-all duration-[350ms]" />
-                      </a>
-                    </div>
-                    <div className="flex min-h-[3rem] items-center">
-                      <a href={sponsor.instagram} rel="noreferrer" target="_blank">
-                        <InstagramIcon className="w-10 h-10 cursor-pointer hover:w-12 hover:h-12 transition-all duration-[350ms]" />
-                      </a>
-                    </div>
-                    <div className="flex min-h-[3rem] items-center">
-                      <a href={`mailto:${sponsor.email}`} rel="noreferrer" target="_blank">
-                        <EmailIcon className="w-10 h-10 cursor-pointer hover:w-12 hover:h-12 transition-all duration-[350ms]" />
-                      </a>
-                    </div>
+                    {sponsor?.facebook && (
+                      <div className="flex min-h-[2.5rem] items-center">
+                        <a href={sponsor?.facebook} rel="noreferrer" target="_blank">
+                          <FacebookIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                        </a>
+                      </div>
+                    )}
+                    {sponsor?.instagram && (
+                      <div className="flex min-h-[2.5rem] items-center">
+                        <a href={sponsor?.instagram} rel="noreferrer" target="_blank">
+                          <InstagramIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                        </a>
+                      </div>
+                    )}
+                    {sponsor?.email && (
+                      <div className="flex min-h-[2.5rem] items-center">
+                        <a href={`mailto:${sponsor.email}`} rel="noreferrer" target="_blank">
+                          <EmailIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

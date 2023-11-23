@@ -6,6 +6,8 @@ import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
+import pivariLogo from '../assets/logos/pivari-logo.png';
+
 import { ReactComponent as FacebookIcon } from '../assets/svg/socialIcons/icon-facebook.svg';
 import { ReactComponent as InstagramIcon } from '../assets/svg/socialIcons/icon-instagram.svg';
 import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-email.svg';
@@ -49,7 +51,7 @@ const MembersPage = () => {
                 >
                   <img
                     alt={`${member?.name} logo`}
-                    src={member?.logo}
+                    src={member.logo ? member?.logo : pivariLogo}
                     className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
                   />
                 </div>
@@ -59,21 +61,27 @@ const MembersPage = () => {
                     <Text size="medium" color="white" text={member?.description} />
                   </div>
                   <div className="flex gap-[25px] mt-4">
-                    <div className="flex min-h-[2.5rem] items-center">
-                      <a href={member.facebook} rel="noreferrer" target="_blank">
-                        <FacebookIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
-                      </a>
-                    </div>
-                    <div className="flex min-h-[2.5rem] items-center">
-                      <a href={member.instagram} rel="noreferrer" target="_blank">
-                        <InstagramIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
-                      </a>
-                    </div>
-                    <div className="flex min-h-[2.5rem] items-center">
-                      <a href={`mailto:${member.email}`} rel="noreferrer" target="_blank">
-                        <EmailIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
-                      </a>
-                    </div>
+                    {member?.facebook && (
+                      <div className="flex min-h-[2.5rem] items-center">
+                        <a href={member?.facebook} rel="noreferrer" target="_blank">
+                          <FacebookIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                        </a>
+                      </div>
+                    )}
+                    {member?.instagram && (
+                      <div className="flex min-h-[2.5rem] items-center">
+                        <a href={member?.instagram} rel="noreferrer" target="_blank">
+                          <InstagramIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                        </a>
+                      </div>
+                    )}
+                    {member?.email && (
+                      <div className="flex min-h-[2.5rem] items-center">
+                        <a href={`mailto:${member.email}`} rel="noreferrer" target="_blank">
+                          <EmailIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
