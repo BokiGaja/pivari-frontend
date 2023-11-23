@@ -6,7 +6,7 @@ import { sanitizeResponseData } from '../utils/api/responseData';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useNavigate } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
-import { useSetAtom } from 'jotai/index';
+import { useSetAtom } from 'jotai';
 import { pageScrolledAtom } from '../atoms';
 
 const HomePage = () => {
@@ -43,7 +43,7 @@ const HomePage = () => {
             key={article.updatedAt}
             className="flex flex-col lg:w-8/12 w-full justify-center items-center"
             onClick={() => {
-              navigate(`/article/${article.title?.replace(' ', '-')}`);
+              navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
               scrollToTop();
             }}
           >
