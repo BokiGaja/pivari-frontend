@@ -23,6 +23,17 @@ const SingleMemberPage = () => {
   });
   const member = memberData?.data?.[0]?.attributes;
 
+  if (!member)
+    return (
+      <PageLayout>
+        <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
+          <Typography variant="h4" className="text-maltYellow">
+            {'Artikal ne postoji'}
+          </Typography>
+        </div>
+      </PageLayout>
+    );
+
   return (
     <PageLayout isLoading={isLoading}>
       <article className="flex flex-col w-[80%] mx-auto lg:mt-0 mt-24 lg:px-20 px-0 relative">
