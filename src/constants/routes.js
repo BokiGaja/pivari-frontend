@@ -2,6 +2,7 @@ export const ROUTES = {
   HOME: '/',
   ARTICLE: '/article/:name',
   ARTICLES: '/articles',
+  RECIPES: '/recipes',
   MEMBER: '/member/:name',
   MEMBERS: '/members',
   SPONSORS: '/sponsors',

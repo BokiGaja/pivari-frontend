@@ -79,6 +79,11 @@ const NavBar = () => {
                 </div>
               )}
             </div>
+            <NavBarButton
+              isActive={currentRoute?.pathname === ROUTES.RECIPES}
+              text="Recepti"
+              onClick={() => navigate(ROUTES.RECIPES)}
+            />
           </div>
         </div>
         <div className="hidden lg:flex w-[300px]">

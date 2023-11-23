@@ -11,6 +11,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import PageNotFoundPage from './pages/PageNotFoundPage';
 import SingleArticlePage from './pages/SingleArticlePage';
 import SingleMemberPage from './pages/SingleMemberPage';
+import RecipesPage from './pages/RecipesPage';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => {
         <Routes>
           <Route exact path={ROUTES.HOME} element={<HomePage />} />
           <Route exact path={ROUTES.ARTICLE} element={<SingleArticlePage />} />
+          <Route exact path={ROUTES.RECIPES} element={<RecipesPage />} />
           <Route exact path={ROUTES.ARTICLES} element={<ArticlesPage />} />
           <Route exact path={ROUTES.MEMBER} element={<SingleMemberPage />} />
           <Route exact path={ROUTES.MEMBERS} element={<MembersPage />} />
