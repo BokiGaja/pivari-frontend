@@ -1,16 +1,10 @@
 import React from 'react';
 import PageLayout from '../components/layout/PageLayout';
-// import Text from '../components/Text/Text';
 import { sanitizeResponseData } from '../utils/api/responseData';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
-// import pivariLogo from '../assets/logos/pivari-logo.png';
-
-// import { ReactComponent as FacebookIcon } from '../assets/svg/socialIcons/icon-facebook.svg';
-// import { ReactComponent as InstagramIcon } from '../assets/svg/socialIcons/icon-instagram.svg';
-// import { ReactComponent as EmailIcon } from '../assets/svg/socialIcons/icon-email.svg';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useSetAtom } from 'jotai';
 import { pageScrolledAtom } from '../atoms';
