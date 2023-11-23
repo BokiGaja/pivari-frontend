@@ -8,7 +8,7 @@ import { Typography } from '@mui/material';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useSetAtom } from 'jotai';
 import { pageScrolledAtom } from '../atoms';
-import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreview';
+import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewCard';
 
 const MembersPage = () => {
   const navigate = useNavigate();

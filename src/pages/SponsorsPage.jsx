@@ -5,7 +5,7 @@ import { sanitizeResponseData } from '../utils/api/responseData';
 import { Typography } from '@mui/material';
 
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
-import SponsorPreviewCard from '../components/Sponsor/SponsorPreview/SponsorPreview';
+import SponsorPreviewCard from '../components/Sponsor/SponsorPreview/SponsorPreviewCard';
 
 const SponsorsPage = () => {
   const { data: sponsorsData, isLoading } = useGetCollection('sponsors');
