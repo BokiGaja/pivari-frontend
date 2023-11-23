@@ -41,7 +41,7 @@ const MembersPage = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      <div className="flex flex-col lg:mt-0 mt-[150px] lg:items-center lg:px-20">
+      <div className="flex flex-col lg:mt-0 mt-[150px] lg:items-center lg:px-20 px-5">
         {members?.map((member, index) => (
           <React.Fragment key={member?.createdAt}>
             {index !== 0 && <Separator className="flex hg:w-full w-10/12 self-center h-10 my-10" />}

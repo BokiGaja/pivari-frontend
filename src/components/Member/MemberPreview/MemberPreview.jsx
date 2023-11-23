@@ -18,20 +18,25 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
           scrollToTop();
         }}
       >
-        <div className="flex gap-2">
+        <div className="flex gap-2 lg:flex-row flex-col">
           <div
-            className={`flex w-[200px] lg:mr-[50px] min-w-[200px] min-h-[200px] items-center relative overflow-hidden rounded-l-3xl`}
+            className={`flex lg:w-[200px] w-full lg:mr-[50px] lg:min-h-[250px] min-w-[200px] min-h-[300px] items-center relative overflow-hidden rounded-l-3xl`}
           >
             <img
-              alt={`${member?.name} logo`}
+              alt={member?.name ? `${member?.name} logo` : 'default website logo'}
               src={member?.logo ? member?.logo : pivariLogo}
               className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
             />
           </div>
-          <div className="flex flex-col align-start justify-between py-[20px]">
+          <div className="flex flex-col align-start lg:items-start items-center justify-between py-[20px] lg:w-[75%] w-full">
             <div>
-              <Text className="mb-[15px]" size={'large'} color={'maltYellow'} text={member?.name} />
-              <Text size="medium" color="white" text={member?.description} />
+              <Text
+                className="mb-[15px] lg:text-start text-center"
+                size={'large'}
+                color={'maltYellow'}
+                text={member?.name}
+              />
+              <Text className="lg:text-start text-center" size="medium" color="white" text={member?.description} />
             </div>
             <div className="flex gap-[25px] mt-4 socialIconBox">
               {member?.facebook && (
