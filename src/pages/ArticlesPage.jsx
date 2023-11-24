@@ -24,7 +24,8 @@ const ArticlesPage = () => {
           params: {
             locale: 'sr',
             populate: '*',
-            queryParams: { 'filters[categories][name][$eq]': searchParams?.get('category') || '' },
+            // page: 1,
+            'filters[categories][name][$eq]': searchParams?.get('category'),
           },
         })
         .then((res) => res.data)
