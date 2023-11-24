@@ -4,11 +4,52 @@ import Text from '../components/Text/Text';
 import { useSearchParams } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { sanitizeResponseData } from '../utils/api/responseData';
-import ArticleListItem from '../components/Article/ArticleListItem/ArticleListItem';
 import { CircularProgress } from '@mui/material';
+
+import ArticleListItem from '../components/Article/ArticleListItem/ArticleListItem';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInView } from 'react-intersection-observer';
+import axios from 'axios';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
+
+  const { ref, inView } = useInView({});
+
+  const { status, error, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ['articles'],
+    queryFn: () =>
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
+          params: {
+            locale: 'sr',
+            populate: '*',
+            queryParams: { 'filters[categories][name][$eq]': searchParams?.get('category') || '' },
+          },
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err)),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
+      return nextPage;
+    },
+  });
+
+  // console.log(data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage);
+
+  // const content = data?.pages?.map((articles) =>
+  //   articles?.data?.map((article) => {
+  //     console.log(article);
+  //     return (
+  //       <p key={article?.attributes?.createdAt} className="text-white">
+  //         JBT JBT JBT
+  //       </p>
+  //     );
+  //     return <ArticleListItem key={article.createdAt} article={article} />;
+  //   })
+  // );
+
   const {
     data: articlesData,
     isLoading: isLoadingArticles,
@@ -17,19 +58,47 @@ const ArticlesPage = () => {
   } = useGetCollection('articles', 'sr', '*', {
     'filters[categories][name][$eq]': searchParams?.get('category') || '',
   });
+
   const { data: categoriesData, isLoading: isLoadingCollections } = useGetCollection('categories');
+
   const sanitizedArticlesData = articlesData?.data?.map((article) => ({
     ...article.attributes,
     cover_image: sanitizeResponseData(article.attributes, 'cover_image')?.url,
   }));
+
+  const content = sanitizedArticlesData?.map((article, index) => {
+    console.log(article, isLoadingArticles);
+    if (sanitizedArticlesData.length === index + 1) {
+      return <ArticleListItem key={article.createdAt} innerRef={ref} article={article} />;
+    }
+    return <ArticleListItem key={article.createdAt} article={article} />;
+  });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      console.log('fire');
+
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
   const selectedCategory = categoriesData?.data?.find(
     (category) => category.attributes.name === searchParams?.get('category')
   );
+
   const categoryCoverImage = sanitizeResponseData(selectedCategory?.attributes, 'cover_image')?.url;
 
   useEffect(() => {
     refetch().catch((err) => console.log(err));
   }, [searchParams, refetch]);
+
+  if (status === 'pending') {
+    return <p>Loading...</p>;
+  }
+
+  if (status === 'error') {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <PageLayout isLoading={isLoadingArticles || isLoadingCollections}>
@@ -53,9 +122,11 @@ const ArticlesPage = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-start h-screen">
-          {sanitizedArticlesData?.map((article) => (
+          {content}
+          {isFetchingNextPage && <h3>Loading</h3>}
+          {/* {sanitizedArticlesData?.map((article) => (
             <ArticleListItem key={article.createdAt} article={article} />
-          ))}
+          ))} */}
         </div>
       )}
     </PageLayout>
