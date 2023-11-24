@@ -12,6 +12,7 @@ import PageNotFoundPage from './pages/PageNotFoundPage';
 import SingleArticlePage from './pages/SingleArticlePage';
 import SingleMemberPage from './pages/SingleMemberPage';
 import RecipesPage from './pages/RecipesPage';
+import SingleRecipePage from './pages/SingleRecipePage';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => {
         <Routes>
           <Route exact path={ROUTES.HOME} element={<HomePage />} />
           <Route exact path={ROUTES.ARTICLE} element={<SingleArticlePage />} />
+          <Route exact path={ROUTES.RECIPE} element={<SingleRecipePage />} />
           <Route exact path={ROUTES.RECIPES} element={<RecipesPage />} />
           <Route exact path={ROUTES.ARTICLES} element={<ArticlesPage />} />
           <Route exact path={ROUTES.MEMBER} element={<SingleMemberPage />} />

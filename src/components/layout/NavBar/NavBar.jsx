@@ -55,7 +55,7 @@ const NavBar = () => {
             />
             <div className="flex items-center justify-around mr-4 relative" ref={ref}>
               <NavBarButton
-                isActive={currentRoute?.pathname === ROUTES.ARTICLES}
+                isActive={currentRoute?.pathname.includes('article')}
                 text="Članci"
                 onClick={() => toggleDropdown()}
                 icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
@@ -80,7 +80,7 @@ const NavBar = () => {
               )}
             </div>
             <NavBarButton
-              isActive={currentRoute?.pathname === ROUTES.RECIPES}
+              isActive={currentRoute?.pathname.includes('recipe')}
               text="Recepti"
               onClick={() => navigate(ROUTES.RECIPES)}
             />
@@ -93,12 +93,12 @@ const NavBar = () => {
           <NavBarButton
             text="Članovi"
             onClick={() => navigate(ROUTES.MEMBERS)}
-            isActive={currentRoute?.pathname === ROUTES.MEMBERS}
+            isActive={currentRoute?.pathname.includes('member')}
           />
           <NavBarButton
             text="Sponzori"
             onClick={() => navigate(ROUTES.SPONSORS)}
-            isActive={currentRoute?.pathname === ROUTES.SPONSORS}
+            isActive={currentRoute?.pathname.includes('sponsor')}
           />
           <NavBarButton
             text="O nama"

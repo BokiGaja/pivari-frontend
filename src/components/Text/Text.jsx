@@ -12,6 +12,7 @@ const colorClasses = {
   white: 'text-white',
   gray: 'text-gray',
   black: 'text-black',
+  green: 'text-hopGreen',
 };
 
 const Text = ({ size, color, text, className = '' }) => {
