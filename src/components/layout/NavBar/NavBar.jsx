@@ -45,7 +45,7 @@ const NavBar = () => {
       <Toolbar className="flex-1 flex flex-col lg:flex-row justify-between items-center pt-2 pb-2 relative">
         <div className="lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
           <div className="lg:hidden w-[300px]">
-            <UdruzenjeLogo />
+            <UdruzenjeLogo/>
           </div>
           <div className="flex-1 flex items-center justify-around ml-4">
             <NavBarButton
@@ -58,10 +58,11 @@ const NavBar = () => {
                 isActive={currentRoute?.pathname.includes('article')}
                 text="Članci"
                 onClick={() => toggleDropdown()}
-                icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
+                icon={<DownArrow className="w-4 h-4 ml-2 mt-1"/>}
               />
               {isDropdownOpen && (
-                <div className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
+                <div
+                  className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
                   {categoriesNames?.map((categoryName) => (
                     <DropdownItemButton
                       text={categoryName}
@@ -87,13 +88,13 @@ const NavBar = () => {
           </div>
         </div>
         <div className="hidden lg:flex w-[300px]">
-          <UdruzenjeLogo />
+          <UdruzenjeLogo/>
         </div>
         <div className="flex-1 flex items-center justify-around ml-4">
           <NavBarButton
             text="Članovi"
             onClick={() => navigate(ROUTES.MEMBERS)}
-            isActive={currentRoute?.pathname.includes('member')}
+            isActive={currentRoute?.pathname.includes('members')}
           />
           <NavBarButton
             text="Sponzori"

@@ -14,7 +14,7 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
       <div
         className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5 bg-guinessBlack lg:w-6/12 w-full hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
         onClick={() => {
-          navigate(`/member/${member?.name?.replaceAll(' ', '-')}`);
+          navigate(`/members/${member?.name?.replaceAll(' ', '-')}`);
           scrollToTop();
         }}
       >
@@ -28,7 +28,8 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
               className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
             />
           </div>
-          <div className="flex flex-col align-start lg:items-start items-center justify-between py-[20px] lg:w-[75%] w-full">
+          <div
+            className="flex flex-col align-start lg:items-start items-center justify-between py-[20px] lg:w-[75%] w-full">
             <div>
               <Text
                 className="mb-[15px] lg:text-start text-center"
@@ -36,27 +37,30 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
                 color={'maltYellow'}
                 text={member?.name}
               />
-              <Text className="lg:text-start text-center" size="medium" color="white" text={member?.description} />
+              <Text className="lg:text-start text-center" size="medium" color="white" text={member?.description}/>
             </div>
             <div className="flex gap-[25px] mt-4 socialIconBox">
               {member?.facebook && (
                 <div className="flex min-h-[2.5rem] items-center" onClick={(e) => e.stopPropagation()}>
                   <a href={member?.facebook} rel="noreferrer" target="_blank">
-                    <FacebookIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                    <FacebookIcon
+                      className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]"/>
                   </a>
                 </div>
               )}
               {member?.instagram && (
                 <div className="flex min-h-[2.5rem] items-center" onClick={(e) => e.stopPropagation()}>
                   <a href={member?.instagram} rel="noreferrer" target="_blank">
-                    <InstagramIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                    <InstagramIcon
+                      className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]"/>
                   </a>
                 </div>
               )}
               {member?.email && (
                 <div className="flex min-h-[2.5rem] items-center" onClick={(e) => e.stopPropagation()}>
                   <a href={`mailto:${member.email}`} rel="noreferrer" target="_blank">
-                    <EmailIcon className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]" />
+                    <EmailIcon
+                      className="w-8 h-8 cursor-pointer hover:w-10 hover:h-10 transition-all duration-[350ms]"/>
                   </a>
                 </div>
               )}
