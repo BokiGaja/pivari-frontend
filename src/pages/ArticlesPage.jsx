@@ -48,23 +48,7 @@ const ArticlesPage = () => {
         : undefined;
     },
   });
-  // console.log('articlesData', articlesPageData);
   const articlesData = articlesPageData?.pages?.map((articles) => articles?.data).flat();
-  // console.log('hasNextPage', hasNextPage);
-
-  // console.log(data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage);
-
-  // const content = data?.pages?.map((articles) =>
-  //   articles?.data?.map((article) => {
-  //     console.log(article);
-  //     return (
-  //       <p key={article?.attributes?.createdAt} className="text-white">
-  //         JBT JBT JBT
-  //       </p>
-  //     );
-  //     return <ArticleListItem key={article.createdAt} article={article} />;
-  //   })
-  // );
 
   const { data: categoriesData, isLoading: isLoadingCollections } = useGetCollection('categories');
 
@@ -82,8 +66,6 @@ const ArticlesPage = () => {
 
   useEffect(() => {
     if (inView && hasNextPage) {
-      console.log('fire');
-
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
@@ -105,8 +87,6 @@ const ArticlesPage = () => {
   if (status === 'error') {
     return <p>Error: {error.message}</p>;
   }
-
-  console.log('Is Fetching Next Page', isFetchingNextPage);
 
   return (
     <PageLayout isLoading={isLoadingArticles || isLoadingCollections}>
@@ -131,10 +111,11 @@ const ArticlesPage = () => {
       ) : (
         <div className="flex flex-col items-center justify-start min-h-screen">
           {content}
-          {isFetchingNextPage && <h3>Loading</h3>}
-          {/* {sanitizedArticlesData?.map((article) => (
-            <ArticleListItem key={article.createdAt} article={article} />
-          ))} */}
+          {isFetchingNextPage && (
+            <div className="flex w-full justify-center">
+              <Text size="large" color="maltYellow" text="Loading..." />
+            </div>
+          )}
         </div>
       )}
     </PageLayout>

@@ -8,7 +8,7 @@ import { truncateString } from '../../../utils/string/truncate';
 import { useSetAtom } from 'jotai';
 import { pageScrolledAtom } from '../../../atoms';
 
-const ArticleListItem = ({ article }) => {
+const ArticleListItem = ({ article, innerRef }) => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
 
@@ -19,9 +19,9 @@ const ArticleListItem = ({ article }) => {
     });
     setPageScrolled(false);
   };
-
   return (
     <div
+      ref={innerRef}
       key={article.id}
       className="flex flex-row lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500"
       onClick={() => {
@@ -49,6 +49,7 @@ const ArticleListItem = ({ article }) => {
 
 ArticleListItem.propTypes = {
   article: PropTypes.object.isRequired,
+  innerRef: PropTypes.func,
 };
 
 export default ArticleListItem;
