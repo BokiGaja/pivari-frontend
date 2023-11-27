@@ -16,25 +16,41 @@ const ArticlesPage = () => {
 
   const { ref, inView } = useInView({});
 
-  const { status, error, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
+  const {
+    data: articlesPageData,
+    status,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    refetch,
+    isInitialLoading: isLoadingArticles,
+  } = useInfiniteQuery({
     queryKey: ['articles'],
     queryFn: ({ pageParam }) =>
       axios
-        .get(`${process.env.REACT_APP_BASE_URL}/api/articles?_page=${pageParam}`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
           params: {
             locale: 'sr',
             populate: '*',
             'filters[categories][name][$eq]': searchParams?.get('category'),
+            'pagination[page]': pageParam,
+            'pagination[pageSize]': 5,
+            'pagination[withCount]': true,
           },
         })
         .then((res) => res.data)
         .catch((err) => console.log(err)),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
-      return nextPage;
+    getNextPageParam: (lastPage) => {
+      return lastPage?.meta?.pagination?.pageCount > lastPage?.meta?.pagination?.page
+        ? lastPage?.meta?.pagination?.page + 1
+        : undefined;
     },
   });
+  // console.log('articlesData', articlesPageData);
+  const articlesData = articlesPageData?.pages?.map((articles) => articles?.data).flat();
+  // console.log('hasNextPage', hasNextPage);
 
   // console.log(data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage);
 
@@ -50,24 +66,14 @@ const ArticlesPage = () => {
   //   })
   // );
 
-  const {
-    data: articlesData,
-    isLoading: isLoadingArticles,
-    refetch,
-    isRefetching: isRefetchingArticles,
-  } = useGetCollection('articles', 'sr', '*', {
-    'filters[categories][name][$eq]': searchParams?.get('category') || '',
-  });
-
   const { data: categoriesData, isLoading: isLoadingCollections } = useGetCollection('categories');
 
-  const sanitizedArticlesData = articlesData?.data?.map((article) => ({
+  const sanitizedArticlesData = articlesData?.map((article) => ({
     ...article.attributes,
     cover_image: sanitizeResponseData(article.attributes, 'cover_image')?.url,
   }));
 
   const content = sanitizedArticlesData?.map((article, index) => {
-    console.log(article, isLoadingArticles);
     if (sanitizedArticlesData.length === index + 1) {
       return <ArticleListItem key={article.createdAt} innerRef={ref} article={article} />;
     }
@@ -100,6 +106,8 @@ const ArticlesPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  console.log('Is Fetching Next Page', isFetchingNextPage);
+
   return (
     <PageLayout isLoading={isLoadingArticles || isLoadingCollections}>
       <div className="absolute lg:top-[100px] top-[250px]">
@@ -116,7 +124,7 @@ const ArticlesPage = () => {
         />
       </div>
       <div className="lg:h-[200px] h-[320px]" />
-      {isRefetchingArticles ? (
+      {isLoadingArticles ? (
         <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
           <CircularProgress color="inherit" />
         </div>

@@ -7,12 +7,15 @@ import ImageWithFade from '../../ImageWithFade';
 import { formatDate } from '../../../utils/date/formatDate';
 import { truncateString } from '../../../utils/string/truncate';
 
-const ArticlePreview = ({ article }) => {
+const ArticlePreview = ({ article, onClick }) => {
   const { title, description, createdAt } = article;
   const backgroundImageUrl = sanitizeResponseData(article, 'cover_image')?.url;
 
   return (
-    <div className="flex flex-col w-3/4 h-[450px] bg-guinessBlack transition-transform transform-gpu hover:scale-105 cursor-pointer duration-500 rounded-3xl">
+    <div
+      onClick={onClick}
+      className="flex flex-col w-3/4 h-[450px] bg-guinessBlack transition-transform transform-gpu hover:scale-105 cursor-pointer duration-500 rounded-3xl"
+    >
       <ImageWithFade url={article?.cover_image?.data?.attributes?.url ? backgroundImageUrl : pivariLogo} />
       <div className="flex flex-col text-white z-10 p-5">
         <Text size="large" color="maltYellow" text={title} className="text-4xl font-bold text-center break-all" />
@@ -27,6 +30,7 @@ const ArticlePreview = ({ article }) => {
 
 ArticlePreview.propTypes = {
   article: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default ArticlePreview;
