@@ -18,13 +18,12 @@ const ArticlesPage = () => {
 
   const { status, error, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['articles'],
-    queryFn: () =>
+    queryFn: ({ pageParam }) =>
       axios
-        .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
+        .get(`${process.env.REACT_APP_BASE_URL}/api/articles?_page=${pageParam}`, {
           params: {
             locale: 'sr',
             populate: '*',
-            // page: 1,
             'filters[categories][name][$eq]': searchParams?.get('category'),
           },
         })
@@ -122,7 +121,7 @@ const ArticlesPage = () => {
           <CircularProgress color="inherit" />
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-start h-screen">
+        <div className="flex flex-col items-center justify-start min-h-screen">
           {content}
           {isFetchingNextPage && <h3>Loading</h3>}
           {/* {sanitizedArticlesData?.map((article) => (
