@@ -7,7 +7,7 @@ import { formatDate } from '../../../utils/date/formatDate';
 import { truncateString } from '../../../utils/string/truncate';
 import { useSetAtom } from 'jotai';
 import { pageScrolledAtom } from '../../../atoms';
-import RecipeAdditionalInfo from '../../Recipe/RecipeAdditionalInfo/RecipeAdditionalInfo';
+import RecipeAdditionalInfo from '../RecipeAdditionalInfo/RecipeAdditionalInfo';
 
 const RecipeListItem = ({ recipe }) => {
   const navigate = useNavigate();
