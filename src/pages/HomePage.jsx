@@ -39,16 +39,15 @@ const HomePage = () => {
     <PageLayout isLoading={isLoading}>
       <div className="flex flex-col justify-center items-center">
         {articles?.map((article, index) => (
-          <div
-            key={article.updatedAt}
-            className="flex flex-col lg:w-8/12 w-full justify-center items-center"
-            onClick={() => {
-              navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
-              scrollToTop();
-            }}
-          >
+          <div key={article.updatedAt} className="flex flex-col lg:w-8/12 w-full justify-center items-center">
             {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}
-            <ArticlePreview article={article} />
+            <ArticlePreview
+              article={article}
+              onClick={() => {
+                navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
+                scrollToTop();
+              }}
+            />
           </div>
         )) || null}
       </div>

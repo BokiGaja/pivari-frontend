@@ -4,32 +4,89 @@ import Text from '../components/Text/Text';
 import { useSearchParams } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { sanitizeResponseData } from '../utils/api/responseData';
-import ArticleListItem from '../components/Article/ArticleListItem/ArticleListItem';
 import { CircularProgress } from '@mui/material';
+
+import ArticleListItem from '../components/Article/ArticleListItem/ArticleListItem';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInView } from 'react-intersection-observer';
+import axios from 'axios';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
+
+  const { ref, inView } = useInView({});
+
   const {
-    data: articlesData,
-    isLoading: isLoadingArticles,
+    data: articlesPageData,
+    status,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
     refetch,
-    isRefetching: isRefetchingArticles,
-  } = useGetCollection('articles', 'sr', '*', {
-    'filters[categories][name][$eq]': searchParams?.get('category') || '',
+    isInitialLoading: isLoadingArticles,
+  } = useInfiniteQuery({
+    queryKey: ['articles'],
+    queryFn: ({ pageParam }) =>
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
+          params: {
+            locale: 'sr',
+            populate: '*',
+            'filters[categories][name][$eq]': searchParams?.get('category'),
+            'pagination[page]': pageParam,
+            'pagination[pageSize]': 5,
+            'pagination[withCount]': true,
+          },
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err)),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage?.meta?.pagination?.pageCount > lastPage?.meta?.pagination?.page
+        ? lastPage?.meta?.pagination?.page + 1
+        : undefined;
+    },
   });
+  const articlesData = articlesPageData?.pages?.map((articles) => articles?.data).flat();
+
   const { data: categoriesData, isLoading: isLoadingCollections } = useGetCollection('categories');
-  const sanitizedArticlesData = articlesData?.data?.map((article) => ({
+
+  const sanitizedArticlesData = articlesData?.map((article) => ({
     ...article.attributes,
     cover_image: sanitizeResponseData(article.attributes, 'cover_image')?.url,
   }));
+
+  const content = sanitizedArticlesData?.map((article, index) => {
+    if (sanitizedArticlesData.length === index + 1) {
+      return <ArticleListItem key={article.createdAt} innerRef={ref} article={article} />;
+    }
+    return <ArticleListItem key={article.createdAt} article={article} />;
+  });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
   const selectedCategory = categoriesData?.data?.find(
     (category) => category.attributes.name === searchParams?.get('category')
   );
+
   const categoryCoverImage = sanitizeResponseData(selectedCategory?.attributes, 'cover_image')?.url;
 
   useEffect(() => {
     refetch().catch((err) => console.log(err));
   }, [searchParams, refetch]);
+
+  if (status === 'pending') {
+    return <p>Loading...</p>;
+  }
+
+  if (status === 'error') {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <PageLayout isLoading={isLoadingArticles || isLoadingCollections}>
@@ -47,15 +104,18 @@ const ArticlesPage = () => {
         />
       </div>
       <div className="lg:h-[200px] h-[320px]" />
-      {isRefetchingArticles ? (
+      {isLoadingArticles ? (
         <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
           <CircularProgress color="inherit" />
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-start h-screen">
-          {sanitizedArticlesData?.map((article) => (
-            <ArticleListItem key={article.createdAt} article={article} />
-          ))}
+        <div className="flex flex-col items-center justify-start min-h-screen">
+          {content}
+          {isFetchingNextPage && (
+            <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
+              <CircularProgress color="inherit" />
+            </div>
+          )}
         </div>
       )}
     </PageLayout>
