@@ -4,7 +4,7 @@ import Text from '../components/Text/Text';
 import { useSearchParams } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { sanitizeResponseData } from '../utils/api/responseData';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 
 import ArticleListItem from '../components/Article/ArticleListItem/ArticleListItem';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -81,11 +81,23 @@ const ArticlesPage = () => {
   }, [searchParams, refetch]);
 
   if (status === 'pending') {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
+        <CircularProgress color="inherit" />
+      </div>
+    );
   }
 
-  if (status === 'error') {
-    return <p>Error: {error.message}</p>;
+  if (!selectedCategory || status === 'error' || error) {
+    return (
+      <PageLayout>
+        <div className="flex items-center justify-center h-screen">
+          <Typography variant="h4" className="text-maltYellow">
+            {'Nema članaka'}
+          </Typography>
+        </div>
+      </PageLayout>
+    );
   }
 
   return (
@@ -99,7 +111,7 @@ const ArticlesPage = () => {
         <Text
           size="large"
           color="maltYellow"
-          text={searchParams?.get('category')}
+          text={selectedCategory?.attributes.name}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:text-7xl text-4xl font-bold text-center break-all mb-4"
         />
       </div>
