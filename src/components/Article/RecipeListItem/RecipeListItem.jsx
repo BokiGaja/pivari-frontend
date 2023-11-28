@@ -46,7 +46,19 @@ const RecipeListItem = ({ recipe }) => {
           <RecipeAdditionalInfo recipe={recipe} />
           {recipe?.style && <Text size="medium" color="maltYellow" className="mr-4" text={`Stil: ${recipe.style}`} />}
         </div>
-        <Text size="small" color="gray" text={formatDate(recipe.createdAt)} />
+        <div className="flex lg:flex-row flex-co w-full px-4 justify-between">
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className="font-crimson group text-xl tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
+            href={recipe.author_url}
+          >
+            {`Autor: `}
+            <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
+          </a>
+          <Text size="small" color="gray" text={formatDate(recipe.createdAt)} />
+        </div>
       </div>
     </div>
   );

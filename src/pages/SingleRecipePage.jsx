@@ -67,6 +67,16 @@ const SingleRecipePage = () => {
               <Separator className="flex w-10/12 h-4 my-4" />
             </div>
             <RecipeIngredientsTable recipe={recipe} />
+            <div className="flex flex-col items-center ">
+              <Separator className="flex w-10/12 h-4 my-4" />
+              <a
+                className="group font-crimson text-2xl tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
+                href={recipe.author_url}
+              >
+                {`Autor: `}
+                <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
+              </a>
+            </div>
           </div>
         </div>
         <div className="flex flex-col mt-8 px-10 border-2 border-hopGreen rounded-3xl items-center">
@@ -93,7 +103,7 @@ const SingleRecipePage = () => {
           />
           <Separator className="flex w-10/12 h-4 my-4" />
 
-          <Text size="small" color="white" text={recipe.description} className="text-center break-all my-4" />
+          <Text size="small" color="white" text={recipe.description} className="text-center my-4" />
         </div>
       </div>
     </PageLayout>
