@@ -112,8 +112,8 @@ const ArticlesPage = () => {
         <div className="flex flex-col items-center justify-start min-h-screen">
           {content}
           {isFetchingNextPage && (
-            <div className="flex w-full justify-center">
-              <Text size="large" color="maltYellow" text="Loading..." />
+            <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
+              <CircularProgress color="inherit" />
             </div>
           )}
         </div>
