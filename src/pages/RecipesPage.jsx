@@ -7,8 +7,6 @@ const RecipesPage = () => {
   const { data: recipesData } = useGetCollection('recipes', 'sr', '*');
   const recipes = recipesData?.data?.map((recipe) => recipe.attributes);
 
-  console.log(recipes);
-
   return (
     <PageLayout isLoading={false}>
       <div className="flex flex-col items-center justify-start h-screen">
