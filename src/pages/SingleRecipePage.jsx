@@ -10,7 +10,7 @@ import MarkdownImage from '../components/Markdown/MarkdownImage';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import RecipeIngredientsTable from '../components/Recipe/RecipeIngredientsTable/RecipeIngredientsTable';
 import RecipeAdditionalInfo from '../components/Recipe/RecipeAdditionalInfo/RecipeAdditionalInfo';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
@@ -29,8 +29,8 @@ const SingleRecipePage = () => {
   } = useGetCollection('recipes', currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
-  useRefetchLocale({ refetch });
   const recipe = recipeData?.data?.[0]?.attributes;
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: recipe?.locale });
 
   if (error || !recipe)
     return (
@@ -43,10 +43,8 @@ const SingleRecipePage = () => {
       </PageLayout>
     );
 
-  if (recipe?.locale !== currentLang) refetch();
-
   return (
-    <PageLayout isLoading={isLoading || isRefetching || recipe?.locale !== currentLang}>
+    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
       <div className="lg:flex lg:flex-col items-center lg:px-40 lg:mt-0 mt-[120px]">
         <div className="flex flex-col mb-10">
           <Text

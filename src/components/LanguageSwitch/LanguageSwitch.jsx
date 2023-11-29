@@ -8,13 +8,13 @@ import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
 
 const localeFlags = {
-  sr: {
-    flag: <SerbiaFlag className="border-2 border-maltYellow rounded-full" />,
-    name: 'Latinica',
-  },
   'sr-Cyrl': {
     flag: <SerbiaFlag className="border-2 border-maltYellow rounded-full" />,
     name: 'Ћирилица',
+  },
+  sr: {
+    flag: <SerbiaFlag className="border-2 border-maltYellow rounded-full" />,
+    name: 'Latinica',
   },
   en: {
     flag: <UKFlag className="border-2 border-maltYellow rounded-full" />,
@@ -59,7 +59,7 @@ const LanguageSwitch = () => {
         >
           {Object.keys(localeFlags)?.map((localeFlagKey) => (
             <div
-              className="flex flex-row items-center justify-center rounded-md cursor-pointer hover:bg-blackBackgroundLighter p-2"
+              className="flex flex-row items-center justify-start rounded-md cursor-pointer hover:bg-blackBackgroundLighter p-2"
               key={localeFlags[localeFlagKey].name}
               onClick={() => {
                 setCurrentLang(localeFlagKey);

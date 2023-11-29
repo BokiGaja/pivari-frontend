@@ -9,7 +9,7 @@ import ArticleEventInfo from '../components/Article/ArticleEventInfo/ArticleEven
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { Typography } from '@mui/material';
 import pivariLogo from '../assets/logos/pivari-logo.png';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
@@ -29,7 +29,7 @@ const SingleArticlePage = () => {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
 
-  useRefetchLocale({ refetch });
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: article?.locale });
 
   const article = articleData?.data?.[0]?.attributes;
 
@@ -43,10 +43,9 @@ const SingleArticlePage = () => {
         </div>
       </PageLayout>
     );
-  if (article?.locale !== currentLang) refetch();
 
   return (
-    <PageLayout isLoading={isLoading || isRefetching || article?.locale !== currentLang}>
+    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
       <div className="lg:flex lg:flex-col items-center">
         <div className="absolute lg:top-[100px] top-[200px]">
           <img

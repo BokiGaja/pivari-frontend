@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
-const SearchBar = ({ handleSubmit }) => {
+const SearchBar = ({ handleSubmit, handleClear }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
 
   const handleChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
+    if (e.target.value === '') handleClear();
   };
 
   const handleClick = (e) => {
@@ -39,6 +40,7 @@ const SearchBar = ({ handleSubmit }) => {
 
 SearchBar.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  handleClear: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import SponsorPreviewCard from '../components/Sponsor/SponsorPreview/SponsorPreviewCard';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
@@ -16,11 +16,11 @@ const SponsorsPage = () => {
   const { t } = useTranslation();
 
   const { data: sponsorsData, isLoading, refetch } = useGetCollection('sponsors', currentLang);
-  useRefetchLocale({ refetch });
   const sponsors = sponsorsData?.data?.map((sponsor) => ({
     ...sponsor.attributes,
     logo: sanitizeResponseData(sponsor.attributes, 'logo')?.url,
   }));
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: sponsors?.[0]?.locale });
 
   if (!sponsors?.length) {
     return (
@@ -34,12 +34,8 @@ const SponsorsPage = () => {
     );
   }
 
-  if (sponsors?.length) {
-    sponsors[0]?.locale !== currentLang && refetch();
-  }
-
   return (
-    <PageLayout isLoading={isLoading || (sponsors?.length && sponsors[0]?.locale !== currentLang)}>
+    <PageLayout isLoading={isLoading || isLocaleChanged}>
       <div className="flex flex-col items-center lg:px-20 px-5 lg:mt-0 mt-24">
         {sponsors?.map((sponsor, index) => (
           <React.Fragment key={sponsor?.createdAt}>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PageLayout from '../components/layout/PageLayout';
 import Text from '../components/Text/Text';
 import { useSearchParams } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/SearchBar/SearchBar';
@@ -22,6 +22,7 @@ const ArticlesPage = () => {
   const { ref, inView } = useInView({});
   const [currentLang] = useAtom(localeLanguageAtom);
   const { t } = useTranslation();
+  const [searchTitle, setSearchTitle] = React.useState('');
 
   const {
     data: articlesPageData,
@@ -33,7 +34,7 @@ const ArticlesPage = () => {
     refetch: refetchArticles,
     isInitialLoading: isLoadingArticles,
   } = useInfiniteQuery({
-    queryKey: ['articles'],
+    queryKey: ['articles', searchTitle],
     queryFn: ({ pageParam }) =>
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
@@ -41,6 +42,7 @@ const ArticlesPage = () => {
             locale: currentLang,
             populate: '*',
             'filters[categories][name][$eq]': searchParams?.get('category'),
+            'filters[title][$containsi]': searchTitle,
             'pagination[page]': pageParam,
             'pagination[pageSize]': 5,
             'pagination[withCount]': true,
@@ -63,24 +65,44 @@ const ArticlesPage = () => {
     isLoading: isLoadingCollections,
     refetch: refetchCategories,
   } = useGetCollection('categories', currentLang);
-  useRefetchLocale({ refetch: refetchArticles });
-  useRefetchLocale({ refetch: refetchCategories });
 
   const sanitizedArticlesData = articlesData?.map((article) => ({
     ...article.attributes,
     cover_image: sanitizeResponseData(article.attributes, 'cover_image')?.url,
   }));
 
-  if (sanitizedArticlesData?.length) {
-    sanitizedArticlesData[0]?.locale !== currentLang && refetchArticles().catch((err) => console.log(err));
-  }
+  const selectedCategory = categoriesData?.data?.find(
+    (category) => category.attributes.name === searchParams?.get('category')
+  );
 
-  const content = sanitizedArticlesData?.map((article, index) => {
-    if (sanitizedArticlesData.length === index + 1) {
-      return <ArticleListItem key={article.createdAt} innerRef={ref} article={article} />;
-    }
-    return <ArticleListItem key={article.createdAt} article={article} />;
+  const { isLocaleChanged: isArticleLocaleChanged } = useRefetchLocale({
+    refetch: refetchArticles,
+    locale: sanitizedArticlesData?.[0]?.locale,
   });
+  const { isLocaleChanged: isCategoryLocaleChanged } = useRefetchLocale({
+    refetch: refetchCategories,
+    locale: selectedCategory?.attributes?.locale,
+  });
+
+  const content = useMemo(() => {
+    if (!sanitizedArticlesData?.length)
+      return (
+        <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
+          <Typography variant="h4" className="text-maltYellow">
+            {t('articles.noArticles')}
+          </Typography>
+        </div>
+      );
+    return sanitizedArticlesData?.map((article, index) => {
+      console.log('Article data', articlesPageData);
+
+      if (sanitizedArticlesData.length === index + 1) {
+        return <ArticleListItem key={article.createdAt} innerRef={ref} article={article} />;
+      }
+      return <ArticleListItem key={article.createdAt} article={article} />;
+    });
+    // eslint-disable-next-line
+  }, [sanitizedArticlesData?.length]);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -88,31 +110,15 @@ const ArticlesPage = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const handleSubmit = (state) => {
-    console.log(state);
+  const searchArticles = (searchValue) => {
+    setSearchTitle(searchValue);
   };
-
-  const selectedCategory = categoriesData?.data?.find(
-    (category) => category.attributes.name === searchParams?.get('category')
-  );
-
-  if (selectedCategory && selectedCategory?.attributes?.locale !== currentLang) {
-    refetchCategories().catch((err) => console.log(err));
-  }
 
   const categoryCoverImage = sanitizeResponseData(selectedCategory?.attributes, 'cover_image')?.url;
 
   useEffect(() => {
     refetchArticles().catch((err) => console.log(err));
   }, [searchParams, refetchArticles]);
-
-  if (status === 'pending') {
-    return (
-      <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
-        <CircularProgress color="inherit" />
-      </div>
-    );
-  }
 
   if (!selectedCategory || status === 'error' || error) {
     return (
@@ -127,14 +133,7 @@ const ArticlesPage = () => {
   }
 
   return (
-    <PageLayout
-      isLoading={
-        isLoadingArticles ||
-        isLoadingCollections ||
-        !!(sanitizedArticlesData?.length && sanitizedArticlesData[0]?.locale !== currentLang) ||
-        selectedCategory?.attributes?.locale !== currentLang
-      }
-    >
+    <PageLayout isLoading={isCategoryLocaleChanged || isArticleLocaleChanged}>
       <div className="absolute lg:top-[100px] top-[250px]">
         <img
           src={categoryCoverImage}
@@ -149,8 +148,8 @@ const ArticlesPage = () => {
         />
       </div>
       <div className="lg:h-[200px] h-[320px]" />
-      <SearchBar handleSubmit={handleSubmit} />
-      {isLoadingArticles ? (
+      <SearchBar handleSubmit={searchArticles} handleClear={() => searchArticles('')} />
+      {isLoadingArticles || isLoadingCollections ? (
         <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
           <CircularProgress color="inherit" />
         </div>

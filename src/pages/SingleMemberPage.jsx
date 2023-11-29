@@ -14,7 +14,7 @@ import { ReactComponent as PhoneIcon } from '../assets/svg/phone.svg';
 import { ReactComponent as LocationIcon } from '../assets/svg/location-pin.svg';
 import { ReactComponent as LeftArrowIcon } from '../assets/svg/left-arrow.svg';
 import { Typography } from '@mui/material';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
@@ -35,8 +35,8 @@ const SingleMemberPage = () => {
   } = useGetCollection(routeName, currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
-  useRefetchLocale({ refetch });
   const member = memberData?.data?.[0]?.attributes;
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: member?.locale });
 
   if (!member)
     return (
@@ -49,10 +49,8 @@ const SingleMemberPage = () => {
       </PageLayout>
     );
 
-  if (member?.locale !== currentLang) refetch();
-
   return (
-    <PageLayout isLoading={isLoading || isRefetching || member?.locale !== currentLang}>
+    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
       <article className="flex flex-col w-[80%] mx-auto lg:mt-0 mt-24 lg:px-20 px-0 relative">
         <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
           <div className="flex w-[200px] min-w-[200px] min-h-[200px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">

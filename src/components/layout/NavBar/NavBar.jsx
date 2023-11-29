@@ -13,7 +13,7 @@ import { ROUTES } from '../../../constants/routes';
 import { useGetCollection } from '../../../services/api/hooks/useGetCollection';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitch from '../../LanguageSwitch/LanguageSwitch';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import useRefetchLocale from '../../../hooks/useRefetchLocale/useRefetchLocale';
 
 const NavBar = () => {
@@ -24,7 +24,7 @@ const NavBar = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
 
   const { data: categoriesData, refetch } = useGetCollection('categories', currentLang);
-  useRefetchLocale({ refetch });
+  useRefetchLocale({ refetch, locale: categoriesData?.data?.[0]?.attributes?.locale });
   const categoriesNames = categoriesData?.data?.map((category) => category.attributes.name);
   const currentRoute = useLocation();
   const navigate = useNavigate();

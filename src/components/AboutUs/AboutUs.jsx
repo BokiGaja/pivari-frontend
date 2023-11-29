@@ -3,7 +3,7 @@ import { useGetCollection } from '../../services/api/hooks/useGetCollection';
 import Text from '../Text/Text';
 import Markdown from 'react-markdown';
 import MarkdownImage from '../Markdown/MarkdownImage';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
 import useRefetchLocale from '../../hooks/useRefetchLocale/useRefetchLocale';
 import { CircularProgress } from '@mui/material';
@@ -15,11 +15,9 @@ const AboutUs = () => {
   const aboutUs = aboutUsData?.data?.attributes;
   const { t } = useTranslation();
 
-  useRefetchLocale({ refetch });
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: aboutUs?.locale });
 
-  if (aboutUs?.locale !== currentLang) refetch();
-
-  if (isLoading || (aboutUs && aboutUs?.locale !== currentLang))
+  if (isLoading || isLocaleChanged)
     return (
       <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
         <CircularProgress color="inherit" />

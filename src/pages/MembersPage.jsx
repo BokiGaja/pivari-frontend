@@ -6,10 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
-import { useSetAtom } from 'jotai';
+import { useSetAtom, useAtom } from 'jotai';
 import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
 import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewCard';
-import { useAtom } from 'jotai/index';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
@@ -27,12 +26,12 @@ const MembersPage = () => {
   };
   const [currentLang] = useAtom(localeLanguageAtom);
   const { data: membersData, isLoading, refetch } = useGetCollection('members', currentLang);
-  useRefetchLocale({ refetch });
   const members = membersData?.data?.map((member) => ({
     ...member.attributes,
     logo: sanitizeResponseData(member.attributes, 'logo')?.url,
   }));
 
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: members?.[0]?.locale });
   if (!members?.length) {
     return (
       <PageLayout>
@@ -45,12 +44,8 @@ const MembersPage = () => {
     );
   }
 
-  if (members?.length) {
-    members[0]?.locale !== currentLang && refetch();
-  }
-
   return (
-    <PageLayout isLoading={isLoading || (members?.length && members[0]?.locale !== currentLang)}>
+    <PageLayout isLoading={isLoading || isLocaleChanged}>
       <div className="flex flex-col lg:mt-0 mt-[150px] lg:items-center lg:px-20 px-5">
         {members?.map((member, index) => (
           <React.Fragment key={member?.createdAt}>
