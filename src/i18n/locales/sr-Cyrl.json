@@ -31,6 +31,10 @@
       "mainPart": "Назад на",
       "articles": "чланке",
       "sponsors": "спонзоре"
+    },
+    "searchBar": {
+      "searchLabel": "Претражи на страници",
+      "searchButton": "Тражи"
     }
   }
 }

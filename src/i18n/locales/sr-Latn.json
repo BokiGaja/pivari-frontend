@@ -31,6 +31,10 @@
       "mainPart": "Nazad na",
       "sponsors": "sponzore",
       "members": "članove"
+    },
+    "searchBar": {
+      "searchLabel": "Pretraži na stranici",
+      "searchButton": "Traži"
     }
   }
 }

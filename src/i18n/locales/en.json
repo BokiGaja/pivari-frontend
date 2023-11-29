@@ -31,6 +31,10 @@
       "mainPart": "Back to",
       "articles": "articles",
       "sponsors": "sponsors"
+    },
+    "searchBar": {
+      "searchLabel": "Search on page",
+      "searchButton": "Search"
     }
   }
 }

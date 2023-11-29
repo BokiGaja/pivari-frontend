@@ -14,6 +14,7 @@ import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useAtom } from 'jotai/index';
 import { localeLanguageAtom } from '../atoms';
 import { useTranslation } from 'react-i18next';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
@@ -87,6 +88,10 @@ const ArticlesPage = () => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
+  const handleSubmit = (state) => {
+    console.log(state);
+  };
+
   const selectedCategory = categoriesData?.data?.find(
     (category) => category.attributes.name === searchParams?.get('category')
   );
@@ -144,6 +149,7 @@ const ArticlesPage = () => {
         />
       </div>
       <div className="lg:h-[200px] h-[320px]" />
+      <SearchBar handleSubmit={handleSubmit} />
       {isLoadingArticles ? (
         <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
           <CircularProgress color="inherit" />
