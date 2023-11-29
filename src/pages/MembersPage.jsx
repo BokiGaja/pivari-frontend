@@ -7,12 +7,16 @@ import { Typography } from '@mui/material';
 
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useSetAtom } from 'jotai';
-import { pageScrolledAtom } from '../atoms';
+import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
 import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewCard';
+import { useAtom } from 'jotai/index';
+import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import { useTranslation } from 'react-i18next';
 
 const MembersPage = () => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
+  const { t } = useTranslation();
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -21,7 +25,9 @@ const MembersPage = () => {
     });
     setPageScrolled(false);
   };
-  const { data: membersData, isLoading } = useGetCollection('members');
+  const [currentLang] = useAtom(localeLanguageAtom);
+  const { data: membersData, isLoading, refetch } = useGetCollection('members', currentLang);
+  useRefetchLocale({ refetch });
   const members = membersData?.data?.map((member) => ({
     ...member.attributes,
     logo: sanitizeResponseData(member.attributes, 'logo')?.url,
@@ -32,15 +38,19 @@ const MembersPage = () => {
       <PageLayout>
         <div className="flex items-center justify-center h-screen">
           <Typography variant="h4" className="text-maltYellow">
-            {'Nema članova'}
+            {t('members.noMembers')}
           </Typography>
         </div>
       </PageLayout>
     );
   }
 
+  if (members?.length) {
+    members[0]?.locale !== currentLang && refetch();
+  }
+
   return (
-    <PageLayout isLoading={isLoading}>
+    <PageLayout isLoading={isLoading || (members?.length && members[0]?.locale !== currentLang)}>
       <div className="flex flex-col lg:mt-0 mt-[150px] lg:items-center lg:px-20 px-5">
         {members?.map((member, index) => (
           <React.Fragment key={member?.createdAt}>

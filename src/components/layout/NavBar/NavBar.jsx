@@ -3,7 +3,7 @@ import { AppBar, Toolbar, useScrollTrigger } from '@mui/material';
 import NavBarButton from '../../Buttons/NavBarButton/NavBarButton.jsx';
 import { ReactComponent as UdruzenjeLogo } from '../../../assets/svg/udruzenje-logo.svg';
 import navBarStyles from './NavBar.styles.js';
-import { pageScrolledAtom } from '../../../atoms';
+import { localeLanguageAtom, pageScrolledAtom } from '../../../atoms';
 import { useSetAtom } from 'jotai';
 import useClickOutside from '../../../hooks/htmlEvents/useClickOutside';
 import { ReactComponent as DownArrow } from '../../../assets/svg/down-arrow.svg';
@@ -11,16 +11,24 @@ import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemBut
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import { useGetCollection } from '../../../services/api/hooks/useGetCollection';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitch from '../../LanguageSwitch/LanguageSwitch';
+import { useAtom } from 'jotai/index';
+import useRefetchLocale from '../../../hooks/useRefetchLocale/useRefetchLocale';
 
 const NavBar = () => {
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const ref = useRef(null);
-  const { data: categoriesData } = useGetCollection('categories');
+  const [currentLang] = useAtom(localeLanguageAtom);
+
+  const { data: categoriesData, refetch } = useGetCollection('categories', currentLang);
+  useRefetchLocale({ refetch });
   const categoriesNames = categoriesData?.data?.map((category) => category.attributes.name);
   const currentRoute = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
@@ -44,25 +52,24 @@ const NavBar = () => {
     <AppBar position="fixed" style={isScrolled ? navBarStyles.containerScrolled : navBarStyles.containerInitial}>
       <Toolbar className="flex-1 flex flex-col lg:flex-row justify-between items-center pt-2 pb-2 relative">
         <div className="lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
-          <div className="lg:hidden w-[300px]">
-            <UdruzenjeLogo/>
+          <div className="lg:hidden w-full">
+            <UdruzenjeLogo />
           </div>
           <div className="flex-1 flex items-center justify-around ml-4">
             <NavBarButton
               isActive={currentRoute?.pathname === ROUTES.HOME}
-              text="Početna"
+              text={t('navbar.home')}
               onClick={() => navigate(ROUTES.HOME)}
             />
             <div className="flex items-center justify-around mr-4 relative" ref={ref}>
               <NavBarButton
                 isActive={currentRoute?.pathname.includes('article')}
-                text="Članci"
+                text={t('navbar.articles')}
                 onClick={() => toggleDropdown()}
-                icon={<DownArrow className="w-4 h-4 ml-2 mt-1"/>}
+                icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
               />
               {isDropdownOpen && (
-                <div
-                  className="absolute flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
+                <div className="absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
                   {categoriesNames?.map((categoryName) => (
                     <DropdownItemButton
                       text={categoryName}
@@ -82,31 +89,32 @@ const NavBar = () => {
             </div>
             <NavBarButton
               isActive={currentRoute?.pathname.includes('recipe')}
-              text="Recepti"
+              text={t('navbar.recipes')}
               onClick={() => navigate(ROUTES.RECIPES)}
             />
           </div>
         </div>
         <div className="hidden lg:flex w-[300px]">
-          <UdruzenjeLogo/>
+          <UdruzenjeLogo />
         </div>
         <div className="flex-1 flex items-center justify-around ml-4">
           <NavBarButton
-            text="Članovi"
+            text={t('navbar.members')}
             onClick={() => navigate(ROUTES.MEMBERS)}
             isActive={currentRoute?.pathname.includes('members')}
           />
           <NavBarButton
-            text="Sponzori"
+            text={t('navbar.sponsors')}
             onClick={() => navigate(ROUTES.SPONSORS)}
             isActive={currentRoute?.pathname.includes('sponsor')}
           />
           <NavBarButton
-            text="O nama"
+            text={t('navbar.aboutUs')}
             onClick={() => navigate(ROUTES.ABOUT_US)}
             isActive={currentRoute?.pathname === ROUTES.ABOUT_US}
           />
         </div>
+        <LanguageSwitch />
       </Toolbar>
     </AppBar>
   );

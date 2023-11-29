@@ -4,13 +4,14 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import Text from '../../Text/Text';
 import { formatDate } from '../../../utils/date/formatDate';
 import PropTypes from 'prop-types';
-import { useSetAtom } from 'jotai';
-import { pageScrolledAtom } from '../../../atoms';
+import { useAtom, useSetAtom } from 'jotai';
+import { localeLanguageAtom, pageScrolledAtom } from '../../../atoms';
 import ArticleContacts from '../ArticleContacts/ArticleContacts';
 
 const ArticleFooter = ({ article }) => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
+  const [currentLang] = useAtom(localeLanguageAtom);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -44,7 +45,7 @@ const ArticleFooter = ({ article }) => {
       </div>
       <ArticleContacts article={article} />
       <div className="flex">
-        <Text size="medium" color="white" text={formatDate(article.createdAt)} />
+        <Text size="medium" color="white" text={formatDate(article.createdAt, {}, currentLang)} />
       </div>
     </div>
   );

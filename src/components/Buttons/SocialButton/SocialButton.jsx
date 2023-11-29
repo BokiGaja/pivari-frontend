@@ -6,6 +6,8 @@ import { ReactComponent as EmailIcon } from '../../../assets/svg/socialIcons/ico
 import { ReactComponent as UrlLinkIcon } from '../../../assets/svg/socialIcons/icon-link-world.svg';
 import PropTypes from 'prop-types';
 import { useGetCollection } from '../../../services/api/hooks/useGetCollection';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../../../atoms';
 
 export const SOCIAL_BUTTONS = {
   FACEBOOK: 'facebook',
@@ -21,7 +23,8 @@ const SOCIAL_DEFAULTS = {
 };
 
 const SocialButton = ({ type, url }) => {
-  const { data: contactData } = useGetCollection('contact-us', 'sr', '*');
+  const [currentLang] = useAtom(localeLanguageAtom);
+  const { data: contactData } = useGetCollection('contact-us', currentLang, '*');
   const contactUs = contactData?.data?.attributes;
   const socialButtons = {
     facebook: {

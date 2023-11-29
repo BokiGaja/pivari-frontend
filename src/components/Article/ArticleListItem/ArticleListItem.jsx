@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../../utils/date/formatDate';
 import { truncateString } from '../../../utils/string/truncate';
-import { useSetAtom } from 'jotai';
-import { pageScrolledAtom } from '../../../atoms';
+import { useAtom, useSetAtom } from 'jotai';
+import { localeLanguageAtom, pageScrolledAtom } from '../../../atoms';
 
 const ArticleListItem = ({ article, innerRef }) => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
+  const [currentLang] = useAtom(localeLanguageAtom);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -38,9 +39,9 @@ const ArticleListItem = ({ article, innerRef }) => {
       </div>
       <div className="flex flex-col align-center text-center w-full h-full justify-center">
         <Text size="large" color="maltYellow" text={article.title} />
-        <Text size="medium" color="white" text={truncateString(article.description, 250)} />
-        <div className="absolute bottom-4 right-4">
-          <Text size="small" color="gray" text={formatDate(article.createdAt)} />
+        <Text size="medium" className="" color="white" text={truncateString(article.description, 250)} />
+        <div className="flex self-center mt-4">
+          <Text size="small" color="gray" text={formatDate(article.createdAt, {}, currentLang)} />
         </div>
       </div>
     </div>

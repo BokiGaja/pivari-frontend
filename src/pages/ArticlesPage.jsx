@@ -10,11 +10,17 @@ import ArticleListItem from '../components/Article/ArticleListItem/ArticleListIt
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
+import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../atoms';
+import { useTranslation } from 'react-i18next';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
 
   const { ref, inView } = useInView({});
+  const [currentLang] = useAtom(localeLanguageAtom);
+  const { t } = useTranslation();
 
   const {
     data: articlesPageData,
@@ -23,7 +29,7 @@ const ArticlesPage = () => {
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
-    refetch,
+    refetch: refetchArticles,
     isInitialLoading: isLoadingArticles,
   } = useInfiniteQuery({
     queryKey: ['articles'],
@@ -31,7 +37,7 @@ const ArticlesPage = () => {
       axios
         .get(`${process.env.REACT_APP_BASE_URL}/api/articles`, {
           params: {
-            locale: 'sr',
+            locale: currentLang,
             populate: '*',
             'filters[categories][name][$eq]': searchParams?.get('category'),
             'pagination[page]': pageParam,
@@ -48,14 +54,25 @@ const ArticlesPage = () => {
         : undefined;
     },
   });
+
   const articlesData = articlesPageData?.pages?.map((articles) => articles?.data).flat();
 
-  const { data: categoriesData, isLoading: isLoadingCollections } = useGetCollection('categories');
+  const {
+    data: categoriesData,
+    isLoading: isLoadingCollections,
+    refetch: refetchCategories,
+  } = useGetCollection('categories', currentLang);
+  useRefetchLocale({ refetch: refetchArticles });
+  useRefetchLocale({ refetch: refetchCategories });
 
   const sanitizedArticlesData = articlesData?.map((article) => ({
     ...article.attributes,
     cover_image: sanitizeResponseData(article.attributes, 'cover_image')?.url,
   }));
+
+  if (sanitizedArticlesData?.length) {
+    sanitizedArticlesData[0]?.locale !== currentLang && refetchArticles().catch((err) => console.log(err));
+  }
 
   const content = sanitizedArticlesData?.map((article, index) => {
     if (sanitizedArticlesData.length === index + 1) {
@@ -74,11 +91,15 @@ const ArticlesPage = () => {
     (category) => category.attributes.name === searchParams?.get('category')
   );
 
+  if (selectedCategory && selectedCategory?.attributes?.locale !== currentLang) {
+    refetchCategories().catch((err) => console.log(err));
+  }
+
   const categoryCoverImage = sanitizeResponseData(selectedCategory?.attributes, 'cover_image')?.url;
 
   useEffect(() => {
-    refetch().catch((err) => console.log(err));
-  }, [searchParams, refetch]);
+    refetchArticles().catch((err) => console.log(err));
+  }, [searchParams, refetchArticles]);
 
   if (status === 'pending') {
     return (
@@ -93,7 +114,7 @@ const ArticlesPage = () => {
       <PageLayout>
         <div className="flex items-center justify-center h-screen">
           <Typography variant="h4" className="text-maltYellow">
-            {'Nema članaka'}
+            {t('articles.noArticles')}
           </Typography>
         </div>
       </PageLayout>
@@ -101,7 +122,14 @@ const ArticlesPage = () => {
   }
 
   return (
-    <PageLayout isLoading={isLoadingArticles || isLoadingCollections}>
+    <PageLayout
+      isLoading={
+        isLoadingArticles ||
+        isLoadingCollections ||
+        !!(sanitizedArticlesData?.length && sanitizedArticlesData[0]?.locale !== currentLang) ||
+        selectedCategory?.attributes?.locale !== currentLang
+      }
+    >
       <div className="absolute lg:top-[100px] top-[250px]">
         <img
           src={categoryCoverImage}

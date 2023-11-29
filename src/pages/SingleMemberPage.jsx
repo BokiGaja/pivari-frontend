@@ -14,20 +14,28 @@ import { ReactComponent as PhoneIcon } from '../assets/svg/phone.svg';
 import { ReactComponent as LocationIcon } from '../assets/svg/location-pin.svg';
 import { ReactComponent as LeftArrowIcon } from '../assets/svg/left-arrow.svg';
 import { Typography } from '@mui/material';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../atoms';
+import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import { useTranslation } from 'react-i18next';
 
 const SingleMemberPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const route = useLocation();
   const routeName = route.pathname?.split('/')[1];
+  const [currentLang] = useAtom(localeLanguageAtom);
+  const { t } = useTranslation();
 
   const {
     data: memberData,
     isLoading,
     isRefetching,
-  } = useGetCollection(routeName, 'sr', '*', {
+    refetch,
+  } = useGetCollection(routeName, currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
+  useRefetchLocale({ refetch });
   const member = memberData?.data?.[0]?.attributes;
 
   if (!member)
@@ -35,14 +43,16 @@ const SingleMemberPage = () => {
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
           <Typography variant="h4" className="text-maltYellow">
-            {'Član ne postoji'}
+            {t(routeName === 'members' ? 'members.noMember' : 'sponsors.noSponsor')}
           </Typography>
         </div>
       </PageLayout>
     );
 
+  if (member?.locale !== currentLang) refetch();
+
   return (
-    <PageLayout isLoading={isLoading || isRefetching}>
+    <PageLayout isLoading={isLoading || isRefetching || member?.locale !== currentLang}>
       <article className="flex flex-col w-[80%] mx-auto lg:mt-0 mt-24 lg:px-20 px-0 relative">
         <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
           <div className="flex w-[200px] min-w-[200px] min-h-[200px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
@@ -117,7 +127,7 @@ const SingleMemberPage = () => {
             }}
           >
             <LeftArrowIcon className="h-10 w-10" />
-            {`Nazad ka ${routeName === 'members' ? 'članovima' : 'sponzorima'}`}
+            {`${t('backTo.mainPart')} ${routeName === 'members' ? t('backTo.members') : t('backTo.sponsors')}`}
           </button>
         </div>
       </article>

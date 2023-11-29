@@ -4,8 +4,12 @@ import { formatDate } from '../../../utils/date/formatDate';
 import { ReactComponent as CalendarIcon } from '../../../assets/svg/calendar.svg';
 import { ReactComponent as LocationPin } from '../../../assets/svg/location-pin.svg';
 import PropTypes from 'prop-types';
+import { useAtom } from 'jotai';
+import { localeLanguageAtom } from '../../../atoms';
 
 const ArticleEventInfo = ({ article }) => {
+  const [currentLang] = useAtom(localeLanguageAtom);
+
   const dateExtraOptions = {
     month: 'numeric',
     hour: 'numeric',
@@ -19,8 +23,8 @@ const ArticleEventInfo = ({ article }) => {
           <Text
             size="medium"
             color="white"
-            text={`${formatDate(article.start_date, dateExtraOptions)} ${article.end_date ? '-' : ''} ${
-              article.end_date ? formatDate(article.end_date, dateExtraOptions) : ''
+            text={`${formatDate(article.start_date, dateExtraOptions, currentLang)} ${article.end_date ? '-' : ''} ${
+              article.end_date ? formatDate(article.end_date, dateExtraOptions, currentLang) : ''
             }`}
             className="text-2xl font-bold text-center break-all my-4"
           />

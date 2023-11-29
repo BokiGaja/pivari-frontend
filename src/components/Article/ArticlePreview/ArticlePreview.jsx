@@ -6,10 +6,13 @@ import Text from '../../Text/Text';
 import ImageWithFade from '../../ImageWithFade';
 import { formatDate } from '../../../utils/date/formatDate';
 import { truncateString } from '../../../utils/string/truncate';
+import { useAtom } from 'jotai';
+import { localeLanguageAtom } from '../../../atoms';
 
 const ArticlePreview = ({ article, onClick }) => {
   const { title, description, createdAt } = article;
   const backgroundImageUrl = sanitizeResponseData(article, 'cover_image')?.url;
+  const [currentLang] = useAtom(localeLanguageAtom);
 
   return (
     <div
@@ -21,7 +24,7 @@ const ArticlePreview = ({ article, onClick }) => {
         <Text size="large" color="maltYellow" text={title} className="text-4xl font-bold text-center break-all" />
         <Text size="medium" color="white" text={truncateString(description, 250)} className="text-xl text-center" />
         <div className="absolute bottom-3 right-4">
-          <Text size="small" color="gray" text={formatDate(createdAt)} />
+          <Text size="small" color="gray" text={formatDate(createdAt, {}, currentLang)} />
         </div>
       </div>
     </div>

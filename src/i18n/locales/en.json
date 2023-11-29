@@ -1,0 +1,36 @@
+{
+  "translation": {
+    "navbar": {
+      "home": "Home",
+      "articles": "Articles",
+      "recipes": "Recipes",
+      "members": "Members",
+      "sponsors": "Sponsors",
+      "aboutUs": "About us"
+    },
+    "articles": {
+      "noArticles": "No articles found",
+      "noArticle": "No article found"
+    },
+    "recipes": {
+      "noRecipes": "No recipes found",
+      "noRecipe": "No recipe found"
+    },
+    "members": {
+      "noMembers": "No members found",
+      "noMember": "No member found"
+    },
+    "sponsors": {
+      "noSponsors": "No sponsors found",
+      "noSponsor": "No sponsor found"
+    },
+    "aboutUs": {
+      "title": "About us"
+    },
+    "backTo": {
+      "mainPart": "Back to",
+      "articles": "articles",
+      "sponsors": "sponsors"
+    }
+  }
+}

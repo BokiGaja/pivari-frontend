@@ -1,0 +1,36 @@
+{
+  "translation": {
+    "navbar": {
+      "home": "Početna",
+      "articles": "Članci",
+      "recipes": "Recepti",
+      "members": "Članovi",
+      "sponsors": "Sponzori",
+      "aboutUs": "O nama"
+    },
+    "articles": {
+      "noArticles": "Nema članaka",
+      "noArticle": "Nema članka"
+    },
+    "recipes": {
+      "noRecipes": "Nema recepata",
+      "noRecipe": "Nema recepta"
+    },
+    "members": {
+      "noMembers": "Nema članova",
+      "noMember": "Nema člana"
+    },
+    "sponsors": {
+      "noSponsors": "Nema sponzora",
+      "noSponsor": "Nema sponzora"
+    },
+    "aboutUs": {
+      "title": "O nama"
+    },
+    "backTo": {
+      "mainPart": "Nazad na",
+      "sponsors": "sponzore",
+      "members": "članove"
+    }
+  }
+}

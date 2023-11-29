@@ -7,11 +7,15 @@ import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useNavigate } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { useSetAtom } from 'jotai';
-import { pageScrolledAtom } from '../atoms';
+import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
+import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import { useAtom } from 'jotai/index';
+import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
+  const { t } = useTranslation();
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -20,15 +24,26 @@ const HomePage = () => {
     });
     setPageScrolled(false);
   };
-  const { data: homePageData, error, isLoading } = useGetCollection('home-page', 'sr', 'articles.cover_image');
-  const articles = sanitizeResponseData(homePageData?.data?.attributes, 'articles');
+  const [currentLang] = useAtom(localeLanguageAtom);
 
-  if (!articles.length || error) {
+  const {
+    data: homePageData,
+    error,
+    isLoading,
+    refetch,
+  } = useGetCollection('home-page', currentLang, 'articles.cover_image');
+  useRefetchLocale({ refetch });
+  const articles = sanitizeResponseData(homePageData?.data?.attributes, 'articles');
+  if (articles.length) {
+    articles[0]?.locale !== currentLang && refetch();
+  }
+
+  if (!articles.length || error || articles?.[0]?.locale !== currentLang) {
     return (
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
           <Typography variant="h4" className="text-maltYellow">
-            {'Nema artikala'}
+            {t('articles.noArticles')}
           </Typography>
         </div>
       </PageLayout>
@@ -37,7 +52,7 @@ const HomePage = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center lg:mt-0 mt-44">
         {articles?.map((article, index) => (
           <div key={article.updatedAt} className="flex flex-col lg:w-8/12 w-full justify-center items-center">
             {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}

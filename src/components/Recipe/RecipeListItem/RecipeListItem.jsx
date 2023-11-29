@@ -5,14 +5,15 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../../utils/date/formatDate';
 import { truncateString } from '../../../utils/string/truncate';
-import { useSetAtom } from 'jotai';
-import { pageScrolledAtom } from '../../../atoms';
+import { useAtom, useSetAtom } from 'jotai';
+import { localeLanguageAtom, pageScrolledAtom } from '../../../atoms';
 import RecipeAdditionalInfo from '../RecipeAdditionalInfo/RecipeAdditionalInfo';
 
 const RecipeListItem = ({ recipe }) => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [useFallbackImage, setUseFallbackImage] = useState(false);
+  const [currentLang] = useAtom(localeLanguageAtom);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -57,7 +58,7 @@ const RecipeListItem = ({ recipe }) => {
             {`Autor: `}
             <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
           </a>
-          <Text size="small" color="gray" text={formatDate(recipe.createdAt)} />
+          <Text size="small" color="gray" text={formatDate(recipe.createdAt, {}, currentLang)} />
         </div>
       </div>
     </div>

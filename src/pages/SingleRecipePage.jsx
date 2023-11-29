@@ -10,17 +10,26 @@ import MarkdownImage from '../components/Markdown/MarkdownImage';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import RecipeIngredientsTable from '../components/Recipe/RecipeIngredientsTable/RecipeIngredientsTable';
 import RecipeAdditionalInfo from '../components/Recipe/RecipeAdditionalInfo/RecipeAdditionalInfo';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../atoms';
+import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import { useTranslation } from 'react-i18next';
 
 const SingleRecipePage = () => {
+  const [currentLang] = useAtom(localeLanguageAtom);
   const params = useParams();
+  const { t } = useTranslation();
+
   const {
     data: recipeData,
     isLoading,
     error,
     isRefetching,
-  } = useGetCollection('recipes', 'sr', '*', {
+    refetch,
+  } = useGetCollection('recipes', currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
+  useRefetchLocale({ refetch });
   const recipe = recipeData?.data?.[0]?.attributes;
 
   if (error || !recipe)
@@ -28,14 +37,16 @@ const SingleRecipePage = () => {
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
           <Typography variant="h4" className="text-maltYellow">
-            {'Recept ne postoji'}
+            {t('recipes.noRecipe')}
           </Typography>
         </div>
       </PageLayout>
     );
 
+  if (recipe?.locale !== currentLang) refetch();
+
   return (
-    <PageLayout isLoading={isLoading || isRefetching}>
+    <PageLayout isLoading={isLoading || isRefetching || recipe?.locale !== currentLang}>
       <div className="lg:flex lg:flex-col items-center lg:px-40 lg:mt-0 mt-[120px]">
         <div className="flex flex-col mb-10">
           <Text

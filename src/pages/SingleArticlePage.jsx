@@ -9,17 +9,28 @@ import ArticleEventInfo from '../components/Article/ArticleEventInfo/ArticleEven
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { Typography } from '@mui/material';
 import pivariLogo from '../assets/logos/pivari-logo.png';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../atoms';
+import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import { useTranslation } from 'react-i18next';
 
 const SingleArticlePage = () => {
   const params = useParams();
+  const [currentLang] = useAtom(localeLanguageAtom);
+  const { t } = useTranslation();
+
   const {
     data: articleData,
     isLoading,
     error,
     isRefetching,
-  } = useGetCollection('articles', 'sr', '*', {
+    refetch,
+  } = useGetCollection('articles', currentLang, '*', {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
+
+  useRefetchLocale({ refetch });
+
   const article = articleData?.data?.[0]?.attributes;
 
   if (error || !article)
@@ -27,14 +38,15 @@ const SingleArticlePage = () => {
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
           <Typography variant="h4" className="text-maltYellow">
-            {'Artikal ne postoji'}
+            {t('articles.noArticle')}
           </Typography>
         </div>
       </PageLayout>
     );
+  if (article?.locale !== currentLang) refetch();
 
   return (
-    <PageLayout isLoading={isLoading || isRefetching}>
+    <PageLayout isLoading={isLoading || isRefetching || article?.locale !== currentLang}>
       <div className="lg:flex lg:flex-col items-center">
         <div className="absolute lg:top-[100px] top-[200px]">
           <img
