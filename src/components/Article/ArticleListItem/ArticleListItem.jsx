@@ -24,20 +24,20 @@ const ArticleListItem = ({ article, innerRef }) => {
     <div
       ref={innerRef}
       key={article.id}
-      className="flex flex-row lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500"
+      className="flex lg:flex-row flex-col lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500 overflow-hidden"
       onClick={() => {
         navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
         scrollToTop();
       }}
     >
-      <div className="width-[600px]">
+      <div className="flex lg:w-[40%] w-full min-h-[30vh] h-full relative overflow-hidden lg:border-r-2 border-r-0 lg:border-b-0 border-b-2 border-hopGreen ">
         <img
           src={article.cover_image || pivariLogo}
           alt={article.title}
-          className="w-[600px] h-[200px] rounded-l-3xl border-r-2 border-hopGreen"
+          className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
         />
       </div>
-      <div className="flex flex-col align-center text-center w-full h-full justify-center">
+      <div className="flex flex-col align-center text-center w-full h-full justify-center px-[15px]">
         <Text size="large" color="maltYellow" text={article.title} />
         <Text size="medium" className="" color="white" text={truncateString(article.description, 250)} />
         <div className="flex self-center mt-4">

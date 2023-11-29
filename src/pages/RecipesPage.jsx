@@ -7,6 +7,7 @@ import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const RecipesPage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -14,6 +15,10 @@ const RecipesPage = () => {
   useRefetchLocale({ refetch });
   const recipes = recipesData?.data?.map((recipe) => recipe.attributes);
   const { t } = useTranslation();
+
+  const handleSubmit = (state) => {
+    console.log(state);
+  };
 
   if (recipes?.length) {
     recipes[0]?.locale !== currentLang && refetch();
@@ -33,7 +38,9 @@ const RecipesPage = () => {
 
   return (
     <PageLayout isLoading={recipes?.length && recipes[0]?.locale !== currentLang}>
-      <div className="flex flex-col items-center justify-start h-screen">
+      <div className="flex flex-col items-center justify-start min-h-screen">
+        <div className="lg:h-[50px] h-[200px]" />
+        <SearchBar handleSubmit={handleSubmit} />
         {recipes?.map((recipe) => (
           <RecipeListItem key={recipe.createdAt} recipe={recipe} />
         ))}

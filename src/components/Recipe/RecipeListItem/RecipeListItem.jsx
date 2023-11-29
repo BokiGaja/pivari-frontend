@@ -52,7 +52,7 @@ const RecipeListItem = ({ recipe }) => {
             onClick={(e) => {
               e.stopPropagation();
             }}
-            className="font-crimson group text-xl tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
+            className="font-crimson group lg:text-xl text-lg tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
             href={recipe.author_url}
           >
             {`Autor: `}
