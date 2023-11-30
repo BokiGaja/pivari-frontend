@@ -37,7 +37,7 @@
   }
 }
 
-.react-multi-carousel-track {
+/* .react-multi-carousel-track {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -51,4 +51,4 @@
 .react-multi-carousel-item {
   flex: 0 0 auto !important;
   width: 200px !important;
-}
+} */

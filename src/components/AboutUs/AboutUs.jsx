@@ -8,12 +8,15 @@ import { localeLanguageAtom } from '../../atoms';
 import useRefetchLocale from '../../hooks/useRefetchLocale/useRefetchLocale';
 import { CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import CarouselSlider from '../Carousel/CarouselSlider';
 
 const AboutUs = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
   const { data: aboutUsData, isLoading, refetch } = useGetCollection('about-us', currentLang, '*');
   const aboutUs = aboutUsData?.data?.attributes;
   const { t } = useTranslation();
+
+  const carouselData = aboutUs?.carousel?.data;
 
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: aboutUs?.locale });
 
@@ -33,6 +36,7 @@ const AboutUs = () => {
       >
         {aboutUs.text}
       </Markdown>
+      <div className="w-screen">{carouselData && <CarouselSlider carouselData={carouselData} />}</div>
     </div>
   );
 };

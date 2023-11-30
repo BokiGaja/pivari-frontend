@@ -19,6 +19,8 @@ import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
+import CarouselSlider from '../components/Carousel/CarouselSlider';
+
 const SingleMemberPage = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -30,13 +32,15 @@ const SingleMemberPage = () => {
   const {
     data: memberData,
     isLoading,
-    isRefetching,
+    // isRefetching,
     refetch,
   } = useGetCollection(routeName, currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
   const member = memberData?.data?.[0]?.attributes;
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: member?.locale });
+
+  const carouselData = member?.carousel?.data;
 
   if (!member)
     return (
@@ -50,8 +54,8 @@ const SingleMemberPage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
-      <article className="flex flex-col w-[80%] mx-auto lg:mt-0 mt-24 lg:px-20 px-0 relative">
+    <PageLayout isLoading={isLoading || isLocaleChanged}>
+      <article className="flex flex-col w-full mx-auto lg:mt-0 mt-24 px-0 relative">
         <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
           <div className="flex w-[200px] min-w-[200px] min-h-[200px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
             <img
@@ -111,12 +115,13 @@ const SingleMemberPage = () => {
             </div>
           </div>
         </div>
-        <div className="mb-[45px] w-[80%] mx-auto">
+        <div className="mb-[45px] w-[65%] mx-auto">
           <Text className="text-bold text-center" size={'large'} color={'white'} text={member?.description} />
         </div>
-        <div className="w-[80%] mx-auto">
+        <div className="w-[65%] mx-auto">
           <Text className="text-center whitespace-pre-wrap " size={'medium'} color={'white'} text={member?.content} />
         </div>
+        {carouselData && <CarouselSlider carouselData={carouselData} />}
         <div className="absolute -bottom-[8rem] left-[8vw] hover:scale-110 transition-all duration-[350ms]">
           <button
             className="flex items-center font-crimson text-maltYellow tracking-[0.05rem] gap-2"
