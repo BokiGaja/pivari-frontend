@@ -14,6 +14,8 @@ import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
+import Carousel from 'react-multi-carousel';
+
 const SingleArticlePage = () => {
   const params = useParams();
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -23,15 +25,53 @@ const SingleArticlePage = () => {
     data: articleData,
     isLoading,
     error,
-    isRefetching,
+    // isRefetching,
     refetch,
   } = useGetCollection('articles', currentLang, '*', {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
 
-  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: article?.locale });
+  const responsive = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 3,
+      partialVisibilityGutter: 40,
+    },
+    mobile: {
+      breakpoint: {
+        max: 464,
+        min: 0,
+      },
+      items: 1,
+      partialVisibilityGutter: 30,
+    },
+    tablet: {
+      breakpoint: {
+        max: 1024,
+        min: 464,
+      },
+      items: 2,
+      partialVisibilityGutter: 30,
+    },
+  };
 
   const article = articleData?.data?.[0]?.attributes;
+
+  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: article?.locale });
+
+  // const carouselImagesData = article?.carousel?.data;
+
+  // const carouselContent = carouselImagesData?.map((img) => {
+  //   console.log(img);
+  //   return (
+  //     <div key={img.id}>
+  //       <img className="w-[200px]" src={img.attributes.url} alt={img.attributes.name} />
+  //     </div>
+  //   );
+  // });
 
   if (error || !article)
     return (
@@ -45,7 +85,7 @@ const SingleArticlePage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
+    <PageLayout isLoading={isLoading || isLocaleChanged}>
       <div className="lg:flex lg:flex-col items-center">
         <div className="absolute lg:top-[100px] top-[200px]">
           <img
@@ -69,6 +109,56 @@ const SingleArticlePage = () => {
         >
           {article.content}
         </Markdown>
+        <Carousel
+          additionalTransfrom={0}
+          arrows
+          autoPlaySpeed={3000}
+          centerMode={true}
+          className="h-[200px] w-full"
+          containerClass="container-with-dots"
+          dotListClass=""
+          draggable
+          focusOnSelect={true}
+          infinite
+          itemClass=""
+          keyBoardControl
+          minimumTouchDrag={80}
+          pauseOnHover
+          renderArrowsWhenDisabled={false}
+          renderButtonGroupOutside={false}
+          renderDotsOutside={false}
+          responsive={responsive}
+          rewind={false}
+          rewindWithAnimation={false}
+          rtl={false}
+          shouldResetAutoplay
+          showDots={false}
+          sliderClass=""
+          slidesToSlide={1}
+          swipeable
+        >
+          <div className="w-[200px] h-[200px] ">
+            <img
+              className="w-[200px] h-[200px] "
+              src="https://res.cloudinary.com/dqsymxc78/image/upload/v1700483073/4144930_2820d5d0db.jpg"
+              alt="nesto"
+            />
+          </div>
+          <div className="w-[200px] h-[200px] ">
+            <img
+              className="w-[200px] h-[200px] "
+              src="https://res.cloudinary.com/dqsymxc78/image/upload/v1700571749/calsberg_rs_82091a145b.png"
+              alt="nesto"
+            />
+          </div>
+          <div className="w-[200px] h-[200px] ">
+            <img
+              className="w-[200px] h-[200px] "
+              src="https://res.cloudinary.com/dqsymxc78/image/upload/v1700571384/jelen_Pivo_3f20d6d4f7.jpg"
+              alt="nesto"
+            />
+          </div>
+        </Carousel>
         <div className="flex mt-20 justify-between w-full lg:px-40">
           <ArticleFooter article={article} />
         </div>
