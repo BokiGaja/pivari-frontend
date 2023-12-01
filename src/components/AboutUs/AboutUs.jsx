@@ -31,12 +31,14 @@ const AboutUs = () => {
     <div className="lg:flex flex-col items-center">
       <Text size="large" color="maltYellow" className="text-4xl mb-4 text-center" text={t('aboutUs.title')} />
       <Markdown
-        className="flex whitespace-pre-wrap flex-col justify-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px]"
+        className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto"
         components={{ p: React.Fragment, img: MarkdownImage }}
       >
         {aboutUs.text}
       </Markdown>
-      <div className="w-screen">{carouselData && <CarouselSlider carouselData={carouselData} />}</div>
+      <div className="w-[95vw] lg:p-20 md:p-10 p-0">
+        {carouselData && <CarouselSlider carouselData={carouselData} />}
+      </div>
     </div>
   );
 };

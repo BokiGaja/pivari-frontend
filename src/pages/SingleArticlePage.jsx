@@ -14,8 +14,6 @@ import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
-// import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import CarouselSlider from '../components/Carousel/CarouselSlider';
 
 const SingleArticlePage = () => {
@@ -27,38 +25,10 @@ const SingleArticlePage = () => {
     data: articleData,
     isLoading,
     error,
-    // isRefetching,
     refetch,
   } = useGetCollection('articles', currentLang, '*', {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
-
-  // const responsive = {
-  //   desktop: {
-  //     breakpoint: {
-  //       max: 3000,
-  //       min: 1024,
-  //     },
-  //     items: 3,
-  //     partialVisibilityGutter: 40,
-  //   },
-  //   mobile: {
-  //     breakpoint: {
-  //       max: 464,
-  //       min: 0,
-  //     },
-  //     items: 1,
-  //     partialVisibilityGutter: 30,
-  //   },
-  //   tablet: {
-  //     breakpoint: {
-  //       max: 1024,
-  //       min: 464,
-  //     },
-  //     items: 2,
-  //     partialVisibilityGutter: 30,
-  //   },
-  // };
 
   const article = articleData?.data?.[0]?.attributes;
 
@@ -97,7 +67,7 @@ const SingleArticlePage = () => {
           {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
         </div>
         <Markdown
-          className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white lg:mt-0 mt-4"
+          className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4"
           components={{ p: React.Fragment, img: MarkdownImage }}
         >
           {article.content}
