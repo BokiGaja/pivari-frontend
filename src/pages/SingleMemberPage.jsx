@@ -32,7 +32,6 @@ const SingleMemberPage = () => {
   const {
     data: memberData,
     isLoading,
-    // isRefetching,
     refetch,
   } = useGetCollection(routeName, currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
