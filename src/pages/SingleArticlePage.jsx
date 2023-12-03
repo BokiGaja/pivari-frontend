@@ -14,6 +14,8 @@ import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
+import CarouselSlider from '../components/Carousel/CarouselSlider';
+
 const SingleArticlePage = () => {
   const params = useParams();
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -23,7 +25,6 @@ const SingleArticlePage = () => {
     data: articleData,
     isLoading,
     error,
-    isRefetching,
     refetch,
   } = useGetCollection('articles', currentLang, '*', {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
@@ -33,6 +34,7 @@ const SingleArticlePage = () => {
 
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: article?.locale });
 
+  const carouselData = article?.carousel?.data;
 
   if (error || !article)
     return (
@@ -46,7 +48,7 @@ const SingleArticlePage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
+    <PageLayout isLoading={isLoading || isLocaleChanged}>
       <div className="lg:flex lg:flex-col items-center">
         <div className="absolute lg:top-[100px] top-[200px]">
           <img
@@ -65,11 +67,12 @@ const SingleArticlePage = () => {
           {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
         </div>
         <Markdown
-          className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white lg:mt-0 mt-4"
+          className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4"
           components={{ p: React.Fragment, img: MarkdownImage }}
         >
           {article.content}
         </Markdown>
+        {carouselData && <CarouselSlider carouselData={carouselData} />}
         <div className="flex mt-20 justify-between w-full lg:px-40">
           <ArticleFooter article={article} />
         </div>
