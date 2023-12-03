@@ -29,9 +29,10 @@ const SingleArticlePage = () => {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
 
+  const article = articleData?.data?.[0]?.attributes;
+
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: article?.locale });
 
-  const article = articleData?.data?.[0]?.attributes;
 
   if (error || !article)
     return (
