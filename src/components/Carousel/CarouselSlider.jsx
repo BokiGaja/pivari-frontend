@@ -104,7 +104,7 @@ const CarouselSlider = ({ carouselData }) => {
             <RightArrow className="lg:w-8 lg:h-8 h-6 w-6" />
           </button>
         </div>
-        <div className="flex justify-between flex-wrap w-[600px] mx-auto mt-[50px]">
+        <div className="flex justify-between flex-wrap lg:w-[600px] w-full lg:px-0 px-[20px] mx-auto mt-[50px]">
           {carouselData?.map((img) => {
             return (
               <div key={img.id} className="flex w-[20%] hover:cursor-pointer p-2">
