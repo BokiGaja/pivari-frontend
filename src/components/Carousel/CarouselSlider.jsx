@@ -70,7 +70,7 @@ const CarouselSlider = ({ carouselData }) => {
           {isActive ? (
             <div
               onClick={handleClickExit}
-              className="fixed flex justify-center items-center w-screen lg:h-screen h-[125vh] top-0 left-0 bg-[#282c34bb] z-[9]"
+              className="fixed flex justify-center items-center w-screen h-screen top-0 left-0 bg-[#282c34bb] z-[9]"
             >
               <div className=" lg:w-[500px] w-[280px] z-10">
                 <img className="w-full" src={popUrl} alt={popAlt} />

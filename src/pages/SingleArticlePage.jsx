@@ -62,7 +62,7 @@ const SingleArticlePage = () => {
             size="large"
             color="maltYellow"
             text={article.title}
-            className="text-7xl font-bold text-center break-all my-4 lg:mt-[180px] mt-[250px]"
+            className="lg:text-7xl text-5xl font-bold text-center my-4 lg:mt-[180px] mt-[250px]"
           />
           {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
         </div>

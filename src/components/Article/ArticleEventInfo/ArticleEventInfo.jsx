@@ -26,7 +26,7 @@ const ArticleEventInfo = ({ article }) => {
             text={`${formatDate(article.start_date, dateExtraOptions, currentLang)} ${article.end_date ? '-' : ''} ${
               article.end_date ? formatDate(article.end_date, dateExtraOptions, currentLang) : ''
             }`}
-            className="text-2xl font-bold text-center break-all my-4"
+            className="text-2xl font-bold text-center my-4"
           />
         </div>
       )}
