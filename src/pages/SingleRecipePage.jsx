@@ -24,7 +24,6 @@ const SingleRecipePage = () => {
     data: recipeData,
     isLoading,
     error,
-    isRefetching,
     refetch,
   } = useGetCollection('recipes', currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
@@ -44,7 +43,7 @@ const SingleRecipePage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading || isRefetching || isLocaleChanged}>
+    <PageLayout isLoading={isLoading || isLocaleChanged}>
       <div className="lg:flex lg:flex-col items-center lg:px-40 lg:mt-0 mt-[120px]">
         <div className="flex flex-col mb-10">
           <Text
@@ -63,7 +62,7 @@ const SingleRecipePage = () => {
           <img
             src={recipe?.cover_image?.data ? recipe.cover_image.data.attributes.url : pivariLogo}
             alt={`${recipe.name} image`}
-            className="max-w-[400px] rounded-3xl object-cover"
+            className="max-w-[400px] rounded-3xl object-cover lg:mx-0 mx-auto"
           />
           <div className="flex flex-col w-full lg:mt-0 mt-10">
             <div className="flex flex-col justify-center items-center">

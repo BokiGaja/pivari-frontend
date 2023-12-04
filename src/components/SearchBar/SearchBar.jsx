@@ -18,7 +18,7 @@ const SearchBar = ({ handleSubmit, handleClear }) => {
   };
 
   return (
-    <form className="flex justify-between lg:w-8/12 w-11/12 mx-auto lg:my-10 my-5">
+    <form className="flex justify-between lg:w-8/12 w-11/12 mx-auto lg:my-10 my-5 lg:mb-10 mb-4">
       <input
         className="w-[75%]  bg-blackBackgroundLighter rounded-xl p-2 lg:text-xl text-lg border-2 text-white border-hopGreen outline-none font-crimson tracking-wide "
         type="text"

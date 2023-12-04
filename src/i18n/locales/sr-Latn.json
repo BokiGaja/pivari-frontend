@@ -35,6 +35,10 @@
     "searchBar": {
       "searchLabel": "Pretraži na stranici",
       "searchButton": "Traži"
+    },
+    "responsiveMenu": {
+      "openMenu": "Otvori Meni",
+      "closeMenu": "Zatvori Meni"
     }
   }
 }

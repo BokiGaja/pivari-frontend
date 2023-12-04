@@ -17,12 +17,17 @@ const ArticlePreview = ({ article, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="flex flex-col w-3/4 h-[450px] bg-guinessBlack transition-transform transform-gpu hover:scale-105 cursor-pointer duration-500 rounded-3xl"
+      className="flex flex-col w-3/4 lg:h-[450px] h-auto bg-guinessBlack transition-transform transform-gpu hover:scale-105 cursor-pointer duration-500 rounded-3xl"
     >
       <ImageWithFade url={article?.cover_image?.data?.attributes?.url ? backgroundImageUrl : pivariLogo} />
       <div className="flex flex-col text-white z-10 p-5">
         <Text size="large" color="maltYellow" text={title} className="text-4xl font-bold text-center break-all" />
-        <Text size="medium" color="white" text={truncateString(description, 250)} className="text-xl text-center" />
+        <Text
+          size="medium"
+          color="white"
+          text={truncateString(description, 250)}
+          className="text-xl text-center lg:mb-0 mb-5"
+        />
         <div className="absolute bottom-3 right-4">
           <Text size="small" color="gray" text={formatDate(createdAt, {}, currentLang)} />
         </div>
