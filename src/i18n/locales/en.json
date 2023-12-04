@@ -35,6 +35,10 @@
     "searchBar": {
       "searchLabel": "Search on page",
       "searchButton": "Search"
+    },
+    "responsiveMenu": {
+      "openMenu": "Open Menu",
+      "closeMenu": "Close Menu"
     }
   }
 }

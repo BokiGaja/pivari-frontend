@@ -43,7 +43,7 @@ const HomePage = () => {
 
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
-      <div className="flex flex-col justify-center items-center lg:mt-0 mt-44">
+      <div className="flex flex-col justify-center items-center lg:mt-0 mt-20">
         {articles?.map((article, index) => (
           <div key={article.updatedAt} className="flex flex-col lg:w-8/12 w-full justify-center items-center">
             {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}

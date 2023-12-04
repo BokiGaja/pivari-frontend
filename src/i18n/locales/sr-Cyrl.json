@@ -35,6 +35,10 @@
     "searchBar": {
       "searchLabel": "Претражи на страници",
       "searchButton": "Тражи"
+    },
+    "responsiveMenu": {
+      "openMenu": "Отвори Мени",
+      "closeMenu": "Затвори Мени"
     }
   }
 }

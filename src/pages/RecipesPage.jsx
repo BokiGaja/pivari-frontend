@@ -37,10 +37,10 @@ const RecipesPage = () => {
   return (
     <PageLayout isLoading={isLocaleChanged}>
       <div className="flex flex-col items-center justify-start min-h-screen">
-        <div className="lg:h-[50px] h-[200px]" />
+        <div className="h-[50px]" />
         <SearchBar handleSubmit={handleSearch} handleClear={() => handleSearch('')} />
         {isLoading ? (
-          <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
+          <div className="flex p-5 lg:mt-5 mt-2 h-96 text-maltYellow bg-blackBackground items-center justify-center">
             <CircularProgress color="inherit" />
           </div>
         ) : (
