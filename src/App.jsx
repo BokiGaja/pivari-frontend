@@ -14,6 +14,9 @@ import SingleMemberPage from './pages/SingleMemberPage';
 import RecipesPage from './pages/RecipesPage';
 import SingleRecipePage from './pages/SingleRecipePage';
 import './i18n/i18n';
+import ReactGA from 'react-ga4';
+
+ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID);
 
 const App = () => {
   const queryClient = new QueryClient();
