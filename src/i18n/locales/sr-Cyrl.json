@@ -25,7 +25,8 @@
       "noSponsor": "Нема спонзора"
     },
     "aboutUs": {
-      "title": "О нама"
+      "title": "О нама",
+      "noText": "Нема текста"
     },
     "backTo": {
       "mainPart": "Назад на",

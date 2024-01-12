@@ -6,7 +6,7 @@ import MarkdownImage from '../Markdown/MarkdownImage';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
 import useRefetchLocale from '../../hooks/useRefetchLocale/useRefetchLocale';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../Carousel/CarouselSlider';
 
@@ -26,6 +26,16 @@ const AboutUs = () => {
         <CircularProgress color="inherit" />
       </div>
     );
+
+  if (!aboutUs?.text) {
+    return (
+      <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
+        <Typography variant="h4" className="text-maltYellow">
+          {t('aboutUs.noText')}
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div className="lg:flex flex-col items-center">

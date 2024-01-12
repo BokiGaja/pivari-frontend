@@ -25,7 +25,8 @@
       "noSponsor": "Nema sponzora"
     },
     "aboutUs": {
-      "title": "O nama"
+      "title": "O nama",
+      "noText": "Nema teksta"
     },
     "backTo": {
       "mainPart": "Nazad na",

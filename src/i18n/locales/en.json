@@ -25,7 +25,8 @@
       "noSponsor": "No sponsor found"
     },
     "aboutUs": {
-      "title": "About us"
+      "title": "About us",
+      "noText": "No text"
     },
     "backTo": {
       "mainPart": "Back to",
