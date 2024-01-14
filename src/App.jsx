@@ -15,11 +15,13 @@ import RecipesPage from './pages/RecipesPage';
 import SingleRecipePage from './pages/SingleRecipePage';
 import './i18n/i18n';
 import ReactGA from 'react-ga4';
+import useAnalyticsPathTracker from './hooks/useAnalyticsPathTracker/useAnalyticsPathTracker';
 
 ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID);
 
 const App = () => {
   const queryClient = new QueryClient();
+  useAnalyticsPathTracker();
 
   return (
     <QueryClientProvider client={queryClient}>

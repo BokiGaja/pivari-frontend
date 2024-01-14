@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import useAnalyticsEventTracker from '../../hooks/useAnalyticsEventTracker/useAnalyticsEventTracker';
+import ReactGA from 'react-ga4';
 
 const SearchBar = ({ handleSubmit, handleClear }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
-  const gaEventTracker = useAnalyticsEventTracker('Search Bar');
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -16,7 +15,7 @@ const SearchBar = ({ handleSubmit, handleClear }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    gaEventTracker('Search input', search);
+    ReactGA.event({ category: 'SearchBar', action: 'Search', label: search });
     handleSubmit(search);
   };
 
