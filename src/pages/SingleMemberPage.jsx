@@ -58,7 +58,7 @@ const SingleMemberPage = () => {
     <PageLayout isLoading={isLoading || isLocaleChanged}>
       <article className="flex flex-col w-full mx-auto lg:mt-0 mt-24 px-0 relative">
         <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
-          <div className="flex w-[200px] min-w-[200px] min-h-[200px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
+          <div className="flex w-[200px] min-w-[250px] min-h-[250px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
             <img
               className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
               src={member?.logo?.data?.attributes?.url ? member?.logo?.data?.attributes?.url : pivariLogo}
