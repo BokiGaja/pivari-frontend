@@ -13,8 +13,17 @@
       "noArticle": "No article found"
     },
     "recipes": {
+      "style": "Style",
+      "ingredients": "Ingredients",
       "noRecipes": "No recipes found",
-      "noRecipe": "No recipe found"
+      "noRecipe": "No recipe found",
+      "process": "Process",
+      "aboutBeer": "About beer",
+      "author": "Author",
+      "additions": "Additions",
+      "malt": "Malt",
+      "hops": "Hops",
+      "yeast": "Yeast"
     },
     "members": {
       "noMembers": "No members found",

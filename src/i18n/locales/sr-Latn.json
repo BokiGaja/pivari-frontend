@@ -13,8 +13,17 @@
       "noArticle": "Nema članka"
     },
     "recipes": {
+      "style": "Stil",
+      "ingredients": "Sastojci",
       "noRecipes": "Nema recepata",
-      "noRecipe": "Nema recepta"
+      "noRecipe": "Nema recepta",
+      "process": "Proces kuvanja",
+      "aboutBeer": "O pivu",
+      "author": "Autor",
+      "additions": "Dodaci",
+      "malt": "Slad",
+      "hops": "Hmelj",
+      "yeast": "Kvasac"
     },
     "members": {
       "noMembers": "Nema članova",

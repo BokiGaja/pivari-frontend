@@ -13,8 +13,17 @@
       "noArticle": "Нема чланка"
     },
     "recipes": {
+      "style": "Стил",
+      "ingredients": "Састојци",
       "noRecipes": "Нема рецепата",
-      "noRecipe": "Нема рецепта"
+      "noRecipe": "Нема рецепта",
+      "process": "Процес кувања",
+      "aboutBeer": "О пиву",
+      "author": "Аутор",
+      "additions": "Додаци",
+      "malt": "Слад",
+      "hops": "Хмељ",
+      "yeast": "Квасац"
     },
     "members": {
       "noMembers": "Нема чланова",

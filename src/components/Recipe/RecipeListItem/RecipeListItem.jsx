@@ -8,12 +8,14 @@ import { truncateString } from '../../../utils/string/truncate';
 import { useAtom, useSetAtom } from 'jotai';
 import { localeLanguageAtom, pageScrolledAtom } from '../../../atoms';
 import RecipeAdditionalInfo from '../RecipeAdditionalInfo/RecipeAdditionalInfo';
+import { useTranslation } from 'react-i18next';
 
 const RecipeListItem = ({ recipe }) => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [useFallbackImage, setUseFallbackImage] = useState(false);
   const [currentLang] = useAtom(localeLanguageAtom);
+  const { t } = useTranslation();
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -37,7 +39,7 @@ const RecipeListItem = ({ recipe }) => {
           src={(!useFallbackImage && recipe.cover_image?.data?.attributes?.url) || pivariLogo}
           alt={`${recipe.name} image`}
           onError={() => setUseFallbackImage(true)}
-          className="w-[400px] rounded-t-3xl lg:rounded-l-3xl lg:rounded-r-none  h-full border-b-2 lg:border-r-2 lg:border-r-hopGreen lg:border-b-0 border-b-hopGreen"
+          className="rounded-t-3xl lg:rounded-l-3xl lg:rounded-r-none  h-full border-b-2 lg:border-r-2 lg:border-r-hopGreen lg:border-b-0 border-b-hopGreen"
         />
       </div>
       <div className="flex flex-col align-center text-center w-full h-full justify-center p-2">
@@ -47,17 +49,21 @@ const RecipeListItem = ({ recipe }) => {
           <RecipeAdditionalInfo recipe={recipe} />
           {recipe?.style && <Text size="medium" color="maltYellow" className="mr-4" text={`Stil: ${recipe.style}`} />}
         </div>
-        <div className="flex lg:flex-row flex-co w-full px-4 justify-between">
-          <a
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            className="font-crimson group lg:text-xl text-lg tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
-            href={recipe.author_url}
-          >
-            {`Autor: `}
-            <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
-          </a>
+        <div
+          className={`flex lg:flex-row flex-co w-full px-4 ${recipe?.author ? 'justify-between' : 'justify-center'}`}
+        >
+          {recipe?.author && (
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="font-crimson group lg:text-xl text-lg tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
+              href={recipe.author_url}
+            >
+              {t('recipes.author') + ': '}
+              <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
+            </a>
+          )}
           <Text size="small" color="gray" text={formatDate(recipe.createdAt, {}, currentLang)} />
         </div>
       </div>

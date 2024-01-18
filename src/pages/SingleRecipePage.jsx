@@ -54,7 +54,9 @@ const SingleRecipePage = () => {
           />
           <div className="flex flex-1 items-center justify-center flex-row mt-2">
             <RecipeAdditionalInfo recipe={recipe} />
-            {recipe?.style && <Text size="medium" color="maltYellow" className="mr-4" text={`Stil: ${recipe.style}`} />}
+            {recipe?.style && (
+              <Text size="medium" color="maltYellow" className="mr-4" text={`${t('recipes.style')}: ${recipe.style}`} />
+            )}
           </div>
         </div>
 
@@ -69,29 +71,31 @@ const SingleRecipePage = () => {
               <Text
                 size="large"
                 color="maltYellow"
-                text={'Sastojci'}
+                text={t('recipes.ingredients')}
                 className="text-4xl font-bold text-center break-all"
               />
               <Separator className="flex w-10/12 h-4 my-4" />
             </div>
             <RecipeIngredientsTable recipe={recipe} />
-            <div className="flex flex-col items-center ">
-              <Separator className="flex w-10/12 h-4 my-4" />
-              <a
-                className="group font-crimson text-2xl tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
-                href={recipe.author_url}
-              >
-                {`Autor: `}
-                <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
-              </a>
-            </div>
+            {recipe?.author && (
+              <div className="flex flex-col items-center ">
+                <Separator className="flex w-10/12 h-4 my-4" />
+                <a
+                  className="group font-crimson text-2xl tracking-wide text-maltYellow hover:pointer group-hover:text-maltYellow transition-all duration-300"
+                  href={recipe.author_url}
+                >
+                  {t('recipes.author') + ': '}
+                  <strong className="group-hover:text-white transition-all duration-300">{recipe.author}</strong>
+                </a>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col mt-8 px-10 border-2 border-hopGreen rounded-3xl items-center">
           <Text
             size="large"
             color="maltYellow"
-            text={'Proces kuvanja'}
+            text={t('recipes.process')}
             className="text-4xl font-bold text-center break-all my-4"
           />
           <Separator className="flex w-10/12 h-4 my-4" />
@@ -106,7 +110,7 @@ const SingleRecipePage = () => {
           <Text
             size="large"
             color="maltYellow"
-            text={'O pivu'}
+            text={t('recipes.aboutBeer')}
             className="text-4xl font-bold text-center break-all my-4"
           />
           <Separator className="flex w-10/12 h-4 my-4" />
