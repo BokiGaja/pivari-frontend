@@ -41,7 +41,11 @@ const ArticleListItem = ({ article, innerRef }) => {
         <Text size="large" color="maltYellow" text={article.title} />
         <Text size="medium" className="" color="white" text={truncateString(article.description, 250)} />
         <div className="flex self-center mt-4">
-          <Text size="small" color="gray" text={formatDate(article.createdAt, {}, currentLang)} />
+          <Text
+            size="small"
+            color="gray"
+            text={formatDate(article?.start_date || article.createdAt, {}, currentLang)}
+          />
         </div>
       </div>
     </div>
