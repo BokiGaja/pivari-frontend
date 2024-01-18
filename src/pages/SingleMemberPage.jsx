@@ -20,6 +20,8 @@ import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 import CarouselSlider from '../components/Carousel/CarouselSlider';
+import MarkdownImage from '../components/Markdown/MarkdownImage';
+import Markdown from 'react-markdown';
 
 const SingleMemberPage = () => {
   const navigate = useNavigate();
@@ -117,9 +119,14 @@ const SingleMemberPage = () => {
         <div className="mb-[45px] w-[65%] mx-auto">
           <Text className="text-bold text-center" size={'large'} color={'white'} text={member?.description} />
         </div>
-        <div className="w-[65%] mx-auto">
-          <Text className="text-center whitespace-pre-wrap " size={'medium'} color={'white'} text={member?.content} />
-        </div>
+        {member?.content && (
+          <Markdown
+            className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto"
+            components={{ p: React.Fragment, img: MarkdownImage }}
+          >
+            {member.content}
+          </Markdown>
+        )}
         {carouselData && <CarouselSlider carouselData={carouselData} />}
         <div className="absolute -bottom-[8rem] left-[8vw] hover:scale-110 transition-all duration-[350ms]">
           <button
