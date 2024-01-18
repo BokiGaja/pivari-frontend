@@ -12,6 +12,7 @@ import SearchBar from '../components/SearchBar/SearchBar';
 const RecipesPage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
   const [searchRecipeTitle, setSearchRecipeTitle] = React.useState('');
+
   const {
     data: recipesData,
     refetch,
