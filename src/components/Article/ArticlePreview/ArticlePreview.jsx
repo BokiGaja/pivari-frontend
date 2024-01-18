@@ -21,7 +21,7 @@ const ArticlePreview = ({ article, onClick }) => {
     >
       <ImageWithFade url={article?.cover_image?.data?.attributes?.url ? backgroundImageUrl : pivariLogo} />
       <div className="flex flex-col text-white z-10 p-5">
-        <Text size="large" color="maltYellow" text={title} className="text-4xl font-bold text-center break-all" />
+        <Text size="large" color="maltYellow" text={title} className="text-4xl font-bold text-center text-wrap mb-4" />
         <Text
           size="medium"
           color="white"

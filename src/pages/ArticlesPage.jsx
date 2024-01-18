@@ -94,8 +94,6 @@ const ArticlesPage = () => {
         </div>
       );
     return sanitizedArticlesData?.map((article, index) => {
-      console.log('Article data', articlesPageData);
-
       if (sanitizedArticlesData.length === index + 1) {
         return <ArticleListItem key={article.createdAt} innerRef={ref} article={article} />;
       }
