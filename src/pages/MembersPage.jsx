@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 const MembersPage = () => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
+  const [currentLang] = useAtom(localeLanguageAtom);
   const { t } = useTranslation();
 
   const scrollToTop = () => {
@@ -24,15 +25,17 @@ const MembersPage = () => {
     });
     setPageScrolled(false);
   };
-  const [currentLang] = useAtom(localeLanguageAtom);
+
   const { data: membersData, isLoading, refetch } = useGetCollection('members', currentLang);
+
   const members = membersData?.data?.map((member) => ({
     ...member.attributes,
     logo: sanitizeResponseData(member.attributes, 'logo')?.url,
   }));
 
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: members?.[0]?.locale });
-  if (!members?.length) {
+
+  if (!members?.length && !isLoading) {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-screen">
@@ -46,14 +49,16 @@ const MembersPage = () => {
 
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
-      <div className="flex flex-col lg:mt-0 mt-[150px] lg:items-center lg:px-20 px-5">
-        {members?.map((member, index) => (
-          <React.Fragment key={member?.createdAt}>
-            {index !== 0 && <Separator className="flex hg:w-full w-10/12 self-center h-10 my-10" />}
-            <MemberPreviewCard member={member} index={index} navigate={navigate} scrollToTop={scrollToTop} />
-          </React.Fragment>
-        ))}
-      </div>
+      {members?.length && (
+        <div className="flex flex-col lg:mt-0 mt-[150px] lg:items-center lg:px-20 px-5">
+          {members?.map((member, index) => (
+            <React.Fragment key={member?.createdAt}>
+              {index !== 0 && <Separator className="flex hg:w-full w-10/12 self-center h-10 my-10" />}
+              <MemberPreviewCard member={member} index={index} navigate={navigate} scrollToTop={scrollToTop} />
+            </React.Fragment>
+          ))}
+        </div>
+      )}
     </PageLayout>
   );
 };

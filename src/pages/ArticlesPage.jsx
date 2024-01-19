@@ -118,7 +118,9 @@ const ArticlesPage = () => {
     refetchArticles().catch((err) => console.log(err));
   }, [searchParams, refetchArticles]);
 
-  if (!selectedCategory || status === 'error' || error) {
+  const isLoading = isCategoryLocaleChanged || isArticleLocaleChanged;
+
+  if ((!selectedCategory || status === 'error' || error) && !isLoading) {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-screen">
@@ -131,7 +133,7 @@ const ArticlesPage = () => {
   }
 
   return (
-    <PageLayout isLoading={isCategoryLocaleChanged || isArticleLocaleChanged}>
+    <PageLayout isLoading={isLoading}>
       <div className="absolute lg:top-[100px] top-[250px]">
         <img
           src={categoryCoverImage}

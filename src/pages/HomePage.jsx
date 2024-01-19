@@ -29,7 +29,7 @@ const HomePage = () => {
   const articles = sanitizeResponseData(homePageData?.data?.attributes, 'articles');
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: articles[0]?.locale });
 
-  if (!articles.length) {
+  if (!articles.length && !isLoading) {
     return (
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
@@ -43,20 +43,22 @@ const HomePage = () => {
 
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
-      <div className="flex flex-col justify-center items-center lg:mt-0 mt-20">
-        {articles?.map((article, index) => (
-          <div key={article.updatedAt} className="flex flex-col lg:w-8/12 w-full justify-center items-center">
-            {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}
-            <ArticlePreview
-              article={article}
-              onClick={() => {
-                navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
-                scrollToTop();
-              }}
-            />
-          </div>
-        )) || null}
-      </div>
+      {articles?.length && (
+        <div className="flex flex-col justify-center items-center lg:mt-0 mt-20">
+          {articles?.map((article, index) => (
+            <div key={article.updatedAt} className="flex flex-col lg:w-8/12 w-full justify-center items-center">
+              {index !== 0 && <Separator className="flex lg:w-full w-10/12 h-10 my-10" />}
+              <ArticlePreview
+                article={article}
+                onClick={() => {
+                  navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
+                  scrollToTop();
+                }}
+              />
+            </div>
+          )) || null}
+        </div>
+      )}
     </PageLayout>
   );
 };

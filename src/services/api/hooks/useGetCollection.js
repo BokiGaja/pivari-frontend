@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const useGetCollection = (collectionKey, locale = 'sr', populate = '*', queryParams = {}, extraQueryKeys) => {
   const isLocaleValid = ['sr', 'en', 'sr-Cyrl'].includes(locale);
-  const { isLoading, isError, data, error, refetch, isRefetching } = useQuery(
+  const { isLoading, isError, data, error, refetch, isRefetching, remove } = useQuery(
     [collectionKey, ...(extraQueryKeys || [])],
     () =>
       axios
@@ -18,5 +18,5 @@ export const useGetCollection = (collectionKey, locale = 'sr', populate = '*', q
         .catch((err) => console.log(err))
   );
 
-  return { isLoading, isError, data, error, refetch, isRefetching };
+  return { isLoading, isError, data, error, refetch, isRefetching, remove };
 };
