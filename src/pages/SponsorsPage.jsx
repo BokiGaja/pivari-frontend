@@ -36,7 +36,7 @@ const SponsorsPage = () => {
 
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
-      <div className="flex flex-col items-center lg:px-20 px-5 lg:mt-0 mt-24">
+      <div className="flex flex-col items-center lg:px-20 px-5 lg:mt-0 mt-24 lg:min-h-[380px]">
         {sponsors?.map((sponsor, index) => (
           <React.Fragment key={sponsor?.createdAt}>
             {index !== 0 && <Separator className="flex w-full h-10 my-10" />}
