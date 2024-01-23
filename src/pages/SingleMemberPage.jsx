@@ -126,9 +126,6 @@ const SingleMemberPage = () => {
               </div>
             </div>
           </div>
-          <div className="mb-[45px] w-[65%] mx-auto">
-            <Text className="text-bold text-center" size={'large'} color={'white'} text={member.description} />
-          </div>
           {member.content && (
             <Markdown
               className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto text-lg"
