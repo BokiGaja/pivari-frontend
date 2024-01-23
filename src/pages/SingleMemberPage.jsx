@@ -44,6 +44,7 @@ const SingleMemberPage = () => {
     return () => {
       removeMembersData();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const member = memberData?.data?.[0]?.attributes;
@@ -130,7 +131,7 @@ const SingleMemberPage = () => {
           </div>
           {member.content && (
             <Markdown
-              className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto"
+              className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto text-lg"
               components={{ p: React.Fragment, img: MarkdownImage }}
             >
               {member.content}

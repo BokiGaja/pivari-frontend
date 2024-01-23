@@ -34,6 +34,7 @@ const SingleRecipePage = () => {
     return () => {
       removeRecipesData();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const recipe = recipeData?.data?.[0]?.attributes;
@@ -114,7 +115,7 @@ const SingleRecipePage = () => {
             />
             <Separator className="flex w-10/12 h-4 my-4" />
             <Markdown
-              className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white pb-10"
+              className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white pb-10 text-lg"
               components={{ p: React.Fragment, img: MarkdownImage }}
             >
               {recipe.process}

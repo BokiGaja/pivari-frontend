@@ -35,6 +35,7 @@ const SingleArticlePage = () => {
     return () => {
       removeArticlesData();
     };
+    // eslint-disable-next-line
   }, []);
 
   const article = articleData?.data?.[0]?.attributes;
@@ -75,7 +76,7 @@ const SingleArticlePage = () => {
             {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
           </div>
           <Markdown
-            className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 lg:px-40"
+            className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 lg:px-40 text-lg"
             components={{ p: React.Fragment, img: MarkdownImage }}
           >
             {article.content}
