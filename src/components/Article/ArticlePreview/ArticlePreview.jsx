@@ -28,7 +28,7 @@ const ArticlePreview = ({ article, onClick }) => {
           text={truncateString(description, 250)}
           className="text-xl text-center lg:mb-0 mb-5"
         />
-        <div className="absolute bottom-3 right-4">
+        <div className="absolute bottom-1 right-4">
           <Text size="small" color="gray" text={formatDate(createdAt, {}, currentLang)} />
         </div>
       </div>
