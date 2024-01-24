@@ -6,6 +6,7 @@ import useClickOutside from '../../hooks/htmlEvents/useClickOutside';
 import Text from '../Text/Text';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
+import { useNavigate } from 'react-router-dom';
 
 const localeFlags = {
   'sr-Cyrl': {
@@ -26,6 +27,7 @@ const LanguageSwitch = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const ref = useRef(null);
   const [currentLang, setCurrentLang] = useAtom(localeLanguageAtom);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validLanguages = ['sr', 'sr-Cyrl', 'en'];
@@ -54,7 +56,7 @@ const LanguageSwitch = () => {
       </div>
       {isDropdownOpen && (
         <div
-          className="absolute flex flex-1 flex-col top-16 right-0 bg-blackBackground border border-hopGreen p-2 shadow-md rounded-md overflow-hidden"
+          className="lg:absolute flex flex-1 flex-col top-16 right-0 bg-blackBackground border border-hopGreen p-2 shadow-md rounded-md overflow-hidden"
           onClick={() => toggleDropdown()}
         >
           {Object.keys(localeFlags)?.map((localeFlagKey) => (
@@ -64,6 +66,7 @@ const LanguageSwitch = () => {
               onClick={() => {
                 setCurrentLang(localeFlagKey);
                 i18next.changeLanguage(localeFlagKey);
+                navigate('/');
               }}
             >
               <div className="flex w-[40px] h-[40px] cursor-pointer mr-2">{localeFlags[localeFlagKey].flag}</div>

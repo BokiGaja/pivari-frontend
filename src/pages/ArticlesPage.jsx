@@ -100,7 +100,7 @@ const ArticlesPage = () => {
       return <ArticleListItem key={article.createdAt} article={article} />;
     });
     // eslint-disable-next-line
-  }, [sanitizedArticlesData?.length]);
+  }, [sanitizedArticlesData]);
 
   useEffect(() => {
     if (inView && hasNextPage) {
