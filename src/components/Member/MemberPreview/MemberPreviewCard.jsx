@@ -25,7 +25,7 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
             <img
               alt={member?.name ? `${member?.name} logo` : 'default website logo'}
               src={member?.logo ? member?.logo : pivariLogo}
-              className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
+              className="object-fill w-full h-full"
             />
           </div>
           <div className="flex flex-col align-start lg:items-start items-center justify-between py-[20px] lg:w-[75%] w-full">

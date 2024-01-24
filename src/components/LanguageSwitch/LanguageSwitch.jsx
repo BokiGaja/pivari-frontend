@@ -7,6 +7,7 @@ import Text from '../Text/Text';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes';
 
 const localeFlags = {
   'sr-Cyrl': {
@@ -66,7 +67,7 @@ const LanguageSwitch = () => {
               onClick={() => {
                 setCurrentLang(localeFlagKey);
                 i18next.changeLanguage(localeFlagKey);
-                navigate('/');
+                navigate(ROUTES.HOME);
               }}
             >
               <div className="flex w-[40px] h-[40px] cursor-pointer mr-2">{localeFlags[localeFlagKey].flag}</div>

@@ -61,7 +61,10 @@ const NavBar = () => {
   return (
     <AppBar position="fixed" style={isScrolled ? navBarStyles.containerScrolled : navBarStyles.containerInitial}>
       <Toolbar className="flex-1 flex flex-col lg:flex-row justify-between items-center pt-2 pb-2 relative">
-        <div className="lg:hidden lg:min-w-none min-w-[350px] lg:max-w-none max-w-[500px] w-[65%]">
+        <div
+          className="lg:hidden lg:min-w-none min-w-[350px] lg:max-w-none max-w-[500px] w-[65%]"
+          onClick={() => navigate(ROUTES.HOME)}
+        >
           <UdruzenjeLogo />
         </div>
         {!isMenuActivated ? (
@@ -86,7 +89,7 @@ const NavBar = () => {
                 text={t('navbar.home')}
                 onClick={() => navigate(ROUTES.HOME)}
               />
-              <div className="flex items-center justify-around mr-4 relative" ref={ref}>
+              <div className="flex flex-col items-center justify-around mr-4 ml-4 relative" ref={ref}>
                 <NavBarButton
                   isActive={currentRoute?.pathname.includes('article')}
                   text={t('navbar.articles')}
@@ -94,7 +97,7 @@ const NavBar = () => {
                   icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
                 />
                 {isDropdownOpen && (
-                  <div className="absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
+                  <div className="lg:absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
                     {categoriesNames?.map((categoryName) => (
                       <DropdownItemButton
                         text={categoryName}
@@ -119,7 +122,7 @@ const NavBar = () => {
               />
             </div>
           </div>
-          <div className="hidden lg:flex w-[300px]">
+          <div className="hidden lg:flex w-[300px]" onClick={() => navigate(ROUTES.HOME)}>
             <UdruzenjeLogo />
           </div>
           <div className="flex-1 flex items-center justify-around ml-4 ">
@@ -139,7 +142,7 @@ const NavBar = () => {
               isActive={currentRoute?.pathname === ROUTES.ABOUT_US}
             />
           </div>
-          <div className="lg:mt-0 mt-2 lg:mb-0 mb-4">
+          <div className="relative lg:mt-0 mt-2 lg:mb-0 mb-4">
             <LanguageSwitch />
           </div>
         </div>
