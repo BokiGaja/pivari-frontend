@@ -39,9 +39,11 @@ const SingleMemberPage = () => {
   } = useGetCollection(routeName, currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
+  console.log('Members data check', memberData, params);
 
   useEffect(() => {
     return () => {
+      console.log('Remove');
       removeMembersData();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
