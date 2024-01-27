@@ -47,7 +47,7 @@ const SingleMemberPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const member = memberData?.data?.length === 1 && memberData?.data?.[0]?.attributes;
+  const member = memberData?.data?.[0]?.attributes;
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: member?.locale });
 
   const carouselData = member?.carousel?.data;
@@ -64,7 +64,7 @@ const SingleMemberPage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading || isLocaleChanged}>
+    <PageLayout isLoading={isLoading || isLocaleChanged || memberData?.data?.length > 1}>
       {member && (
         <article className="flex flex-col w-full mx-auto lg:mt-0 mt-24 px-0 relative">
           <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
