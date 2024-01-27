@@ -39,17 +39,15 @@ const SingleMemberPage = () => {
   } = useGetCollection(routeName, currentLang, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
-  console.log('Members data check', memberData, params);
 
   useEffect(() => {
     return () => {
-      console.log('Remove');
       removeMembersData();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const member = memberData?.data?.[0]?.attributes;
+  const member = memberData?.data?.length === 1 && memberData?.data?.[0]?.attributes;
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: member?.locale });
 
   const carouselData = member?.carousel?.data;
