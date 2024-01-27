@@ -28,7 +28,7 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
               className="object-fill w-full h-full"
             />
           </div>
-          <div className="flex flex-col align-start lg:items-start items-center justify-between py-[20px] lg:w-[75%] w-full">
+          <div className="flex flex-col align-start lg:items-start items-center justify-between py-[20px] lg:w-[75%] w-full pr-2">
             <div>
               <Text
                 className="mb-[15px] lg:text-start text-center"

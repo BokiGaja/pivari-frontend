@@ -88,7 +88,7 @@ const SingleMemberPage = () => {
                   <Text size={'large'} color={'maltYellow'} text={member?.phone} />
                 </div>
               )}
-              {member.address && (
+              {member?.address && (
                 <div className="flex gap-2">
                   <LocationIcon className="h-7 w-7 mt-[5px]" />
                   <Text size={'large'} color={'maltYellow'} text={member.address} />
