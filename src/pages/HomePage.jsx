@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { useSetAtom, useAtom } from 'jotai';
 import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
@@ -51,7 +51,7 @@ const HomePage = () => {
               <ArticlePreview
                 article={article}
                 onClick={() => {
-                  navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
+                  navigate(`/article/${currentLang}/${article.title?.replaceAll(' ', '-')}`);
                   scrollToTop();
                 }}
               />

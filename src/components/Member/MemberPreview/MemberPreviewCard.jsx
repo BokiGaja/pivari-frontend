@@ -7,14 +7,18 @@ import pivariLogo from '../../../assets/logos/pivari-logo.png';
 import { ReactComponent as FacebookIcon } from '../../../assets/svg/socialIcons/icon-facebook.svg';
 import { ReactComponent as InstagramIcon } from '../../../assets/svg/socialIcons/icon-instagram.svg';
 import { ReactComponent as EmailIcon } from '../../../assets/svg/socialIcons/icon-email.svg';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../../../atoms';
 
 const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
+  const [currentLang] = useAtom(localeLanguageAtom);
+
   return (
     <React.Fragment>
       <div
         className="flex flex-col justify-center tems-stretch border border-maltYellow rounded-3xl mt-5 bg-guinessBlack lg:w-6/12 w-full hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
         onClick={() => {
-          navigate(`/members/${member?.name?.replaceAll(' ', '-')}`);
+          navigate(`/members/${currentLang}/${member?.name?.replaceAll(' ', '-')}`);
           scrollToTop();
         }}
       >

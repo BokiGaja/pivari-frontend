@@ -10,7 +10,7 @@ import ArticleListItem from '../components/Article/ArticleListItem/ArticleListIt
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import { useTranslation } from 'react-i18next';

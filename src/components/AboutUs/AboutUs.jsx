@@ -5,7 +5,7 @@ import Markdown from 'react-markdown';
 import MarkdownImage from '../Markdown/MarkdownImage';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
-import useRefetchLocale from '../../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../../hooks/useRefetchLocale';
 import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../Carousel/CarouselSlider';

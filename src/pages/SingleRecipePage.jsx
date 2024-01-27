@@ -12,13 +12,17 @@ import RecipeIngredientsTable from '../components/Recipe/RecipeIngredientsTable/
 import RecipeAdditionalInfo from '../components/Recipe/RecipeAdditionalInfo/RecipeAdditionalInfo';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
+import { isLocaleValid } from '../utils/locale/validation';
+import { useUpdateLocale } from '../hooks/useUpdateLocale';
 
 const SingleRecipePage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
   const params = useParams();
   const { t } = useTranslation();
+  const paramsLocale = params?.locale;
+  const locale = isLocaleValid(paramsLocale) ? paramsLocale : currentLang;
 
   const {
     data: recipeData,
@@ -26,9 +30,10 @@ const SingleRecipePage = () => {
     error,
     refetch,
     remove: removeRecipesData,
-  } = useGetCollection('recipes', currentLang, '*', {
+  } = useGetCollection('recipes', locale, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
+  useUpdateLocale();
 
   useEffect(() => {
     return () => {

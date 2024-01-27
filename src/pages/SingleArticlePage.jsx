@@ -11,15 +11,19 @@ import { Typography } from '@mui/material';
 import pivariLogo from '../assets/logos/pivari-logo.png';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 import CarouselSlider from '../components/Carousel/CarouselSlider';
+import { isLocaleValid } from '../utils/locale/validation';
+import { useUpdateLocale } from '../hooks/useUpdateLocale';
 
 const SingleArticlePage = () => {
   const params = useParams();
   const [currentLang] = useAtom(localeLanguageAtom);
   const { t } = useTranslation();
+  const paramsLocale = params?.locale;
+  const locale = isLocaleValid(paramsLocale) ? paramsLocale : currentLang;
 
   const {
     data: articleData,
@@ -27,9 +31,10 @@ const SingleArticlePage = () => {
     error,
     refetch,
     remove: removeArticlesData,
-  } = useGetCollection('articles', currentLang, '*', {
+  } = useGetCollection('articles', locale, '*', {
     'filters[title][$eq]': params?.name?.replaceAll('-', ' '),
   });
+  useUpdateLocale();
 
   useEffect(() => {
     return () => {

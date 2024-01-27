@@ -16,12 +16,14 @@ import { ReactComponent as LeftArrowIcon } from '../assets/svg/left-arrow.svg';
 import { Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 import CarouselSlider from '../components/Carousel/CarouselSlider';
 import MarkdownImage from '../components/Markdown/MarkdownImage';
 import Markdown from 'react-markdown';
+import { isLocaleValid } from '../utils/locale/validation';
+import { useUpdateLocale } from '../hooks/useUpdateLocale';
 
 const SingleMemberPage = () => {
   const navigate = useNavigate();
@@ -29,6 +31,8 @@ const SingleMemberPage = () => {
   const route = useLocation();
   const routeName = route.pathname?.split('/')[1];
   const [currentLang] = useAtom(localeLanguageAtom);
+  const paramsLocale = params?.locale;
+  const locale = isLocaleValid(paramsLocale) ? paramsLocale : currentLang;
   const { t } = useTranslation();
 
   const {
@@ -36,9 +40,10 @@ const SingleMemberPage = () => {
     isLoading,
     refetch,
     remove: removeMembersData,
-  } = useGetCollection(routeName, currentLang, '*', {
+  } = useGetCollection(routeName, locale, '*', {
     'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
   });
+  useUpdateLocale();
 
   useEffect(() => {
     return () => {

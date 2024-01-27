@@ -14,7 +14,7 @@ import { useGetCollection } from '../../../services/api/hooks/useGetCollection';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitch from '../../LanguageSwitch/LanguageSwitch';
 import { useAtom } from 'jotai';
-import useRefetchLocale from '../../../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../../../hooks/useRefetchLocale';
 import Text from '../../Text/Text.jsx';
 
 const NavBar = () => {

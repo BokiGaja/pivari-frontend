@@ -30,7 +30,7 @@ const RecipeListItem = ({ recipe }) => {
       key={recipe.createdAt}
       className="flex flex-col lg:flex-row lg:mt-0 mt-[80px] lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500"
       onClick={() => {
-        navigate(`/recipe/${recipe?.name?.replaceAll(' ', '-')}`);
+        navigate(`/recipe/${currentLang}/${recipe?.name?.replaceAll(' ', '-')}`);
         scrollToTop();
       }}
     >

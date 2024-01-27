@@ -26,7 +26,7 @@ const ArticleListItem = ({ article, innerRef }) => {
       key={article.id}
       className="flex lg:flex-row flex-col lg:w-8/12 w-11/12 bg-blackBackgroundLighter justify-start items-center rounded-3xl mb-10 border-2 border-hopGreen transform-gpu hover:scale-105 cursor-pointer transition-all duration-500 overflow-hidden"
       onClick={() => {
-        navigate(`/article/${article.title?.replaceAll(' ', '-')}`);
+        navigate(`/article/${currentLang}/${article.title?.replaceAll(' ', '-')}`);
         scrollToTop();
       }}
     >

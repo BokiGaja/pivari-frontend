@@ -4,7 +4,7 @@ import PageLayout from '../components/layout/PageLayout';
 import RecipeListItem from '../components/Recipe/RecipeListItem/RecipeListItem';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/SearchBar/SearchBar';

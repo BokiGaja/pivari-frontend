@@ -15,7 +15,7 @@ import RecipesPage from './pages/RecipesPage';
 import SingleRecipePage from './pages/SingleRecipePage';
 import './i18n/i18n';
 import ReactGA from 'react-ga4';
-import useAnalyticsPathTracker from './hooks/useAnalyticsPathTracker/useAnalyticsPathTracker';
+import useAnalyticsPathTracker from './hooks/useAnalyticsPathTracker';
 
 ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_MEASUREMENT_ID);
 

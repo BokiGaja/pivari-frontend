@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { localeLanguageAtom } from '../../atoms';
+import { localeLanguageAtom } from '../atoms';
 
 const useRefetchLocale = ({ refetch, locale }) => {
   const [currentLang] = useAtom(localeLanguageAtom);

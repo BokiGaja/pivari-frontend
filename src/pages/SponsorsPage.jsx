@@ -8,7 +8,7 @@ import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import SponsorPreviewCard from '../components/Sponsor/SponsorPreview/SponsorPreviewCard';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 const SponsorsPage = () => {

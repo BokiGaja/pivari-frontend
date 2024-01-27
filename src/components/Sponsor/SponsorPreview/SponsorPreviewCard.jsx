@@ -8,13 +8,16 @@ import { ReactComponent as FacebookIcon } from '../../../assets/svg/socialIcons/
 import { ReactComponent as InstagramIcon } from '../../../assets/svg/socialIcons/icon-instagram.svg';
 import { ReactComponent as EmailIcon } from '../../../assets/svg/socialIcons/icon-email.svg';
 import { useNavigate } from 'react-router-dom';
+import { useAtom } from 'jotai/index';
+import { localeLanguageAtom } from '../../../atoms';
 
 const SponsorPreviewCard = ({ sponsor }) => {
   const navigate = useNavigate();
+  const [currentLang] = useAtom(localeLanguageAtom);
 
   return (
     <div
-      onClick={() => navigate(`/sponsors/${sponsor?.name?.replaceAll(' ', '-')}`)}
+      onClick={() => navigate(`/sponsors/${currentLang}/${sponsor?.name?.replaceAll(' ', '-')}`)}
       className="flex flex-col justify-center border-[3px] overflow-hidden border-maltYellow rounded-3xl mt-5  bg-guinessBlack lg:w-[55%] w-full max-h-none hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
     >
       <div className="flex gap-2 lg:flex-row flex-col ">

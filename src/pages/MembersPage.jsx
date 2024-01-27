@@ -9,7 +9,7 @@ import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useSetAtom, useAtom } from 'jotai';
 import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
 import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewCard';
-import useRefetchLocale from '../hooks/useRefetchLocale/useRefetchLocale';
+import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 const MembersPage = () => {
