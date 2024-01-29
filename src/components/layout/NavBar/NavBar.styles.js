@@ -11,7 +11,7 @@ const navBarStyles = {
   },
   logoContainer: {
     position: 'fixed',
-    bottom: 50,
+    bottom: 60,
     right: 20,
     width: '70px',
     height: '70px',
