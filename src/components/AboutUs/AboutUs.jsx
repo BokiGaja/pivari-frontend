@@ -9,6 +9,7 @@ import useRefetchLocale from '../../hooks/useRefetchLocale';
 import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../Carousel/CarouselSlider';
+import { ReactComponent as BeerGlass } from '../../assets/svg/beer-glass.svg';
 
 const AboutUs = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -36,13 +37,22 @@ const AboutUs = () => {
       </div>
     );
   }
+  const LiComponent = (props) => {
+    return (
+      <li className="flex flex-row items-center text-start mt-4">
+        <BeerGlass className="absolute h-10 w-10 mr-5" />
+        {/* eslint-disable-next-line react/prop-types */}
+        <p className="ml-10">{props.children}</p>
+      </li>
+    );
+  };
 
   return (
     <div className="lg:flex flex-col items-center">
       <Text size="large" color="maltYellow" className="text-4xl mb-4 text-center" text={t('aboutUs.title')} />
       <Markdown
         className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto"
-        components={{ p: React.Fragment, img: MarkdownImage }}
+        components={{ p: React.Fragment, img: MarkdownImage, li: LiComponent }}
       >
         {aboutUs.text}
       </Markdown>
