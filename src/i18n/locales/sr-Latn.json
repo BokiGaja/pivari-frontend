@@ -30,8 +30,8 @@
       "noMember": "Nema člana"
     },
     "sponsors": {
-      "noSponsors": "Nema sponzora",
-      "noSponsor": "Nema sponzora"
+      "noSponsors": "Nema prijatelja",
+      "noSponsor": "Nema prijatelja"
     },
     "aboutUs": {
       "title": "O nama",
@@ -39,7 +39,7 @@
     },
     "backTo": {
       "mainPart": "Nazad na",
-      "sponsors": "sponzore",
+      "sponsors": "prijatelje",
       "members": "članove"
     },
     "searchBar": {

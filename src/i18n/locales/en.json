@@ -30,8 +30,8 @@
       "noMember": "No member found"
     },
     "sponsors": {
-      "noSponsors": "No sponsors found",
-      "noSponsor": "No sponsor found"
+      "noSponsors": "No friends found",
+      "noSponsor": "No friends found"
     },
     "aboutUs": {
       "title": "About us",
@@ -41,7 +41,7 @@
       "mainPart": "Back to",
       "articles": "articles",
       "members": "members",
-      "sponsors": "sponsors"
+      "sponsors": "friends"
     },
     "searchBar": {
       "searchLabel": "Search on page",

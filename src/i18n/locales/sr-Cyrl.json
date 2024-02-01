@@ -30,8 +30,8 @@
       "noMember": "Нема члана"
     },
     "sponsors": {
-      "noSponsors": "Нема спонзора",
-      "noSponsor": "Нема спонзора"
+      "noSponsors": "Нема пријатеља",
+      "noSponsor": "Нема пријатеља"
     },
     "aboutUs": {
       "title": "О нама",
@@ -40,7 +40,7 @@
     "backTo": {
       "mainPart": "Назад на",
       "articles": "чланке",
-      "sponsors": "спонзоре"
+      "sponsors": "пријатеље"
     },
     "searchBar": {
       "searchLabel": "Претражи на страници",
