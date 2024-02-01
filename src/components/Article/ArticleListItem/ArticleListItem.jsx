@@ -39,7 +39,7 @@ const ArticleListItem = ({ article, innerRef }) => {
       </div>
       <div className="flex flex-col align-center text-center w-full h-full justify-center px-[15px]">
         <Text size="large" color="maltYellow" className="mt-2 mb-2" text={article.title} />
-        <Text size="medium" className="" color="white" text={truncateString(article.description, 250)} />
+        <Text size="medium" color="white" text={truncateString(article.description, 250)} />
         <div className="flex self-center mt-4">
           <Text
             size="small"

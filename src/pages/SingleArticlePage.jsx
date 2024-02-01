@@ -83,7 +83,7 @@ const SingleArticlePage = () => {
             {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
           </div>
           <Markdown
-            className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 lg:px-40 text-lg"
+            className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 px-4 lg:px-40 text-lg"
             components={{ p: React.Fragment, img: MarkdownImage }}
           >
             {article.content}

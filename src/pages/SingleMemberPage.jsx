@@ -98,7 +98,7 @@ const SingleMemberPage = () => {
               {member?.address && (
                 <div className="flex gap-2">
                   <LocationIcon className="h-7 w-7 mt-[5px]" />
-                  <Text size={'large'} color={'maltYellow'} text={member.address} />
+                  <Text size={'large'} color={'maltYellow'} className="text-center" text={member.address} />
                 </div>
               )}
               <div className="flex flex-row gap-4 min-h-14 justify-center items-center p-2 mt-8">
@@ -135,7 +135,7 @@ const SingleMemberPage = () => {
           </div>
           {member.content && (
             <Markdown
-              className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto text-lg"
+              className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 lg:px-0 px-4 mt-4 max-w-[700px] mx-auto text-lg"
               components={{ p: React.Fragment, img: MarkdownImage }}
             >
               {member.content}

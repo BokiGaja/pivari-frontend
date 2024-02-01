@@ -23,12 +23,12 @@ const RecipeIngredientsTable = ({ recipe }) => {
         size="medium"
         color="white"
         text={`${ingredient.name} - ${ingredient.quantity}${ingredient.unit}`}
-        className="font-bold text-center break-all"
+        className="font-bold text-center"
       />
     ));
 
   return (
-    <div className="flex flex-row justify-around">
+    <div className="flex flex-row justify-around lg:px-0 px-4">
       <div className="flex flex-col">
         {!!malts?.length && (
           <div className="flex flex-col mb-4">
