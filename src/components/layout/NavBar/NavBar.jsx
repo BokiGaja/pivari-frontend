@@ -96,7 +96,13 @@ const NavBar = () => {
                   isActive={currentRoute?.pathname.includes('article')}
                   text={t('navbar.articles')}
                   onClick={() => toggleDropdown()}
-                  icon={<DownArrow className="w-4 h-4 ml-2 mt-1" />}
+                  icon={
+                    isDropdownOpen ? (
+                      <DownArrow className="w-4 h-4 ml-2 mt-1 rotate-180" />
+                    ) : (
+                      <DownArrow className="w-4 h-4 ml-2 mt-1" />
+                    )
+                  }
                 />
                 {isDropdownOpen && (
                   <div className="lg:absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
