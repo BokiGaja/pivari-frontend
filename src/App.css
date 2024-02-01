@@ -7,6 +7,29 @@
   pointer-events: none;
 }
 
+/* Define your custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+
+  border-radius: 50%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #efcb68b8;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #efcc68;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -36,16 +59,3 @@
     transform: rotate(360deg);
   }
 }
-
-/* .slick-slider {
-  display: flex !important;
-  align-items: center;
-} */
-
-/* .slick-list {
-  max-height: 400px;
-} */
-
-/* .slick-slide {
-  padding: 10px;
-} */

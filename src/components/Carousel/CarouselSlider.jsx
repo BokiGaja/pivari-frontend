@@ -17,7 +17,7 @@ const CarouselSlider = ({ carouselData }) => {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '60px',
-    variableWidth: true,
+    variableWidth: false,
     responsive: [
       {
         breakpoint: 1520,
@@ -105,10 +105,13 @@ const CarouselSlider = ({ carouselData }) => {
           </button>
         </div>
         {carouselData?.length > 5 && (
-          <div className="flex justify-between flex-wrap lg:w-[600px] w-full lg:px-0 px-[20px] mx-auto mt-[50px]">
+          <div className="flex justify-between flex-wrap lg:w-[600px] w-full lg:px-0 px-[20px] mx-auto mt-[50px] lg:max-h-[250px] overflow-y-scroll">
             {carouselData?.map((img) => {
               return (
-                <div key={img.id} className="flex w-[20%] hover:cursor-pointer p-2">
+                <div
+                  key={img.id}
+                  className="flex w-[20%] h-fit hover:cursor-pointer p-2 [::-webkit-scrollbar-track]-[]"
+                >
                   <img onClick={handleClickImg} className="" src={img.attributes.url} alt={img.attributes.name} />
                 </div>
               );
