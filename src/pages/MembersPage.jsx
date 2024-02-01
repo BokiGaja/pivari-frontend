@@ -11,12 +11,14 @@ import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
 import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewCard';
 import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const MembersPage = () => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [currentLang] = useAtom(localeLanguageAtom);
   const { t } = useTranslation();
+  useSetPageTitle(t('navbar.members'));
 
   const scrollToTop = () => {
     window.scrollTo({

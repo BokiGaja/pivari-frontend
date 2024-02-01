@@ -10,10 +10,12 @@ import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const SponsorsPage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
   const { t } = useTranslation();
+  useSetPageTitle(t('navbar.sponsors'));
 
   const { data: sponsorsData, isLoading, refetch } = useGetCollection('sponsors', currentLang);
   const sponsors = sponsorsData?.data?.map((sponsor) => ({

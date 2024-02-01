@@ -16,6 +16,7 @@ import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const SingleRecipePage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -23,7 +24,7 @@ const SingleRecipePage = () => {
   const { t } = useTranslation();
   const paramsLocale = params?.locale;
   const locale = isLocaleValid(paramsLocale) ? paramsLocale : currentLang;
-
+  useSetPageTitle(params?.name?.replaceAll('-', ' '));
   const {
     data: recipeData,
     isLoading,

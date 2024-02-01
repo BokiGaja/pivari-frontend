@@ -15,6 +15,7 @@ import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/SearchBar/SearchBar';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
@@ -23,6 +24,7 @@ const ArticlesPage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
   const { t } = useTranslation();
   const [searchTitle, setSearchTitle] = React.useState('');
+  useSetPageTitle(t('navbar.articles'));
 
   const {
     data: articlesPageData,

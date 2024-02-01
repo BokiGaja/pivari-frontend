@@ -49,6 +49,9 @@
     "responsiveMenu": {
       "openMenu": "Open Menu",
       "closeMenu": "Close Menu"
+    },
+    "pageNotFound": {
+      "title": "Page not found"
     }
   }
 }

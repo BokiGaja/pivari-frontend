@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../components/Carousel/CarouselSlider';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const SingleArticlePage = () => {
   const params = useParams();
@@ -24,6 +25,7 @@ const SingleArticlePage = () => {
   const { t } = useTranslation();
   const paramsLocale = params?.locale;
   const locale = isLocaleValid(paramsLocale) ? paramsLocale : currentLang;
+  useSetPageTitle(params?.name?.replaceAll('-', ' '));
 
   const {
     data: articleData,

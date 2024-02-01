@@ -24,6 +24,7 @@ import MarkdownImage from '../components/Markdown/MarkdownImage';
 import Markdown from 'react-markdown';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const SingleMemberPage = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const SingleMemberPage = () => {
   const paramsLocale = params?.locale;
   const locale = isLocaleValid(paramsLocale) ? paramsLocale : currentLang;
   const { t } = useTranslation();
+  useSetPageTitle(params?.name?.replaceAll('-', ' '));
 
   const {
     data: memberData,

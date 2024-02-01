@@ -8,10 +8,14 @@ import useRefetchLocale from '../hooks/useRefetchLocale';
 import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/SearchBar/SearchBar';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const RecipesPage = () => {
+  const { t } = useTranslation();
+
   const [currentLang] = useAtom(localeLanguageAtom);
   const [searchRecipeTitle, setSearchRecipeTitle] = React.useState('');
+  useSetPageTitle(t('navbar.recipes'));
 
   const {
     data: recipesData,
@@ -29,7 +33,6 @@ const RecipesPage = () => {
   );
   const recipes = recipesData?.data?.map((recipe) => recipe.attributes);
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: recipes?.[0]?.locale });
-  const { t } = useTranslation();
 
   const handleSearch = (searchTitle) => {
     setSearchRecipeTitle(searchTitle);

@@ -49,6 +49,9 @@
     "responsiveMenu": {
       "openMenu": "Otvori Meni",
       "closeMenu": "Zatvori Meni"
+    },
+    "pageNotFound": {
+      "title": "Stranica nije pronađena"
     }
   }
 }
