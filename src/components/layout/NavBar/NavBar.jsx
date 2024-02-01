@@ -7,6 +7,7 @@ import { localeLanguageAtom, pageScrolledAtom } from '../../../atoms';
 import { useSetAtom } from 'jotai';
 import useClickOutside from '../../../hooks/htmlEvents/useClickOutside';
 import { ReactComponent as DownArrow } from '../../../assets/svg/down-arrow.svg';
+import { ReactComponent as UpArrow } from '../../../assets/svg/up-arrow.svg';
 import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemButton';
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
@@ -68,13 +69,14 @@ const NavBar = () => {
           <UdruzenjeLogo />
         </div>
         {!isMenuActivated ? (
-          <div className="lg:hidden block flex gap-2 items-center mt-2" onClick={openMenu}>
+          <div className="lg:hidden flex gap-2 items-center mt-2" onClick={openMenu}>
             <Text size="large" color="maltYellow" text={t('responsiveMenu.openMenu')} />
             <DownArrow className="w-5 h-5 pt-[5px]" />
           </div>
         ) : (
-          <div className="lg:hidden block mt-2 " onClick={closeMenu}>
+          <div className="lg:hidden flex gap-2 items-center mt-2" onClick={closeMenu}>
             <Text size="large" color="white" text={t('responsiveMenu.closeMenu')} />
+            <UpArrow className="w-5 h-5 pt-[5px]" />
           </div>
         )}
         <div
@@ -89,7 +91,7 @@ const NavBar = () => {
                 text={t('navbar.home')}
                 onClick={() => navigate(ROUTES.HOME)}
               />
-              <div className="flex flex-col items-center justify-around mr-4 ml-4 relative" ref={ref}>
+              <div className="flex flex-col items-center justify-around relative" ref={ref}>
                 <NavBarButton
                   isActive={currentRoute?.pathname.includes('article')}
                   text={t('navbar.articles')}

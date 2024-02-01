@@ -17,7 +17,7 @@ const Footer = () => {
             <SocialButton type={SOCIAL_BUTTONS.EMAIL} />
           </div>
         </div>
-        <Typography variant="subtitle2" className="text-maltYellow pr-1">
+        <Typography variant="subtitle2" className="text-maltYellow pr-1 text-center">
           Copyright 2023 © Udruženje kućnih Pivara Srbije. Sva prava zadržana.
         </Typography>
       </div>
