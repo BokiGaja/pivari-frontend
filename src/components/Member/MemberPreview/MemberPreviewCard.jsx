@@ -40,7 +40,12 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
                 color={'maltYellow'}
                 text={member?.name}
               />
-              <Text className="lg:text-start text-center" size="medium" color="white" text={member?.description} />
+              <Text
+                className="lg:text-start lg:px-0 px-2 text-center"
+                size="medium"
+                color="white"
+                text={member?.description}
+              />
             </div>
             <div className="flex gap-[25px] mt-4 socialIconBox">
               {member?.facebook && (
