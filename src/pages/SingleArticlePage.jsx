@@ -18,6 +18,7 @@ import CarouselSlider from '../components/Carousel/CarouselSlider';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import MarkdownLink from '../components/Markdown/MarkdownLink';
 
 const SingleArticlePage = () => {
   const params = useParams();
@@ -84,7 +85,7 @@ const SingleArticlePage = () => {
           </div>
           <Markdown
             className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 px-4 lg:px-40 text-lg"
-            components={{ p: React.Fragment, img: MarkdownImage }}
+            components={{ p: React.Fragment, img: MarkdownImage, a: MarkdownLink }}
           >
             {article.content}
           </Markdown>

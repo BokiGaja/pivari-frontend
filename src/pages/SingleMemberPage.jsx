@@ -25,6 +25,7 @@ import Markdown from 'react-markdown';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import MarkdownLink from '../components/Markdown/MarkdownLink';
 
 const SingleMemberPage = () => {
   const navigate = useNavigate();
@@ -136,7 +137,7 @@ const SingleMemberPage = () => {
           {member.content && (
             <Markdown
               className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 lg:px-0 px-4 mt-4 max-w-[700px] mx-auto text-lg"
-              components={{ p: React.Fragment, img: MarkdownImage }}
+              components={{ p: React.Fragment, img: MarkdownImage, a: MarkdownLink }}
             >
               {member.content}
             </Markdown>

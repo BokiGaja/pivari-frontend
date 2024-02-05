@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import MarkdownLink from '../components/Markdown/MarkdownLink';
 
 const SingleRecipePage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -122,7 +123,7 @@ const SingleRecipePage = () => {
             <Separator className="flex w-10/12 h-4 my-4" />
             <Markdown
               className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white pb-10 text-lg"
-              components={{ p: React.Fragment, img: MarkdownImage }}
+              components={{ p: React.Fragment, img: MarkdownImage, a: MarkdownLink }}
             >
               {recipe.process}
             </Markdown>
