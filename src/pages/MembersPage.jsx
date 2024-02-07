@@ -28,7 +28,13 @@ const MembersPage = () => {
     setPageScrolled(false);
   };
 
-  const { data: membersData, isLoading, refetch } = useGetCollection('members', currentLang);
+  const {
+    data: membersData,
+    isLoading,
+    refetch,
+  } = useGetCollection('members', currentLang, '*', {
+    'sort[name]': 'asc',
+  });
 
   const members = membersData?.data?.map((member) => ({
     ...member.attributes,

@@ -17,7 +17,13 @@ const SponsorsPage = () => {
   const { t } = useTranslation();
   useSetPageTitle(t('navbar.sponsors'));
 
-  const { data: sponsorsData, isLoading, refetch } = useGetCollection('sponsors', currentLang);
+  const {
+    data: sponsorsData,
+    isLoading,
+    refetch,
+  } = useGetCollection('sponsors', currentLang, '*', {
+    'sort[name]': 'asc',
+  });
   const sponsors = sponsorsData?.data?.map((sponsor) => ({
     ...sponsor.attributes,
     logo: sanitizeResponseData(sponsor.attributes, 'logo')?.url,
