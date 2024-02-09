@@ -10,11 +10,13 @@ import { useSetAtom, useAtom } from 'jotai';
 import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
+import useSetPageTitle from '../hooks/useSetPageTitle';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const { t } = useTranslation();
+  useSetPageTitle(t('navbar.home'));
 
   const scrollToTop = () => {
     window.scrollTo({
