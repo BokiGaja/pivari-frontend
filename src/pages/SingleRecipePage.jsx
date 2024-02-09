@@ -137,7 +137,7 @@ const SingleRecipePage = () => {
             />
             <Separator className="flex w-10/12 h-4 my-4" />
 
-            <Text size="small" color="white" text={recipe.description} className="text-center my-4" />
+            <Text size="medium" color="white" text={recipe.description} className="text-center my-4" />
           </div>
         </div>
       )}

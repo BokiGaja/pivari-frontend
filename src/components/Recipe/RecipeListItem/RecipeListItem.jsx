@@ -50,7 +50,9 @@ const RecipeListItem = ({ recipe }) => {
           {recipe?.style && <Text size="medium" color="maltYellow" className="mr-4" text={`Stil: ${recipe.style}`} />}
         </div>
         <div
-          className={`flex lg:flex-row flex-co w-full px-4 ${recipe?.author ? 'justify-between' : 'justify-center'}`}
+          className={`flex lg:flex-row flex-co w-full px-4 mt-6 ${
+            recipe?.author ? 'justify-between' : 'justify-center'
+          }`}
         >
           {recipe?.author && (
             <a
