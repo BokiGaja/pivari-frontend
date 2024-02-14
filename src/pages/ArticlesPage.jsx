@@ -146,7 +146,7 @@ const ArticlesPage = () => {
           size="large"
           color="maltYellow"
           text={selectedCategory?.attributes.name}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:text-7xl text-4xl font-bold text-center break-all mb-4"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:text-7xl text-4xl font-bold text-center mb-4 flex-wrap"
         />
       </div>
       <div className="lg:h-[200px] h-[320px]" />

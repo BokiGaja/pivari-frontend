@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../Carousel/CarouselSlider';
 import { ReactComponent as BeerGlass } from '../../assets/svg/beer-glass.svg';
 import MarkdownLink from '../Markdown/MarkdownLink';
+import MarkdownH2 from '../Markdown/MarkdownH2';
+import MarkdownH1 from '../Markdown/MarkdownH1';
 
 const AboutUs = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -58,6 +60,8 @@ const AboutUs = () => {
           img: MarkdownImage,
           li: LiComponent,
           a: MarkdownLink,
+          h2: MarkdownH2,
+          h1: MarkdownH1,
         }}
       >
         {aboutUs.text}
