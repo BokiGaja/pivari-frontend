@@ -22,7 +22,7 @@ const RecipeIngredientsTable = ({ recipe }) => {
         key={ingredient.id}
         size="medium"
         color="white"
-        text={`${ingredient.name} - ${ingredient.quantity}${ingredient.unit === 'percentage' ? '%' : ingredient.unit}`}
+        text={`${ingredient.name} - ${ingredient.quantity}${ingredient.unit === 'percent' ? '%' : ingredient.unit}`}
         className="font-bold text-center"
       />
     ));
