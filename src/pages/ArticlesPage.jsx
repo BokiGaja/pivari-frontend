@@ -16,6 +16,7 @@ import { localeLanguageAtom } from '../atoms';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/SearchBar/SearchBar';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
 
 const ArticlesPage = () => {
   const [searchParams] = useSearchParams();
@@ -136,6 +137,10 @@ const ArticlesPage = () => {
 
   return (
     <PageLayout isLoading={isLoading}>
+      <DynamicHelmet
+        name={`${t('navbar.articles')}: ${selectedCategory?.attributes.name}`}
+        image={categoryCoverImage}
+      />
       <div className="absolute lg:top-[100px] top-[250px]">
         <img
           src={categoryCoverImage}

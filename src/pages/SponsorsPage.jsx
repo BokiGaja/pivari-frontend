@@ -11,6 +11,7 @@ import { localeLanguageAtom } from '../atoms';
 import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
 
 const SponsorsPage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -44,6 +45,7 @@ const SponsorsPage = () => {
 
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
+      <DynamicHelmet name={t('navbar.sponsors')} />
       <div className="flex flex-col items-center lg:px-20 px-5 lg:mt-0 mt-24 lg:min-h-[380px]">
         {sponsors?.map((sponsor, index) => (
           <React.Fragment key={sponsor?.createdAt}>

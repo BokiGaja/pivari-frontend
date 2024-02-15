@@ -12,6 +12,7 @@ import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewC
 import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
 
 const MembersPage = () => {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ const MembersPage = () => {
 
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
+      <DynamicHelmet name={t('navbar.members')} />
       {members?.length && (
         <div className="flex flex-col items-center lg:px-20 px-5 lg:mt-0 mt-24 lg:min-h-[380px]">
           {members?.map((member, index) => (
