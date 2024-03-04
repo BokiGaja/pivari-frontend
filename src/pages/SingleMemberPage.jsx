@@ -110,7 +110,7 @@ const SingleMemberPage = () => {
                     <Text size={'large'} color={'maltYellow'} className="text-center" text={member.address} />
                   </div>
                 )}
-                <div className="flex flex-row gap-4 min-h-14 justify-center items-center p-2 mt-8">
+                <div className="flex flex-row gap-4 min-h-14 justify-center items-center py-2 mt-8">
                   {member.website && (
                     <div className="flex justify-center items-center min-h-14 min-w-14">
                       <a href={member.website} rel="noreferrer" target="_blank">
