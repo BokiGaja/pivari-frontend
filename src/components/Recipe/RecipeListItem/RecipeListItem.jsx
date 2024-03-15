@@ -39,7 +39,7 @@ const RecipeListItem = ({ recipe }) => {
           src={(!useFallbackImage && recipe.cover_image?.data?.attributes?.url) || pivariLogo}
           alt={`${recipe.name} image`}
           onError={() => setUseFallbackImage(true)}
-          className="rounded-t-3xl lg:rounded-l-3xl lg:rounded-r-none  h-full border-b-2 lg:border-r-2 lg:border-r-hopGreen lg:border-b-0 border-b-hopGreen"
+          className="rounded-t-3xl lg:rounded-l-3xl lg:rounded-r-none border-b-2 lg:border-r-2 lg:border-r-hopGreen lg:border-b-0 border-b-hopGreen w-[500px] h-[400px]"
         />
       </div>
       <div className="flex flex-col align-center text-center w-full h-full justify-center p-2">
