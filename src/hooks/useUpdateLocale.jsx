@@ -14,5 +14,5 @@ export const useUpdateLocale = () => {
       setCurrentLang(locale);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locale]);
+  }, [locale, currentLang]);
 };
