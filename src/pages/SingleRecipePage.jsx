@@ -6,7 +6,6 @@ import { Typography } from '@mui/material';
 import pivariLogo from '../assets/logos/pivari-logo.png';
 import Text from '../components/Text/Text';
 import Markdown from 'react-markdown';
-import MarkdownImage from '../components/Markdown/MarkdownImage';
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import RecipeIngredientsTable from '../components/Recipe/RecipeIngredientsTable/RecipeIngredientsTable';
 import RecipeAdditionalInfo from '../components/Recipe/RecipeAdditionalInfo/RecipeAdditionalInfo';
@@ -21,6 +20,7 @@ import MarkdownLink from '../components/Markdown/MarkdownLink';
 import MarkdownH2 from '../components/Markdown/MarkdownH2';
 import MarkdownH1 from '../components/Markdown/MarkdownH1';
 import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
+import MarkdownImageMedium from '../components/Markdown/MarkdownImageMedium';
 
 const SingleRecipePage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -131,7 +131,13 @@ const SingleRecipePage = () => {
               <Separator className="flex w-10/12 h-4 my-4" />
               <Markdown
                 className="flex flex-col whitespace-pre-wrap self align-center justify-center text-center text-white pb-10 text-lg"
-                components={{ p: React.Fragment, img: MarkdownImage, a: MarkdownLink, h2: MarkdownH2, h1: MarkdownH1 }}
+                components={{
+                  p: React.Fragment,
+                  img: MarkdownImageMedium,
+                  a: MarkdownLink,
+                  h2: MarkdownH2,
+                  h1: MarkdownH1,
+                }}
               >
                 {recipe.process}
               </Markdown>
