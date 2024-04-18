@@ -59,16 +59,3 @@
     transform: rotate(360deg);
   }
 }
-
-/* @media only screen and (max-width: 600px) {
-  .slick-slide {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .slick-list {
-    margin-left: -10px !important;
-    margin-right: -10px !important;
-    max-height: 500px !important;
-  }
-} */
