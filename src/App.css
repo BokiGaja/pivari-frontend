@@ -21,13 +21,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #efcc68;
+  background: #efcb68b8;
   border-radius: 8px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #cfab48;
+  background: #efcc68;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -59,3 +59,16 @@
     transform: rotate(360deg);
   }
 }
+
+/* @media only screen and (max-width: 600px) {
+  .slick-slide {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .slick-list {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
+    max-height: 500px !important;
+  }
+} */

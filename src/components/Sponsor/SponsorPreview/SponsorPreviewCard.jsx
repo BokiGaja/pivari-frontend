@@ -21,7 +21,9 @@ const SponsorPreviewCard = ({ sponsor }) => {
       className="flex flex-col justify-center border-[3px] overflow-hidden border-maltYellow rounded-3xl mt-5  bg-guinessBlack lg:w-[55%] w-full max-h-none hover:scale-105 hover:cursor-pointer transition-all duration-[500ms]"
     >
       <div className="flex gap-2 lg:flex-row flex-col ">
-        <div className={`flex min-w-[250px] lg:min-h-[250px] min-h-[300px] items-center overflow-hidden relative `}>
+        <div
+          className={`flex lg:w-[300px] w-full lg:mr-[50px] lg:min-h-[250px] min-w-[200px] min-h-[300px] items-center relative overflow-hidden rounded-l-3xl rounded-r-3xl lg:rounded-r-none`}
+        >
           <img
             alt={sponsor?.name ? `${sponsor?.name} logo` : 'default website logo'}
             src={sponsor?.logo ? sponsor?.logo : pivariLogo}

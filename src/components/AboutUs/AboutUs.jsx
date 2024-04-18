@@ -10,6 +10,10 @@ import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../Carousel/CarouselSlider';
 import { ReactComponent as BeerGlass } from '../../assets/svg/beer-glass.svg';
+import MarkdownLink from '../Markdown/MarkdownLink';
+import MarkdownH2 from '../Markdown/MarkdownH2';
+import MarkdownH1 from '../Markdown/MarkdownH1';
+import DynamicHelmet from '../DynamicHelmet/DynamicHelmet';
 
 const AboutUs = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -49,10 +53,18 @@ const AboutUs = () => {
 
   return (
     <div className="lg:flex flex-col items-center">
+      <DynamicHelmet name={t('navbar.aboutUs')} />
       <Text size="large" color="maltYellow" className="text-4xl mb-4 text-center" text={t('aboutUs.title')} />
       <Markdown
         className="flex whitespace-pre-wrap flex-col justify-center items-center lg:items-center text-center text-white lg:mt-0 mt-4 max-w-[700px] mx-auto lg:px-0 px-4"
-        components={{ p: React.Fragment, img: MarkdownImage, li: LiComponent }}
+        components={{
+          p: React.Fragment,
+          img: MarkdownImage,
+          li: LiComponent,
+          a: MarkdownLink,
+          h2: MarkdownH2,
+          h1: MarkdownH1,
+        }}
       >
         {aboutUs.text}
       </Markdown>

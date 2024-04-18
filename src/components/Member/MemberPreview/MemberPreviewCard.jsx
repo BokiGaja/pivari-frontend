@@ -24,7 +24,7 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
       >
         <div className="flex gap-2 lg:flex-row flex-col">
           <div
-            className={`flex lg:w-[200px] w-full lg:mr-[50px] lg:min-h-[250px] min-w-[200px] min-h-[300px] items-center relative overflow-hidden rounded-l-3xl rounded-r-3xl lg:rounded-r-none`}
+            className={`flex lg:w-[300px] w-full lg:mr-[50px] lg:min-h-[250px] min-w-[200px] min-h-[300px] items-center relative overflow-hidden rounded-l-3xl rounded-r-3xl lg:rounded-r-none`}
           >
             <img
               alt={member?.name ? `${member?.name} logo` : 'default website logo'}
@@ -40,7 +40,12 @@ const MemberPreviewCard = ({ member, navigate, scrollToTop }) => {
                 color={'maltYellow'}
                 text={member?.name}
               />
-              <Text className="lg:text-start text-center" size="medium" color="white" text={member?.description} />
+              <Text
+                className="lg:text-start lg:px-0 px-2 text-center"
+                size="medium"
+                color="white"
+                text={member?.description}
+              />
             </div>
             <div className="flex gap-[25px] mt-4 socialIconBox">
               {member?.facebook && (

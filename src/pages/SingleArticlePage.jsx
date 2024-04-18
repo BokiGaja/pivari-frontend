@@ -18,6 +18,10 @@ import CarouselSlider from '../components/Carousel/CarouselSlider';
 import { isLocaleValid } from '../utils/locale/validation';
 import { useUpdateLocale } from '../hooks/useUpdateLocale';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import MarkdownLink from '../components/Markdown/MarkdownLink';
+import MarkdownH2 from '../components/Markdown/MarkdownH2';
+import MarkdownH1 from '../components/Markdown/MarkdownH1';
+import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
 
 const SingleArticlePage = () => {
   const params = useParams();
@@ -65,34 +69,40 @@ const SingleArticlePage = () => {
   return (
     <PageLayout isLoading={isLoading || isLocaleChanged}>
       {article && (
-        <div className="lg:flex lg:flex-col items-center lg:px-20">
-          <div className="absolute lg:top-[100px] top-[200px]">
-            <img
-              src={article.cover_image?.data ? article.cover_image.data.attributes.url : pivariLogo}
-              alt={`${article.title} image`}
-              className="w-screen h-[200px] rounded-b-3xl object-cover"
-            />
+        <>
+          <DynamicHelmet
+            name={article?.title}
+            image={article?.cover_image?.data ? article.cover_image.data.attributes.url : pivariLogo}
+          />
+          <div className="lg:flex lg:flex-col items-center lg:px-20">
+            <div className="absolute lg:top-[100px] top-[200px]">
+              <img
+                src={article.cover_image?.data ? article.cover_image.data.attributes.url : pivariLogo}
+                alt={`${article.title} image`}
+                className="w-screen h-[200px] rounded-b-3xl object-cover"
+              />
+            </div>
+            <div className="lg:px-20">
+              <Text
+                size="large"
+                color="maltYellow"
+                text={article.title}
+                className="lg:text-7xl text-5xl font-bold text-center my-4 lg:mt-[180px] mt-[250px]"
+              />
+              {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
+            </div>
+            <Markdown
+              className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 px-4 lg:px-40 text-lg"
+              components={{ p: React.Fragment, img: MarkdownImage, a: MarkdownLink, h2: MarkdownH2, h1: MarkdownH1 }}
+            >
+              {article.content}
+            </Markdown>
+            {carouselData && <CarouselSlider carouselData={carouselData} />}
+            <div className="flex mt-20 justify-between w-full lg:px-40">
+              <ArticleFooter article={article} />
+            </div>
           </div>
-          <div className="lg:px-20">
-            <Text
-              size="large"
-              color="maltYellow"
-              text={article.title}
-              className="lg:text-7xl text-5xl font-bold text-center my-4 lg:mt-[180px] mt-[250px]"
-            />
-            {(article.start_date || article.address) && <ArticleEventInfo article={article} />}
-          </div>
-          <Markdown
-            className="flex flex-col whitespace-pre-wrap self align-center justify-center items-center text-center text-white lg:mt-0 mt-4 px-4 lg:px-40 text-lg"
-            components={{ p: React.Fragment, img: MarkdownImage }}
-          >
-            {article.content}
-          </Markdown>
-          {carouselData && <CarouselSlider carouselData={carouselData} />}
-          <div className="flex mt-20 justify-between w-full lg:px-40">
-            <ArticleFooter article={article} />
-          </div>
-        </div>
+        </>
       )}
     </PageLayout>
   );
