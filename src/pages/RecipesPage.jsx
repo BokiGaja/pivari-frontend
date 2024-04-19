@@ -9,6 +9,7 @@ import { CircularProgress, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/SearchBar/SearchBar';
 import useSetPageTitle from '../hooks/useSetPageTitle';
+import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
 
 const RecipesPage = () => {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ const RecipesPage = () => {
 
   return (
     <PageLayout isLoading={isLocaleChanged}>
+      <DynamicHelmet name={t('navbar.recipes')} />
       <div className="flex flex-col items-center justify-start min-h-screen">
         <div className="h-[50px]" />
         <SearchBar handleSubmit={handleSearch} handleClear={() => handleSearch('')} />

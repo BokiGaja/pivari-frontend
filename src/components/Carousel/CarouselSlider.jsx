@@ -72,8 +72,8 @@ const CarouselSlider = ({ carouselData }) => {
               onClick={handleClickExit}
               className="fixed flex justify-center items-center w-screen h-screen top-0 left-0 bg-[#282c34bb] z-[9]"
             >
-              <div className=" lg:w-[500px] w-[280px] z-10">
-                <img className="w-full" src={popUrl} alt={popAlt} />
+              <div className=" max-w-[80vw] z-10">
+                <img className="flex w-auto max-h-[95vh] mx-auto" src={popUrl} alt={popAlt} />
               </div>
             </div>
           ) : null}
@@ -86,13 +86,15 @@ const CarouselSlider = ({ carouselData }) => {
           <Slider ref={slider} {...settings}>
             {carouselData?.map((img) => {
               return (
-                <div key={img.id} className="flex w-full justify-center hover:cursor-pointer p-5">
-                  <img
-                    onClick={handleClickImg}
-                    className="w-[350px]"
-                    src={img.attributes.url}
-                    alt={img.attributes.name}
-                  />
+                <div key={img.id} className="lg:min-w-[400px] min-w-0 px-[10px]">
+                  <div className="flex lg:w-[350px] w-auto h-[500px] relative justify-center hover:cursor-pointer p-5 overflow-hidden">
+                    <img
+                      onClick={handleClickImg}
+                      className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] min-w-[130%] max-w-[300%] max-h-[130%]"
+                      src={img.attributes.url}
+                      alt={img.attributes.name}
+                    />
+                  </div>
                 </div>
               );
             })}
@@ -105,14 +107,19 @@ const CarouselSlider = ({ carouselData }) => {
           </button>
         </div>
         {carouselData?.length > 5 && (
-          <div className="flex justify-between flex-wrap lg:w-[600px] w-full lg:px-0 px-[20px] mx-auto mt-[50px] lg:max-h-[250px] overflow-y-scroll">
+          <div className="flex justify-between flex-wrap lg:w-[600px] w-full lg:px-0 px-[20px] mx-auto mt-[50px] lg:max-h-[250px] max-h-[100px] overflow-y-scroll gap-1">
             {carouselData?.map((img) => {
               return (
                 <div
                   key={img.id}
-                  className="flex w-[20%] h-fit hover:cursor-pointer p-2 [::-webkit-scrollbar-track]-[]"
+                  className="relative flex w-[19%] lg:h-[200px] h-[90px] overflow-hidden hover:cursor-pointer p-2 [::-webkit-scrollbar-track]-[]"
                 >
-                  <img onClick={handleClickImg} className="" src={img.attributes.url} alt={img.attributes.name} />
+                  <img
+                    onClick={handleClickImg}
+                    className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] min-w-[130%] max-w-[300%] max-h-[180%]"
+                    src={img.attributes.url}
+                    alt={img.attributes.name}
+                  />
                 </div>
               );
             })}
