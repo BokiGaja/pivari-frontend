@@ -121,8 +121,8 @@ const NavBar = () => {
                   }
                 />
                 <div
-                  className={`absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen shadow-md rounded-md overflow-hidden transition-all duration-500 ${
-                    isDropdownOpen ? 'max-h-[350px] visible p-2' : 'max-h-[0] invisible'
+                  className={`absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen shadow-md rounded-md overflow-hidden transition-all duration-300 ${
+                    isDropdownOpen ? 'max-h-[350px] visible p-2' : 'max-h-[0] invisible p-0'
                   }`}
                 >
                   {categoriesNames?.map((categoryName) => (
