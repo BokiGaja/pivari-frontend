@@ -63,7 +63,7 @@ const LanguageSwitch = ({ isDropdownOpen, setIsDropdownOpen, toggleDropdownDelay
       </div>
       {/* {isDropdownOpen && ( */}
       <div
-        className={`absolute flex flex-1 flex-col top-16 -right-18 bg-blackBackground border border-hopGreen p-2 shadow-md rounded-md overflow-hidden transition-all duration-300 ${
+        className={`absolute flex flex-1 flex-col top-16 lg:right-0 -right-18 bg-blackBackground border border-hopGreen p-2 shadow-md rounded-md overflow-hidden transition-all duration-300 ${
           isDropdownOpen ? 'visible max-h-[250px]' : 'invisible max-h-0 !py-0'
         }`}
         onClick={() => toggleDropdown()}
