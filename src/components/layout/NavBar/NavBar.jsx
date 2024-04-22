@@ -22,6 +22,7 @@ const NavBar = () => {
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpenDelayed, setIsDropdownOpenDelayed] = useState(false);
   const [isMenuActivated, setIsmenuActivated] = useState(false);
   const ref = useRef(null);
   const [currentLang] = useAtom(localeLanguageAtom);
@@ -45,6 +46,12 @@ const NavBar = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
+  const toggleDropdownDelayed = () => {
+    setTimeout(() => {
+      setIsDropdownOpenDelayed((prevState) => !prevState);
+    }, 200);
+  };
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 30, // Adjust this threshold to your preference
@@ -52,6 +59,9 @@ const NavBar = () => {
 
   useClickOutside(ref, () => {
     if (isDropdownOpen) setIsDropdownOpen(false);
+    setTimeout(() => {
+      if (setIsDropdownOpenDelayed) setIsDropdownOpenDelayed(false);
+    }, 200);
   });
 
   useEffect(() => {
@@ -80,9 +90,12 @@ const NavBar = () => {
           </div>
         )}
         <div
-          className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0 lg:overflow-visible overflow-hidden transition-all duration-500 ${
-            isMenuActivated ? 'visible max-h-[500px] pb-5' : 'lg:visible invisible max-h-[0px] pb-0'
-          }`}
+          className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0
+           transition-all duration-500 overflow-hidden  ${
+             isMenuActivated ? 'visible max-h-[500px] pb-5' : 'lg:visible invisible max-h-[0px] pb-0'
+           } ${isDropdownOpenDelayed ? 'overflow-visible' : 'overflow-hidden'} ${
+             isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
+           }`}
         >
           <div className="lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
             <div className="flex-1 flex items-center justify-around ml-4">
@@ -95,7 +108,10 @@ const NavBar = () => {
                 <NavBarButton
                   isActive={currentRoute?.pathname.includes('article')}
                   text={t('navbar.articles')}
-                  onClick={() => toggleDropdown()}
+                  onClick={() => {
+                    toggleDropdown();
+                    toggleDropdownDelayed();
+                  }}
                   icon={
                     isDropdownOpen ? (
                       <DownArrow className="w-4 h-4 ml-2 mt-1 rotate-180" />
@@ -104,24 +120,26 @@ const NavBar = () => {
                     )
                   }
                 />
-                {isDropdownOpen && (
-                  <div className="lg:absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen p-2 shadow-md rounded-md overflow-hidden">
-                    {categoriesNames?.map((categoryName) => (
-                      <DropdownItemButton
-                        text={categoryName}
-                        key={categoryName}
-                        onClick={() => {
-                          navigate({
-                            pathname: ROUTES.ARTICLES,
-                            search: `?${createSearchParams({
-                              category: categoryName,
-                            })}`,
-                          });
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
+                <div
+                  className={`absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen shadow-md rounded-md overflow-hidden transition-all duration-300 ${
+                    isDropdownOpen ? 'max-h-[350px] visible p-2' : 'max-h-[0] invisible p-0'
+                  }`}
+                >
+                  {categoriesNames?.map((categoryName) => (
+                    <DropdownItemButton
+                      text={categoryName}
+                      key={categoryName}
+                      onClick={() => {
+                        navigate({
+                          pathname: ROUTES.ARTICLES,
+                          search: `?${createSearchParams({
+                            category: categoryName,
+                          })}`,
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
               <NavBarButton
                 isActive={currentRoute?.pathname.includes('recipe')}
