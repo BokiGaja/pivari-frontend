@@ -22,6 +22,7 @@ const NavBar = () => {
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isDropdownOpenDelayed, setIsDropdownOpenDelayed] = useState(false);
   const [isMenuActivated, setIsmenuActivated] = useState(false);
   const ref = useRef(null);
@@ -90,11 +91,12 @@ const NavBar = () => {
           </div>
         )}
         <div
-          className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0 lg:overflow-visible overflow-hidden transition-all duration-500 ${
+          className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0 lg:overflow-visible transition-all duration-500 ${
             isMenuActivated ? 'visible max-h-[500px] pb-5' : 'lg:visible invisible max-h-[0px] pb-0'
-          } ${isDropdownOpenDelayed ? 'overflow-visible' : 'overflow-hidden'} ${
-            isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
-          }`}
+          } ${
+            isDropdownOpenDelayed || isDropdownOpen || isLanguageDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
+          } 
+          `}
         >
           <div className="lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
             <div className="flex-1 flex items-center justify-around ml-4">
@@ -121,7 +123,7 @@ const NavBar = () => {
                 />
                 <div
                   className={`absolute z-10 flex flex-1 flex-col px-4 top-16 bg-blackBackground border-l border-r border-b border-hopGreen shadow-md rounded-md overflow-hidden transition-all duration-300 ${
-                    isDropdownOpen ? 'max-h-[350px] visible p-2' : 'max-h-[0] invisible p-0'
+                    isDropdownOpen ? 'max-h-[350px] visible p-2' : 'max-h-[0] invisible !py-0'
                   }`}
                 >
                   {categoriesNames?.map((categoryName) => (
@@ -168,7 +170,11 @@ const NavBar = () => {
             />
           </div>
           <div className="relative lg:mt-0 mt-2 lg:mb-0 mb-4">
-            <LanguageSwitch />
+            <LanguageSwitch
+              isDropdownOpen={isLanguageDropdownOpen}
+              setIsDropdownOpen={setIsLanguageDropdownOpen}
+              toggleDropdownDelayed={toggleDropdownDelayed}
+            />
           </div>
         </div>
       </Toolbar>
