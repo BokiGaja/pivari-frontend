@@ -90,12 +90,11 @@ const NavBar = () => {
           </div>
         )}
         <div
-          className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0
-           transition-all duration-500 overflow-hidden  ${
-             isMenuActivated ? 'visible max-h-[500px] pb-5' : 'lg:visible invisible max-h-[0px] pb-0'
-           } ${isDropdownOpenDelayed ? 'overflow-visible' : 'overflow-hidden'} ${
-             isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
-           }`}
+          className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0 lg:overflow-visible overflow-hidden transition-all duration-500 ${
+            isMenuActivated ? 'visible max-h-[500px] pb-5' : 'lg:visible invisible max-h-[0px] pb-0'
+          } ${isDropdownOpenDelayed ? 'overflow-visible' : 'overflow-hidden'} ${
+            isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
+          }`}
         >
           <div className="lg:flex-1 lg:flex lg:items-center lg:justify-around items-center justify-around mr-4 relative">
             <div className="flex-1 flex items-center justify-around ml-4">
