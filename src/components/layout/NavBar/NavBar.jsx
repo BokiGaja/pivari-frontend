@@ -11,26 +11,25 @@ import { ReactComponent as UpArrow } from '../../../assets/svg/up-arrow.svg';
 import DropdownItemButton from '../../Buttons/DropdownItemButton/DropdownItemButton';
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
-import { useGetCollection } from '../../../services/api/hooks/useGetCollection';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitch from '../../LanguageSwitch/LanguageSwitch';
 import { useAtom } from 'jotai';
-import useRefetchLocale from '../../../hooks/useRefetchLocale';
 import Text from '../../Text/Text.jsx';
+import { getAllCategories } from '../../../services/api/localDataService';
 
 const NavBar = () => {
   const setPageScrolled = useSetAtom(pageScrolledAtom);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  // const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isDropdownOpenDelayed, setIsDropdownOpenDelayed] = useState(false);
   const [isMenuActivated, setIsmenuActivated] = useState(false);
   const ref = useRef(null);
   const [currentLang] = useAtom(localeLanguageAtom);
 
-  const { data: categoriesData, refetch } = useGetCollection('categories', currentLang);
-  useRefetchLocale({ refetch, locale: categoriesData?.data?.[0]?.attributes?.locale });
-  const categoriesNames = categoriesData?.data?.map((category) => category.attributes.name);
+  // const { data: categoriesData, refetch } = useGetCollection('categories', currentLang);
+  // useRefetchLocale({ refetch, locale: categoriesData?.data?.[0]?.attributes?.locale });
+  const categoriesData = getAllCategories(currentLang);
+  const categoriesNames = categoriesData.map((category) => category.name);
   const currentRoute = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -94,7 +93,7 @@ const NavBar = () => {
           className={`flex lg:flex-row flex-col w-full justify-between items-center lg:max-h-fit lg:pb-0 lg:overflow-visible transition-all duration-500 ${
             isMenuActivated ? 'visible max-h-[500px] pb-5' : 'lg:visible invisible max-h-[0px] pb-0'
           } ${
-            isDropdownOpenDelayed || isDropdownOpen || isLanguageDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
+            isDropdownOpenDelayed || isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'
           } 
           `}
         >
@@ -169,13 +168,13 @@ const NavBar = () => {
               isActive={currentRoute?.pathname === ROUTES.ABOUT_US}
             />
           </div>
-          <div className="relative lg:mt-0 mt-2 lg:mb-0 mb-4">
+          {/* <div className="relative lg:mt-0 mt-2 lg:mb-0 mb-4">
             <LanguageSwitch
               isDropdownOpen={isLanguageDropdownOpen}
               setIsDropdownOpen={setIsLanguageDropdownOpen}
               toggleDropdownDelayed={toggleDropdownDelayed}
             />
-          </div>
+          </div> */}
         </div>
       </Toolbar>
     </AppBar>

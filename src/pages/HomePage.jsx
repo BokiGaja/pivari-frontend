@@ -29,7 +29,7 @@ const HomePage = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
 
   const { data: homePageData, isLoading, refetch } = useGetCollection('home-page', currentLang, 'articles.cover_image');
-  const articles = sanitizeResponseData(homePageData?.data?.attributes, 'articles');
+  const articles = sanitizeResponseData(homePageData?.data?.[0]?.attributes, 'articles');
   const { isLocaleChanged } = useRefetchLocale({ refetch, locale: articles[0]?.locale });
 
   if (!articles.length && !isLoading) {

@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PageLayout from '../components/layout/PageLayout';
 import { sanitizeResponseData } from '../utils/api/responseData';
-import { useGetCollection } from '../services/api/hooks/useGetCollection';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-
 import { ReactComponent as Separator } from '../assets/svg/separator.svg';
 import { useSetAtom, useAtom } from 'jotai';
 import { localeLanguageAtom, pageScrolledAtom } from '../atoms';
 import MemberPreviewCard from '../components/Member/MemberPreview/MemberPreviewCard';
-import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 import useSetPageTitle from '../hooks/useSetPageTitle';
 import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
+import { getLocalData } from '../services/api/localDataService';
 
 const MembersPage = () => {
   const navigate = useNavigate();
@@ -29,22 +27,16 @@ const MembersPage = () => {
     setPageScrolled(false);
   };
 
-  const {
-    data: membersData,
-    isLoading,
-    refetch,
-  } = useGetCollection('members', currentLang, '*', {
-    'sort[name]': 'asc',
-  });
+  // Fetch all members from local JSON
+  const members = useMemo(() => {
+    const data = getLocalData('member', currentLang, { 'sort[name]': 'asc' });
+    return data.data.map((member) => ({
+      ...member.attributes,
+      logo: sanitizeResponseData(member.attributes, 'logo')?.url,
+    }));
+  }, [currentLang]);
 
-  const members = membersData?.data?.map((member) => ({
-    ...member.attributes,
-    logo: sanitizeResponseData(member.attributes, 'logo')?.url,
-  }));
-
-  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: members?.[0]?.locale });
-
-  if (!members?.length && !isLoading) {
+  if (!members?.length) {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-screen">
@@ -57,7 +49,7 @@ const MembersPage = () => {
   }
 
   return (
-    <PageLayout isLoading={isLoading || isLocaleChanged}>
+    <PageLayout>
       <DynamicHelmet name={t('navbar.members')} />
       {members?.length && (
         <div className="flex flex-col items-center lg:px-20 px-5 lg:mt-0 mt-24 lg:min-h-[380px]">

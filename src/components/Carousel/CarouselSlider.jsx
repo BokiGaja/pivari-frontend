@@ -86,7 +86,7 @@ const CarouselSlider = ({ carouselData }) => {
           <Slider ref={slider} {...settings}>
             {carouselData?.map((img) => {
               return (
-                <div key={img.id} className="lg:min-w-[400px] min-w-0 px-[10px]">
+                <div key={img.id || img.attributes.url} className="lg:min-w-[400px] min-w-0 px-[10px]">
                   <div className="flex lg:w-[350px] w-auto h-[500px] relative justify-center hover:cursor-pointer p-5 overflow-hidden">
                     <img
                       onClick={handleClickImg}
@@ -111,7 +111,7 @@ const CarouselSlider = ({ carouselData }) => {
             {carouselData?.map((img) => {
               return (
                 <div
-                  key={img.id}
+                  key={img.id || img.attributes.url}
                   className="relative flex w-[19%] lg:h-[200px] h-[90px] overflow-hidden hover:cursor-pointer p-2 [::-webkit-scrollbar-track]-[]"
                 >
                   <img

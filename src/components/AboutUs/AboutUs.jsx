@@ -1,12 +1,10 @@
-import React from 'react';
-import { useGetCollection } from '../../services/api/hooks/useGetCollection';
+import React, { useMemo } from 'react';
 import Text from '../Text/Text';
 import Markdown from 'react-markdown';
 import MarkdownImage from '../Markdown/MarkdownImage';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../../atoms';
-import useRefetchLocale from '../../hooks/useRefetchLocale';
-import { CircularProgress, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CarouselSlider from '../Carousel/CarouselSlider';
 import { ReactComponent as BeerGlass } from '../../assets/svg/beer-glass.svg';
@@ -14,23 +12,26 @@ import MarkdownLink from '../Markdown/MarkdownLink';
 import MarkdownH2 from '../Markdown/MarkdownH2';
 import MarkdownH1 from '../Markdown/MarkdownH1';
 import DynamicHelmet from '../DynamicHelmet/DynamicHelmet';
+import { getLocalData, getMediaUrlById } from '../../services/api/localDataService';
 
 const AboutUs = () => {
   const [currentLang] = useAtom(localeLanguageAtom);
-  const { data: aboutUsData, isLoading, refetch } = useGetCollection('about-us', currentLang, '*');
-  const aboutUs = aboutUsData?.data?.attributes;
   const { t } = useTranslation();
 
-  const carouselData = aboutUs?.carousel?.data;
+  // Fetch about-us data from local JSON
+  const aboutUs = useMemo(() => {
+    const data = getLocalData('about-us', currentLang);
+    return data.data[0]?.attributes;
+  }, [currentLang]);
 
-  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: aboutUs?.locale });
-
-  if (isLoading || isLocaleChanged)
-    return (
-      <div className="flex p-5 mt-5 h-96 text-maltYellow bg-blackBackground items-center justify-center">
-        <CircularProgress color="inherit" />
-      </div>
-    );
+  // Expand carousel data to actual URLs
+  const carouselData = Array.isArray(aboutUs?.carousel?.data)
+    ? aboutUs.carousel.data.map(item =>
+        typeof item === 'object' && item.attributes && item.attributes.url
+          ? { attributes: { url: getMediaUrlById(item.attributes.url) } }
+          : { attributes: { url: getMediaUrlById(item) } }
+      )
+    : [];
 
   if (!aboutUs?.text) {
     return (

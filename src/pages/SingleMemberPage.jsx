@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useGetCollection } from '../services/api/hooks/useGetCollection';
+import { getLocalData, getMediaUrlById } from '../services/api/localDataService';
+import { sanitizeResponseData } from '../utils/api/responseData';
 import PageLayout from '../components/layout/PageLayout';
 import Text from '../components/Text/Text';
 
@@ -16,14 +17,12 @@ import { ReactComponent as LeftArrowIcon } from '../assets/svg/left-arrow.svg';
 import { Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import { localeLanguageAtom } from '../atoms';
-import useRefetchLocale from '../hooks/useRefetchLocale';
 import { useTranslation } from 'react-i18next';
 
 import CarouselSlider from '../components/Carousel/CarouselSlider';
 import MarkdownImage from '../components/Markdown/MarkdownImage';
 import Markdown from 'react-markdown';
 import { isLocaleValid } from '../utils/locale/validation';
-import { useUpdateLocale } from '../hooks/useUpdateLocale';
 import useSetPageTitle from '../hooks/useSetPageTitle';
 import MarkdownLink from '../components/Markdown/MarkdownLink';
 import MarkdownH2 from '../components/Markdown/MarkdownH2';
@@ -41,29 +40,27 @@ const SingleMemberPage = () => {
   const { t } = useTranslation();
   useSetPageTitle(params?.name?.replaceAll('-', ' '));
 
-  const {
-    data: memberData,
-    isLoading,
-    refetch,
-    remove: removeMembersData,
-  } = useGetCollection(routeName, locale, '*', {
-    'filters[name][$eq]': params?.name?.replaceAll('-', ' '),
-  });
-  useUpdateLocale();
+  // Fetch all members or sponsors from local JSON and find the specific one
+  const member = useMemo(() => {
+    const collectionKey = routeName === 'sponsors' ? 'sponsor' : 'member';
+    const data = getLocalData(collectionKey, locale, { 'sort[name]': 'asc' });
+    const members = data.data.map((member) => ({
+      ...member.attributes,
+      logo: sanitizeResponseData(member.attributes, 'logo')?.url,
+      carousel: Array.isArray(member.attributes.carousel?.data)
+        ? member.attributes.carousel.data
+            .map(item => ({ url: getMediaUrlById(item.attributes.url) }))
+            .filter(img => !!img.url)
+        : [],
+    }));
+    return members.find(
+      (item) => item.name?.toLowerCase() === params?.name?.replaceAll('-', ' ')?.toLowerCase()
+    );
+  }, [locale, params?.name, routeName]);
 
-  useEffect(() => {
-    return () => {
-      removeMembersData();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const carouselData = member?.carousel?.map(item => ({attributes: { url: getMediaUrlById(item.url) }  }));
 
-  const member = memberData?.data?.[0]?.attributes;
-  const { isLocaleChanged } = useRefetchLocale({ refetch, locale: member?.locale });
-
-  const carouselData = member?.carousel?.data;
-
-  if (!member && !isLoading)
+  if (!member)
     return (
       <PageLayout>
         <div className="flex p-5 mt-5 h-96 bg-blackBackground items-center justify-center">
@@ -75,19 +72,19 @@ const SingleMemberPage = () => {
     );
 
   return (
-    <PageLayout isLoading={isLoading || isLocaleChanged || memberData?.data?.length > 1}>
+    <PageLayout>
       {member && (
         <>
           <DynamicHelmet
             name={member?.name}
-            image={member.logo?.data?.attributes?.url ? member.logo.data.attributes.url : pivariLogo}
+            image={member.logo || pivariLogo}
           />
           <article className="flex flex-col w-full mx-auto lg:mt-0 mt-24 px-0 relative">
             <div className="flex lg:flex-row flex-col items-center justify-center mb-[50px]">
               <div className="flex w-[200px] min-w-[250px] min-h-[250px] lg:mr-[50px] mb-[20px] items-center relative overflow-hidden">
                 <img
                   className="absolute min-w-[1000%] min-h-[1000%] top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] scale-[0.1001]"
-                  src={member.logo?.data?.attributes?.url ? member.logo.data.attributes.url : pivariLogo}
+                  src={member.logo || pivariLogo}
                   alt={`${member?.name} logo`}
                 />
               </div>
@@ -150,7 +147,7 @@ const SingleMemberPage = () => {
                 {member.content}
               </Markdown>
             )}
-            {carouselData && <CarouselSlider carouselData={carouselData} />}
+            {carouselData?.length > 0 && <CarouselSlider carouselData={carouselData} />}
             <div className="absolute -bottom-[8rem] left-[8vw] hover:scale-110 transition-all duration-[350ms]">
               <button
                 className="flex items-center font-crimson text-maltYellow tracking-[0.05rem] gap-2"

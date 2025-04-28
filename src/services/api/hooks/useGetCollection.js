@@ -1,21 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { getLocalData } from '../localDataService';
 
 export const useGetCollection = (collectionKey, locale = 'sr', populate = '*', queryParams = {}, extraQueryKeys) => {
   const isLocaleValid = ['sr', 'en', 'sr-Cyrl'].includes(locale);
   const { isLoading, isError, data, error, refetch, isRefetching, remove } = useQuery(
-    [collectionKey, ...(extraQueryKeys || [])],
-    () =>
-      axios
-        .get(`${process.env.REACT_APP_BASE_URL}/api/${collectionKey}`, {
-          params: {
-            locale: isLocaleValid ? locale : 'sr',
-            populate,
-            ...queryParams,
-          },
-        })
-        .then((res) => res.data)
-        .catch((err) => console.log(err))
+    [collectionKey, locale, populate, ...(extraQueryKeys || [])],
+    () => getLocalData(collectionKey, isLocaleValid ? locale : 'sr', { ...queryParams, populate })
   );
 
   return { isLoading, isError, data, error, refetch, isRefetching, remove };

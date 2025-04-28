@@ -20,7 +20,7 @@ const ArticleFooter = ({ article }) => {
     });
     setPageScrolled(false);
   };
-  const categoriesNames = article.categories.data.map((category) => category.attributes.name);
+  const categoriesNames = article.categories.map((category) => category.name);
 
   return (
     <div className="flex lg:flex-row flex-col items-center lg:items-startc mt-20 justify-between w-full">
