@@ -18,7 +18,7 @@ import MarkdownLink from '../components/Markdown/MarkdownLink';
 import MarkdownH2 from '../components/Markdown/MarkdownH2';
 import MarkdownH1 from '../components/Markdown/MarkdownH1';
 import DynamicHelmet from '../components/DynamicHelmet/DynamicHelmet';
-import { getArticleByTitle } from '../services/api/localDataService';
+import { getArticleByTitle, getMediaUrlById } from '../services/api/localDataService';
 
 const SingleArticlePage = () => {
   const params = useParams();
@@ -29,6 +29,9 @@ const SingleArticlePage = () => {
   useSetPageTitle(params?.name?.replaceAll('-', ' '));
 
   const article = getArticleByTitle(params?.name?.replaceAll('-', ' '), locale);
+  const carouselData = Array.isArray(article?.carousel)
+    ? article.carousel.map(id => ({ attributes: { url: getMediaUrlById(id) } }))
+    : [];
   if (!article) {
     return (
       <PageLayout>
@@ -70,7 +73,7 @@ const SingleArticlePage = () => {
         >
           {article.content}
         </Markdown>
-        {article.carousel && <CarouselSlider carouselData={article.carousel} />}
+        {article.carousel && <CarouselSlider carouselData={carouselData} />}
         <div className="flex mt-20 justify-between w-full lg:px-40">
           <ArticleFooter article={article} />
         </div>
